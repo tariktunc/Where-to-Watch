@@ -1,6 +1,6 @@
 import Link from "next/link";
-import Movie from "@/Components/Pages/Movies/page";
-import Tv from "@/Components/Pages/Tv/page";
+import Movie from "@/Pages/Movies/page";
+import Tv from "@/Pages/Tv/page";
 
 export default function Page({ params }) {
     switch (params.slug) {

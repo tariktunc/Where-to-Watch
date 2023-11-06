@@ -1,25 +1,17 @@
 import React from "react";
 import Image from "next/image";
 
-const cardStyles = {
-    ratingSize: "w-3 h-3",
-    yearSize: "text-sm",
-    titleSize: "text-sm",
-    containerHeight: "h-[110px]",
-};
-
 export default function ItemCard({
     url,
     altName,
     rating,
     titleName,
     year,
-    sizes,
+    imageWidth,
 }) {
-    const [itemStyle, setItemStyle] = React.useState(cardStyles);
     return (
         <div
-            className={`m-4 w-[${sizes}] h-[full] bg-white shadow shadow-gray-600/30 rounded-md`}>
+            className={`m-4 ${imageWidth} h-[full] bg-white shadow shadow-gray-600/30 rounded-md`}>
             <Image
                 width={0}
                 height={0}
@@ -29,14 +21,12 @@ export default function ItemCard({
                 src={url !== null && url !== undefined ? url : ""}
                 alt={altName !== null && altName !== undefined ? altName : ""}
             />
-            <div className={`p-2 ${cardStyles.containerHeight}`}>
+            <div className={`p-2 h-[120px]`}>
                 <Rating rating={rating} />
-                <p className={`${cardStyles.titleSize} pt-2 font-bold`}>
+                <p className={`text-sm pt-2 font-bold`}>
                     {titleName.substring(0, 40)}
                 </p>
-                <p className={`${cardStyles.yearSize} pt-2 opacity-70`}>
-                    {year}
-                </p>
+                <p className={`text-sm pt-2 opacity-70`}>{year}</p>
             </div>
         </div>
     );
@@ -123,7 +113,7 @@ function ActiveRating() {
     return (
         <>
             <svg
-                className={`${cardStyles.ratingSize}  text-yellow-300`}
+                className={`w-3 h-4  text-yellow-300`}
                 aria-hidden="true"
                 fill="currentColor"
                 viewBox="0 0 22 20">
@@ -137,7 +127,7 @@ function PassifeRating() {
     return (
         <>
             <svg
-                className={`${cardStyles.ratingSize} text-gray-300 dark:text-gray-500`}
+                className={`w-3 h-4 text-gray-300 dark:text-gray-500`}
                 aria-hidden="true"
                 fill="currentColor"
                 viewBox="0 0 22 20">

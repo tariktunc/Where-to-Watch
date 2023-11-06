@@ -1,8 +1,8 @@
 "use client";
 import React, { useState, useEffect, useMemo } from "react";
-import ItemCard from "@/Components/ItemCard/ItemCard";
+import ItemCard from "./ItemCard";
 
-export default function Home({ urlId, altName }) {
+export default function Home({ urlId }) {
     const [imageUrl, setImageUrl] = useState(
         "https://image.tmdb.org/t/p/w500/"
     );
@@ -26,12 +26,12 @@ export default function Home({ urlId, altName }) {
     }, []);
 
     return (
-        <div className="flex max-w-screen-lg">
+        <div className="flex flex-wrap max-w-screen-lg ">
             {movies.map((movie) => (
                 <div key={movie.id}>
                     <ItemCard
                         itemKey={movie.id}
-                        sizes="130px"
+                        imageWidth="w-[170px]"
                         url={imageUrl + movie.poster_path}
                         altName={movie.id}
                         rating={movie.vote_average}
