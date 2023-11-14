@@ -1,16 +1,17 @@
+"use client";
 import "./globals.css";
 import { Rubik } from "next/font/google";
 import { Provider } from "react-redux";
-import store from "@/Redux/store";
+import stores from "../stores/stores";
 
 const rubik = Rubik({ weight: "300", subsets: ["latin"] });
 
 export default function RootLayout({ children }) {
     return (
-        <html lang="en" className={rubik.className}>
-            <body>
-                <Provider store={store}>{children}</Provider>
-            </body>
-        </html>
+        <Provider store={stores}>
+            <html lang="en" className={rubik.className}>
+                <body>{children}</body>
+            </html>
+        </Provider>
     );
 }

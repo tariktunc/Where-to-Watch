@@ -15,20 +15,25 @@ config.autoAddCss = false;
 
 export default function WhereToWatch() {
     const [isOpen, setIsOpen] = useState(true);
+    const [country, setCountry] = useState("TR");
     function handleClick() {
         setIsOpen(!isOpen);
     }
+
     return (
         <div className="m-4">
-            <div className="w-[300px] shadow shadow-gray-600/50 rounded-md ">
+            <div className="w-[300px] shadow shadow-gray-600/50 rounded-md">
                 {isOpen ? (
                     <>
                         <OpenItem handleClick={handleClick} />
+                        {/* CountryItem Props ozelligi ile veri cekilecek */}
                         <CountryItem />
-                        <MultiSelecet />
+                        <MultiSelecet country={country} />
                     </>
                 ) : (
-                    <CloseItem handleClick={handleClick} />
+                    <>
+                        <CloseItem handleClick={handleClick} />
+                    </>
                 )}
             </div>
         </div>
@@ -57,7 +62,11 @@ function OpenItem({ handleClick }) {
     );
 }
 
-function CountryItem() {
+function CountryItem({ setCountry }) {
+    const handleChange = (e) => {
+        console.log(e.target.value);
+        setCountry = e.target.value;
+    };
     return (
         <div className="">
             <div className="w-[auto] m-2 p-2 flex  flex-col ">
@@ -67,21 +76,21 @@ function CountryItem() {
                     Country
                 </label>
                 <select
+                    onChange={handleChange}
                     id="countries"
                     defaultValue="TR"
                     className="border border-gray-300 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-200 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option defaultValue="TR">Turkiye</option>
-                    <option defaultValue="US">United States</option>
-                    <option defaultValue="DE">Germany</option>
+                    <option value={"TR"}>Turkiye</option>
+                    <option value={"EN"}>United States</option>
+                    <option value={"DE"}>Germany</option>
                 </select>
             </div>
         </div>
     );
 }
 
-function MultiSelecet() {
+function MultiSelecet({ country }) {
     const [channelImage, setChannelImage] = useState([]);
-    console.log(channelImage);
     const imageUrl = "https://image.tmdb.org/t/p/w500/";
 
     useEffect(() => {
@@ -89,12 +98,13 @@ function MultiSelecet() {
             method: "GET",
             headers: {
                 accept: "application/json",
-                Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiYmM3ZjA5NzYwMDczZWVjZjFhY2Y2MWI1MmQxYmRhYyIsInN1YiI6IjY0N2YyYWVlMGUyOWEyMmJlMzI4ODQyNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.G74i4A-82vbKiB00myx0hSL5GGLPdcLO6yWFv_RIgg4`,
+                Authorization:
+                    "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiYmM3ZjA5NzYwMDczZWVjZjFhY2Y2MWI1MmQxYmRhYyIsInN1YiI6IjY0N2YyYWVlMGUyOWEyMmJlMzI4ODQyNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.G74i4A-82vbKiB00myx0hSL5GGLPdcLO6yWFv_RIgg4",
             },
         };
 
         fetch(
-            "https://api.themoviedb.org/3/watch/providers/tv?language=en-US&watch_region=tr",
+            `https://api.themoviedb.org/3/watch/providers/movie?language=tr-TR&watch_region=${country}`,
             options
         )
             .then((response) => response.json())
