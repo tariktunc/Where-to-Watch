@@ -1,19 +1,19 @@
 // stores/Slices/languageSettingSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 
-export const languageSlice = createSlice({
-    name: "languagesSetting",
+export const whereToWatchLanguageSlice = createSlice({
+    name: "whereToWatchLanguageSlice",
     initialState: {
         language: "TR",
     },
     reducers: {
-        setLanguage: (state, action) => {
+        setCountry: (state, action) => {
             const value = action.payload;
             state.language = value;
         },
     },
 });
 
-export const { setLanguage } = languageSlice.actions;
+export const { setCountry } = whereToWatchLanguageSlice.actions;
 
-export default languageSlice.reducer;
+export default whereToWatchLanguageSlice.reducer;

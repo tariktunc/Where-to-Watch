@@ -6,16 +6,15 @@ import {
     faAngleRight,
     faCheck,
 } from "@fortawesome/free-solid-svg-icons";
-import Image from "next/image";
-
-// Bu kisim fontawesome icin acilista kucuk olmasini saglar.
-import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
-config.autoAddCss = false;
+
+import Image from "next/image";
+import { useSelector, useDispatch } from "react-redux";
+import { setCountry } from "@/stores/Slices/whereToWatchLanguageSlice";
+import Country from "@/Components/Country/Country";
 
 export default function WhereToWatch() {
     const [isOpen, setIsOpen] = useState(true);
-    const [country, setCountry] = useState("TR");
     function handleClick() {
         setIsOpen(!isOpen);
     }
@@ -28,7 +27,7 @@ export default function WhereToWatch() {
                         <OpenItem handleClick={handleClick} />
                         {/* CountryItem Props ozelligi ile veri cekilecek */}
                         <CountryItem />
-                        <MultiSelecet country={country} />
+                        <MultiSelecet />
                     </>
                 ) : (
                     <>
@@ -62,35 +61,26 @@ function OpenItem({ handleClick }) {
     );
 }
 
-function CountryItem({ setCountry }) {
+function CountryItem() {
+    const dispatch = useDispatch();
     const handleChange = (e) => {
-        console.log(e.target.value);
-        setCountry = e.target.value;
+        dispatch(setCountry(e.target.value));
     };
     return (
-        <div className="">
-            <div className="w-[auto] m-2 p-2 flex  flex-col ">
-                <label
-                    htmlFor="countries"
-                    className="block mb-2 text-sm font-medium text-gray-900 text-black">
-                    Country
-                </label>
-                <select
-                    onChange={handleChange}
-                    id="countries"
-                    defaultValue="TR"
-                    className="border border-gray-300 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-200 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option value={"TR"}>Turkiye</option>
-                    <option value={"EN"}>United States</option>
-                    <option value={"DE"}>Germany</option>
-                </select>
-            </div>
+        <div className="w-[auto] m-2 p-2 flex  flex-col ">
+            <label
+                htmlFor="countries"
+                className="block mb-2 text-sm font-medium text-gray-900 text-black">
+                Country
+            </label>
+            <Country handleCountryChange={handleChange} />
         </div>
     );
 }
 
-function MultiSelecet({ country }) {
+function MultiSelecet() {
     const [channelImage, setChannelImage] = useState([]);
+    const language = useSelector((state) => state.whereToWatchSetting.language);
     const imageUrl = "https://image.tmdb.org/t/p/w500/";
 
     useEffect(() => {
@@ -103,14 +93,22 @@ function MultiSelecet({ country }) {
             },
         };
 
-        fetch(
-            `https://api.themoviedb.org/3/watch/providers/movie?language=tr-TR&watch_region=${country}`,
-            options
-        )
-            .then((response) => response.json())
-            .then((response) => setChannelImage(response.results))
-            .catch((err) => console.error(err));
-    }, []);
+        async function fetchData() {
+            try {
+                const response = await fetch(
+                    `https://api.themoviedb.org/3/watch/providers/regions?language=${language.lowerCase()}-${language.toUpperCase()}`,
+                    options
+                );
+                const data = await response.json();
+                console.log(data.results);
+                setChannelImage(data.results);
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        fetchData();
+    }, [language]);
 
     return (
         <div>

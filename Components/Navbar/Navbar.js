@@ -1,7 +1,11 @@
-import React from "react";
+"use client";
 import Link from "next/link";
+import { useSelector, useDispatch } from "react-redux";
+import { setLanguage } from "@/stores/Slices/languageSettingSlice";
+import Country from "@/Components/Country/Country";
 
 export default function Navbar() {
+    const language = useSelector((state) => state.languagesSetting.language);
     const buttonUrl = [
         {
             name: "Home",
@@ -19,6 +23,11 @@ export default function Navbar() {
             url: "/tv",
         },
     ];
+    const dispatch = useDispatch();
+    const handleChange = (e) => {
+        dispatch(setLanguage(e.target.value));
+    };
+
     return (
         <div className="bg-[#221F1F] w-full h-14 flex items-center">
             {/* Logo */}
@@ -42,8 +51,11 @@ export default function Navbar() {
             </div>
 
             {/* Search Bar */}
-            <div className="text-white text-md pr-5 flex justify-end w-full ">
-                Language
+            <div className="text-white text-md  flex justify-end  w-full ">
+                {language}
+                <div className="text-black">
+                    <Country handleCountryChange={handleChange} />
+                </div>
             </div>
         </div>
     );
