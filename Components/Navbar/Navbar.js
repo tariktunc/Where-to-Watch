@@ -6,6 +6,7 @@ import Country from "@/Components/Country/Country";
 
 export default function Navbar() {
   const language = useSelector((state) => state.languagesSetting.language);
+  console.log(language);
   const buttonUrl = [
     {
       name: "Home",
@@ -29,7 +30,7 @@ export default function Navbar() {
   };
 
   return (
-    <div className="bg-[#221F1F] w-full h-14 flex items-center">
+    <div className="bg-[#221f1f] w-full h-14 flex items-center">
       {/* Logo */}
       <div className="text-white text-3xl w-full">LOGO</div>
 
@@ -52,9 +53,9 @@ export default function Navbar() {
 
       {/* Search Bar */}
       <div className="text-white text-md  flex justify-end  w-full ">
-        {/* {language} */}
+        <p>{localStorage.getItem("language") || language}</p>
         <div className="text-black">
-          {/* <Country handleCountryChange={handleChange} /> */}
+          <Country handleCountryChange={handleChange} />
         </div>
       </div>
     </div>
