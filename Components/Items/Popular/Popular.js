@@ -50,8 +50,6 @@ export default function Popular() {
     fetchData();
   }, [API_KEY]); // Boş dependency array, sadece bir kere çalışmasını sağlar
 
-  console.log(data);
-
   return (
     <div className="flex flex-wrap max-w-screen-lg">
       <div className="flex flex-wrap">
