@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setCountry } from "@/stores/Slices/whereToWatchLanguageSlice";
+import { setCountry } from "@/stores/Slices/whereToWatchCountrySlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faAngleDown,
@@ -26,7 +26,6 @@ export default function WhereToWatch() {
         {isOpen ? (
           <>
             <OpenItem handleClick={handleClick} />
-            {/* CountryItem Props ozelligi ile veri cekilecek */}
             <CountryItem />
             <MultiSelecet />
           </>
@@ -64,6 +63,7 @@ function OpenItem({ handleClick }) {
 
 function CountryItem() {
   const dispatch = useDispatch();
+  const countryId = useSelector((state) => state.whereToWatchSetting.country);
   const handleChange = (e) => {
     dispatch(setCountry(e.target.value));
   };
@@ -72,7 +72,7 @@ function CountryItem() {
       <label
         htmlFor="countries"
         className="block mb-2 text-sm font-medium text-gray-900 ">
-        Country
+        Country: {countryId}
       </label>
       <Country handleCountryChange={handleChange} />
     </div>
@@ -81,32 +81,28 @@ function CountryItem() {
 
 function MultiSelecet() {
   const [channelImage, setChannelImage] = useState([]);
-  const countryId = useSelector((state) => state.whereToWatchSetting.language);
+  const countryId = useSelector((state) => state.whereToWatchSetting.country);
   const languageSetting = useSelector(
-    (state) => state.languagesSetting.language
+    (state) => state.languageSetting.language
   );
   const imageUrl = "https://image.tmdb.org/t/p/w500/";
 
-  useEffect(() => {
-    const options = {
-      method: "GET",
-      url: `https://api.themoviedb.org/3/watch/providers/movie?language=${languageSetting.toLowerCase()}-${languageSetting.toUpperCase()}&watch_region=${
-        countryId !== undefined ? countryId : "TR"
-      }`,
-      headers: {
-        accept: "application/json",
-        Authorization: process.env.API_KEY,
-      },
-    };
+  const options = {
+    method: "GET",
+    url: `https://api.themoviedb.org/3/watch/providers/movie?language=${languageSetting.toLowerCase()}-${languageSetting.toUpperCase()}&watch_region=${countryId}`,
+    headers: {
+      accept: "application/json",
+      Authorization: process.env.API_KEY,
+    },
+  };
 
-    axios
-      .request(options)
-      .then(function (response) {
-        setChannelImage(response.data.results);
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
+  const getTrendingMovie = async () => {
+    const response = await axios.request(options);
+    const data = await response.data;
+    setChannelImage(data.results);
+  };
+  useEffect(() => {
+    getTrendingMovie();
   }, [countryId, languageSetting]);
 
   return (

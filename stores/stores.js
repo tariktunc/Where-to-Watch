@@ -1,23 +1,23 @@
 // stores.js
-"use client";
+
 import { configureStore } from "@reduxjs/toolkit";
 import {
   loadStateFromLocalStorage,
   saveStateToLocalStorage,
 } from "@/stores/localStroge";
-import languageSlice from "../stores/Slices/languageSettingSlice";
-import whereToWatchLanguageSlice from "../stores/Slices/whereToWatchLanguageSlice";
+import languageSettingSlice from "../stores/Slices/languageSettingSlice";
+import whereToWatchCountrySlice from "./Slices/whereToWatchCountrySlice";
 
 const persistedState = loadStateFromLocalStorage();
 const reducer = {
-  languagesSetting: languageSlice,
-  whereToWatchSetting: whereToWatchLanguageSlice,
+  languageSetting: languageSettingSlice,
+  whereToWatchSetting: whereToWatchCountrySlice,
 };
 
 const store = configureStore({
   reducer,
-  // devTools: true,
-  // preloadedState: persistedState,
+  devTools: true,
+  preloadedState: persistedState,
 });
 
 store.subscribe(() => {

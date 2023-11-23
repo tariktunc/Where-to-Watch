@@ -8,29 +8,28 @@ export default function Home({ urlStatus }) {
   const [movies, setMovies] = useState([]);
   const [count, setCount] = useState({ prev: 0, current: 5 });
   const languageSetting = useSelector(
-    (state) => state.languagesSetting.language
+    (state) => state.languageSetting.language
   );
 
-  useEffect(() => {
-    const url = urlStatus;
-    const options = {
-      method: "GET",
-      url: `https://api.themoviedb.org/3/trending/movie/${url}?language=${languageSetting.toLowerCase()}-${languageSetting.toUpperCase()}`,
-      headers: {
-        accept: "application/json",
-        Authorization: process.env.API_KEY,
-      },
-    };
+  const url = urlStatus;
+  const options = {
+    method: "GET",
+    url: `https://api.themoviedb.org/3/trending/movie/${url}?language=${languageSetting.toLowerCase()}-${languageSetting.toUpperCase()}`,
+    headers: {
+      accept: "application/json",
+      Authorization: process.env.API_KEY,
+    },
+  };
 
-    axios
-      .request(options)
-      .then(function (response) {
-        setMovies(response.data.results);
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
-  }, [languageSetting, urlStatus]);
+  const getTrendingMovie = async () => {
+    const response = await axios.request(options);
+    const data = await response.data;
+    setMovies(data.results);
+  };
+
+  useEffect(() => {
+    getTrendingMovie();
+  }, [languageSetting]);
 
   const handleClick = (e) => {
     if (e.target.id === "prev") {

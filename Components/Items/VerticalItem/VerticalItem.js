@@ -4,32 +4,30 @@ import ItemCard from "./ItemCard";
 import axios from "axios";
 import { useSelector } from "react-redux";
 
-export default function Home({ urlStatus }) {
+export default function Home({ urlStatus, status }) {
   const languageSetting = useSelector(
-    (state) => state.languagesSetting.language
+    (state) => state.languageSetting.language
   );
   const [movies, setMovies] = useState([]);
 
-  useEffect(() => {
-    const url = urlStatus;
-    const options = {
-      method: "GET",
-      url: `https://api.themoviedb.org/3/trending/movie/${url}?language=${languageSetting.toLowerCase()}-${languageSetting.toUpperCase()}`,
-      headers: {
-        accept: "application/json",
-        Authorization: process.env.API_KEY,
-      },
-    };
+  const url = urlStatus;
+  const options = {
+    method: "GET",
+    url: `https://api.themoviedb.org/3/trending/${status}/${url}?language=${languageSetting.toLowerCase()}-${languageSetting.toUpperCase()}`,
+    headers: {
+      accept: "application/json",
+      Authorization: process.env.API_KEY,
+    },
+  };
+  const getTrendingMovie = async () => {
+    const response = await axios.request(options);
+    const data = await response.data;
+    setMovies(data.results);
+  };
 
-    axios
-      .request(options)
-      .then(function (response) {
-        setMovies(response.data.results);
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
-  }, [languageSetting, urlStatus]);
+  useEffect(() => {
+    getTrendingMovie();
+  }, [languageSetting]);
 
   return (
     <div className="flex flex-wrap max-w-screen-lg ">

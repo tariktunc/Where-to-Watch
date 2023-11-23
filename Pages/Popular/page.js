@@ -1,11 +1,11 @@
-import VerticalItem from "@/Components/Items/VerticalItem/VerticalItem";
 import WhereToWatch from "@/Components/Items/WhereToWatch/WhereToWatch";
+import Popular from "@/Components/Items/Popular/Popular";
 
 export default function Home() {
   return (
     <div className="flex justify-center">
       <WhereToWatch />
-      <VerticalItem urlStatus={"day"} status={"movie"} />
+      <Popular />
     </div>
   );
 }

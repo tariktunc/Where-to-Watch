@@ -5,8 +5,7 @@ import { setLanguage } from "@/stores/Slices/languageSettingSlice";
 import Country from "@/Components/Country/Country";
 
 export default function Navbar() {
-  const language = useSelector((state) => state.languagesSetting.language);
-  console.log(language);
+  const language = useSelector((state) => state.languageSetting.language);
   const buttonUrl = [
     {
       name: "Home",
@@ -22,6 +21,11 @@ export default function Navbar() {
       name: "Tv",
       id: "tv",
       url: "/tv",
+    },
+    {
+      name: "Popular",
+      id: "popular",
+      url: "/popular",
     },
   ];
   const dispatch = useDispatch();
@@ -53,8 +57,9 @@ export default function Navbar() {
 
       {/* Search Bar */}
       <div className="text-white text-md  flex justify-end  w-full ">
-        <p>{localStorage.getItem("language") || language}</p>
-        <div className="text-black">
+        {/* <p>{localStorage.getItem("language") || language}</p> */}
+        <div className="text-black w-60 flex   items-center ">
+          <p className="mr-3 text-white">{language}</p>
           <Country handleCountryChange={handleChange} />
         </div>
       </div>
