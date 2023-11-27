@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { setCountry } from "@/stores/Slices/whereToWatchCountrySlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -12,7 +13,6 @@ import "@fortawesome/fontawesome-svg-core/styles.css";
 
 import Image from "next/image";
 import Country from "@/Components/Country/Country";
-import axios from "axios";
 
 export default function WhereToWatch() {
   const [isOpen, setIsOpen] = useState(true);
@@ -63,7 +63,9 @@ function OpenItem({ handleClick }) {
 
 function CountryItem() {
   const dispatch = useDispatch();
-  const countryId = useSelector((state) => state.whereToWatchSetting.country);
+  const countrySetting = useSelector(
+    (state) => state.whereToWatchSetting.country
+  );
   const handleChange = (e) => {
     dispatch(setCountry(e.target.value));
   };
@@ -72,24 +74,37 @@ function CountryItem() {
       <label
         htmlFor="countries"
         className="block mb-2 text-sm font-medium text-gray-900 ">
-        Country: {countryId}
+        Country: {countrySetting}
       </label>
-      <Country handleCountryChange={handleChange} />
+      <Country handleCountryChange={handleChange} selected={countrySetting} />
     </div>
   );
 }
 
 function MultiSelecet() {
   const [channelImage, setChannelImage] = useState([]);
-  const countryId = useSelector((state) => state.whereToWatchSetting.country);
+  const countrySetting = useSelector(
+    (state) => state.whereToWatchSetting.country
+  );
   const languageSetting = useSelector(
     (state) => state.languageSetting.language
   );
   const imageUrl = "https://image.tmdb.org/t/p/w500/";
 
+  const language = () => {
+    let newLanguage = languageSetting;
+
+    let result = [];
+    if (newLanguage !== undefined && newLanguage !== null) {
+      result.push(newLanguage.toLowerCase() + "-" + newLanguage);
+    }
+
+    return result;
+  };
+
   const options = {
     method: "GET",
-    url: `https://api.themoviedb.org/3/watch/providers/movie?language=${languageSetting.toLowerCase()}-${languageSetting.toUpperCase()}&watch_region=${countryId}`,
+    url: `https://api.themoviedb.org/3/watch/providers/movie?language=${language()}&watch_region=${countrySetting}`,
     headers: {
       accept: "application/json",
       Authorization: process.env.API_KEY,
@@ -101,9 +116,10 @@ function MultiSelecet() {
     const data = await response.data;
     setChannelImage(data.results);
   };
+
   useEffect(() => {
     getTrendingMovie();
-  }, [countryId, languageSetting]);
+  }, [countrySetting, languageSetting]);
 
   return (
     <div>

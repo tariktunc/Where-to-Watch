@@ -1,14 +1,11 @@
-// stores.js
-
 import { configureStore } from "@reduxjs/toolkit";
 import {
   loadStateFromLocalStorage,
   saveStateToLocalStorage,
 } from "@/stores/localStroge";
-import languageSettingSlice from "../stores/Slices/languageSettingSlice";
-import whereToWatchCountrySlice from "./Slices/whereToWatchCountrySlice";
+import languageSettingSlice from "@/stores/Slices/languageSettingSlice";
+import whereToWatchCountrySlice from "@/stores/Slices/whereToWatchCountrySlice";
 
-const persistedState = loadStateFromLocalStorage();
 const reducer = {
   languageSetting: languageSettingSlice,
   whereToWatchSetting: whereToWatchCountrySlice,
@@ -17,12 +14,10 @@ const reducer = {
 const store = configureStore({
   reducer,
   devTools: true,
-  preloadedState: persistedState,
+  preloadedState: loadStateFromLocalStorage(),
 });
 
 store.subscribe(() => {
   saveStateToLocalStorage(store.getState());
 });
-
 export default store;
-// store'un default olarak export edilmesi gerekiyor

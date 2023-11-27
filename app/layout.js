@@ -7,11 +7,11 @@ import stores from "../stores/stores";
 const rubik = Rubik({ weight: "300", subsets: ["latin"] });
 
 export default function RootLayout({ children }) {
-    return (
-        <Provider store={stores}>
-            <html lang="en" className={rubik.className}>
-                <body>{children}</body>
-            </html>
-        </Provider>
-    );
+  return (
+    <Provider store={stores}>
+      <html lang="en" className={rubik.className}>
+        <body>{children}</body>
+      </html>
+    </Provider>
+  );
 }

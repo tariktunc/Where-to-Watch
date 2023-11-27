@@ -10,10 +10,13 @@ export default function Home({ urlStatus, status }) {
   );
   const [movies, setMovies] = useState([]);
 
+  const lowerCase = languageSetting ? languageSetting.toLowerCase() : "tr";
+  const upperCase = languageSetting ? languageSetting.toUpperCase() : "TR";
+
   const url = urlStatus;
   const options = {
     method: "GET",
-    url: `https://api.themoviedb.org/3/trending/${status}/${url}?language=${languageSetting.toLowerCase()}-${languageSetting.toUpperCase()}`,
+    url: `https://api.themoviedb.org/3/trending/${status}/${url}?language=${lowerCase}-${upperCase}`,
     headers: {
       accept: "application/json",
       Authorization: process.env.API_KEY,

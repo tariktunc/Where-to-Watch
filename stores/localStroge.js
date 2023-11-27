@@ -1,27 +1,41 @@
-// localStorage.js
 export const saveStateToLocalStorage = (state) => {
-  if (typeof window !== "undefined") {
-    // Tarayıcı ortamında çalışıp çalışmadığını kontrol et
+  if (typeof localStorage !== "undefined") {
     try {
       const serializedState = JSON.stringify(state);
-      localStorage.setItem("reduxState", serializedState);
+      localStorage.setItem("languageAndCountryStorage", serializedState);
     } catch (err) {
-      console.error("LocalStorage kaydetme hatasi:", err);
+      console.error("Error saving state:", err);
     }
   }
 };
 
 export const loadStateFromLocalStorage = () => {
-  if (typeof window !== "undefined") {
+  if (typeof localStorage !== "undefined") {
     try {
-      const serializedState = localStorage.getItem("reduxState");
-      if (serializedState === null) {
-        return { languagesSetting: { language: "TR" } };
+      const serializedState = localStorage.getItem("languageAndCountryStorage");
+
+      if (!serializedState) {
+        const defaultState = {
+          languageSetting: {
+            language: "TR",
+          },
+
+          whereToWatchSetting: {
+            country: "TR",
+          },
+        };
+
+        localStorage.setItem(
+          "languageAndCountryStorage",
+          JSON.stringify(defaultState)
+        );
+
+        return defaultState;
       }
+
       return JSON.parse(serializedState);
     } catch (err) {
-      console.error("LocalStorage okuma hatası:", err);
-      return { languagesSetting: { language: "TR" } };
+      console.error("Error loading state:", err);
     }
   }
 };

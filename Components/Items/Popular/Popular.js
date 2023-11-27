@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Image from "next/image";
 import ItemCard from "@/Components/Items/Popular/ItemCard";
 
 export default function Popular() {
@@ -59,7 +58,7 @@ export default function Popular() {
         ) : (
           // Verilerin ekrana yazdırılması
           data.map((item) => (
-            <div key={item.id} className="w-60 h-auto">
+            <div key={item.id + Math.random()} className="w-60 h-auto">
               <ItemCard
                 url={imageUrl + item.poster_path}
                 altName={item.title}

@@ -1,27 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { loadStateFromLocalStorage } from "@/stores/localStroge";
 
-const defaultLanguage = "TR"; // Varsayılan dil ayarı
+const initialState = loadStateFromLocalStorage();
 
-const storedLanguageState =
-  loadStateFromLocalStorage()?.languageSetting?.language;
-const initialLanguageState = storedLanguageState || defaultLanguage;
-
-const initialState = {
-  language: initialLanguageState,
-};
-
-const languageSlice = createSlice({
+const languageSettingSlice = createSlice({
   name: "languageSetting",
   initialState,
   reducers: {
     setLanguage: (state, action) => {
-      const value = action.payload;
-      state.language = value;
+      state.language = action.payload;
     },
   },
 });
 
-export const { setLanguage } = languageSlice.actions;
-
-export default languageSlice.reducer;
+export const { setLanguage } = languageSettingSlice.actions;
+export default languageSettingSlice.reducer;
