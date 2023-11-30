@@ -1,13 +1,15 @@
 "use client";
 import Link from "next/link";
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setLanguage } from "@/stores/Slices/languageSettingSlice";
 import Country from "@/Components/Country/Country";
 
 export default function Navbar() {
   const dispatch = useDispatch();
-  const language = useSelector((state) => state.languageSetting.language);
+  const languageUpCase = useSelector(
+    (state) => state.languageSetting.languageUpCase
+  );
 
   const buttonUrls = [
     { name: "Home", id: "home", url: "/" },
@@ -21,7 +23,7 @@ export default function Navbar() {
   };
 
   return (
-    <div className="bg-[#221f1f] w-full h-14 flex items-center">
+    <nav className="bg-[#221f1f] w-full h-14 flex items-center">
       {/* Logo */}
       <div className="text-white text-3xl w-full">LOGO</div>
 
@@ -43,10 +45,13 @@ export default function Navbar() {
       {/* Search Bar */}
       <div className="text-white text-md flex justify-end w-full">
         <div className="text-black w-60 flex items-center">
-          <p className="mr-3 text-white">{language}</p>
-          <Country handleCountryChange={handleChange} selected={language} />
+          <p className="mr-3 text-white">{languageUpCase}</p>
+          <Country
+            handleCountryChange={handleChange}
+            selected={languageUpCase}
+          />
         </div>
       </div>
-    </div>
+    </nav>
   );
 }

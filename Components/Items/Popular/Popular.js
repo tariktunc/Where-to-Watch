@@ -1,74 +1,80 @@
+// Popular Page istegi components donusturulecek.
 "use client";
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import ItemCard from "@/Components/Items/Popular/ItemCard";
+import { useSelector } from "react-redux";
+import Item from "@/Components/Items/Item/Item";
+import Rating from "@/Components/Assets/Rating/rating";
+import { fetchUrlTheMovieDb } from "@/utils/apiService";
 
-export default function Popular() {
-  // State'lerin ve değişkenlerin tanımlanması
-  const [data, setData] = useState([]); // Filmlerin verilerini saklamak için state
-  const [loading, setLoading] = useState(true); // Yükleme durumu için state
-  const imageUrl = "https://image.tmdb.org/t/p/w500"; // Resimlerin URL'i
-  const API_KEY = process.env.API_KEY; // API anahtarının alınması
+export default function Popular({ status }) {
+  const [data, setData] = useState([]);
+  console.log(data);
+  const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
+  const imageUrl = "https://image.tmdb.org/t/p/w500";
+  const languageLoCase = useSelector(
+    (state) => state.languageSetting.languageLoCase
+  );
+  const languageUpCase = useSelector(
+    (state) => state.languageSetting.languageUpCase
+  );
 
-  // Component ilk render edildiğinde çalışacak olan useEffect
   useEffect(() => {
-    // Asenkron veri getirme işlevi
+    const url = `https://api.themoviedb.org/3/movie/popular?language=${languageLoCase}-${languageUpCase}&page=${page}`;
     const fetchData = async () => {
       try {
-        let allData = []; // Tüm filmlerin toplandığı dizi
-
-        // 1'den 5'e kadar olan her sayfa için veri alınması
-        for (let page = 1; page <= 2; page++) {
-          const options = {
-            method: "GET",
-            url: `https://api.themoviedb.org/3/movie/popular?language=en-US&page=${page}`,
-            headers: {
-              accept: "application/json",
-              Authorization: API_KEY,
-            },
-          };
-
-          // Axios ile API isteği yapılması
-          const response = await axios(options);
-          const responseData = response.data.results;
-
-          // Her sayfa için alınan verilerin allData dizisine eklenmesi
-          allData = [...allData, ...responseData];
-        }
-
-        // Tüm verilerin state'e atanması ve yükleme durumunun kapatılması
-        setData(allData);
+        const trendingMovies = await fetchUrlTheMovieDb(url);
+        setData(trendingMovies);
         setLoading(false);
       } catch (error) {
-        console.error("Error fetching data:", error);
-        setLoading(false);
+        console.error(error);
       }
     };
-
-    // fetchData işlevinin çağrılması
     fetchData();
-  }, [API_KEY]); // Boş dependency array, sadece bir kere çalışmasını sağlar
+  }, [languageLoCase, languageUpCase, page]);
 
   return (
     <div className="flex flex-wrap max-w-screen-lg">
       <div className="flex flex-wrap">
-        {/* Yükleme durumu kontrolü */}
         {loading ? (
           <p>Loading...</p>
         ) : (
-          // Verilerin ekrana yazdırılması
           data.map((item) => (
             <div key={item.id + Math.random()} className="w-60 h-auto">
-              <ItemCard
+              <Item
+                urlStatus={status}
                 url={imageUrl + item.poster_path}
-                altName={item.title}
-                titleName={item.title}
-                rating={item.vote_average}
-                year={item.release_date}
-              />
+                altName={item.id}
+                itemKey={item.id}
+                imageWidth="w-[200px]">
+                <div className={`p-2 h-[120px]`}>
+                  <Rating rating={item.vote_average} />
+                  <p className={`text-sm pt-2 font-bold`}>
+                    {item.title === undefined ? item.name : item.title}
+                  </p>
+                  <p className={`text-sm pt-2 opacity-70`}>
+                    {item.release_date === undefined
+                      ? item.first_air_date
+                      : item.release_date}
+                  </p>
+                </div>
+              </Item>
             </div>
           ))
         )}
+      </div>
+      <div className="flex  justify-center items-center w-full bg-blue-500">
+        <button
+          onClick={() => setPage(page > 1 ? page - 1 : page)}
+          className="m-1 p-3 font-bold">
+          Prev
+        </button>
+        <p className="m-1 p-3 font-bold">{page}</p>
+        <button
+          onClick={() => setPage(page <= data.length ? page + 1 : page)}
+          className="m-1 p-3 font-bold">
+          Next
+        </button>
       </div>
     </div>
   );

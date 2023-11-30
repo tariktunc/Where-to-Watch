@@ -1,46 +1,30 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import axios from "axios";
+import { fetchUrlTheMovieDb } from "@/utils/apiService";
 
 export default function CountryItem({ handleCountryChange, selected }) {
   const [country, setCountry] = useState("");
-  const languageSetting = useSelector(
-    (state) => state.languageSetting.language
+  const languageLoCase = useSelector(
+    (state) => state.languageSetting.languageLoCase
+  );
+  const languageUpCase = useSelector(
+    (state) => state.languageSetting.languageUpCase
   );
 
-  const language = () => {
-    let newLanguage = languageSetting;
-
-    let result = [];
-    if (newLanguage !== undefined && newLanguage !== null) {
-      result.push(newLanguage.toLowerCase() + "-" + newLanguage);
-    }
-    return result;
-  };
-
-  const API_KEY = process.env.API_KEY;
-
   useEffect(() => {
-    const getTrendingMovie = async () => {
+    const url = `https://api.themoviedb.org/3/watch/providers/regions?language=${languageLoCase}-${languageUpCase}`;
+    const fetchData = async () => {
       try {
-        const response = await axios.get(
-          `https://api.themoviedb.org/3/watch/providers/regions?language=${language()}`,
-          {
-            headers: {
-              accept: "application/json",
-              Authorization: API_KEY,
-            },
-          }
-        );
-        setCountry(response.data.results);
+        const trendingMovies = await fetchUrlTheMovieDb(url);
+        setCountry(trendingMovies);
       } catch (error) {
         console.error(error);
       }
     };
 
-    getTrendingMovie();
-  }, [languageSetting, API_KEY]);
+    fetchData();
+  }, [languageLoCase, languageUpCase]);
 
   const countryList = () => {
     if (Array.isArray(country)) {

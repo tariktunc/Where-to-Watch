@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { fetchUrlTheMovieDb } from "@/utils/apiService";
 import { useSelector, useDispatch } from "react-redux";
 import { setCountry } from "@/stores/Slices/whereToWatchCountrySlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,7 +10,6 @@ import {
   faCheck,
 } from "@fortawesome/free-solid-svg-icons";
 import "@fortawesome/fontawesome-svg-core/styles.css";
-
 import Image from "next/image";
 import Country from "@/Components/Country/Country";
 
@@ -63,9 +62,13 @@ function OpenItem({ handleClick }) {
 
 function CountryItem() {
   const dispatch = useDispatch();
-  const countrySetting = useSelector(
-    (state) => state.whereToWatchSetting.country
+  const countryLoCase = useSelector(
+    (state) => state.whereToWatchSetting.countryLoCase
   );
+  const countryUpCase = useSelector(
+    (state) => state.whereToWatchSetting.countryUpCase
+  );
+
   const handleChange = (e) => {
     dispatch(setCountry(e.target.value));
   };
@@ -74,52 +77,37 @@ function CountryItem() {
       <label
         htmlFor="countries"
         className="block mb-2 text-sm font-medium text-gray-900 ">
-        Country: {countrySetting}
+        Country: {countryUpCase}
       </label>
-      <Country handleCountryChange={handleChange} selected={countrySetting} />
+      <Country handleCountryChange={handleChange} selected={countryUpCase} />
     </div>
   );
 }
 
 function MultiSelecet() {
   const [channelImage, setChannelImage] = useState([]);
-  const countrySetting = useSelector(
-    (state) => state.whereToWatchSetting.country
+  const countryLoCase = useSelector(
+    (state) => state.whereToWatchSetting.countryLoCase
   );
-  const languageSetting = useSelector(
-    (state) => state.languageSetting.language
+  const languageLoCase = useSelector(
+    (state) => state.languageSetting.languageLoCase
   );
+
   const imageUrl = "https://image.tmdb.org/t/p/w500/";
 
-  const language = () => {
-    let newLanguage = languageSetting;
-
-    let result = [];
-    if (newLanguage !== undefined && newLanguage !== null) {
-      result.push(newLanguage.toLowerCase() + "-" + newLanguage);
-    }
-
-    return result;
-  };
-
-  const options = {
-    method: "GET",
-    url: `https://api.themoviedb.org/3/watch/providers/movie?language=${language()}&watch_region=${countrySetting}`,
-    headers: {
-      accept: "application/json",
-      Authorization: process.env.API_KEY,
-    },
-  };
-
-  const getTrendingMovie = async () => {
-    const response = await axios.request(options);
-    const data = await response.data;
-    setChannelImage(data.results);
-  };
-
   useEffect(() => {
-    getTrendingMovie();
-  }, [countrySetting, languageSetting]);
+    const url = `https://api.themoviedb.org/3/watch/providers/movie?language=${languageLoCase}&watch_region=${countryLoCase}`;
+    const fetchData = async () => {
+      try {
+        const trendingMovies = await fetchUrlTheMovieDb(url);
+        setChannelImage(trendingMovies);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, [languageLoCase, countryLoCase]);
 
   return (
     <div>

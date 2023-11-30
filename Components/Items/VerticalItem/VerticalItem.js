@@ -1,54 +1,56 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import ItemCard from "./ItemCard";
-import axios from "axios";
+import Rating from "@/Components/Assets/Rating/rating";
+import Item from "@/Components/Items/Item/Item";
+import { fetchUrlTheMovieDb } from "@/utils/apiService";
 import { useSelector } from "react-redux";
-
 export default function Home({ urlStatus, status }) {
-  const languageSetting = useSelector(
-    (state) => state.languageSetting.language
+  const languageLoCase = useSelector(
+    (state) => state.languageSetting.languageLoCase
   );
+  const languageUpCase = useSelector(
+    (state) => state.languageSetting.languageUpCase
+  );
+
   const [movies, setMovies] = useState([]);
-
-  const lowerCase = languageSetting ? languageSetting.toLowerCase() : "tr";
-  const upperCase = languageSetting ? languageSetting.toUpperCase() : "TR";
-
-  const url = urlStatus;
-  const options = {
-    method: "GET",
-    url: `https://api.themoviedb.org/3/trending/${status}/${url}?language=${lowerCase}-${upperCase}`,
-    headers: {
-      accept: "application/json",
-      Authorization: process.env.API_KEY,
-    },
-  };
-  const getTrendingMovie = async () => {
-    const response = await axios.request(options);
-    const data = await response.data;
-    setMovies(data.results);
-  };
+  const imageUrl = "https://image.tmdb.org/t/p/w500";
 
   useEffect(() => {
-    getTrendingMovie();
-  }, [languageSetting]);
+    const url = `https://api.themoviedb.org/3/trending/${status}/${urlStatus}?language=${languageLoCase}-${languageUpCase}`;
+    const fetchData = async () => {
+      try {
+        const trendingMovies = await fetchUrlTheMovieDb(url);
+        setMovies(trendingMovies);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, [languageLoCase, languageUpCase, urlStatus, status]);
 
   return (
     <div className="flex flex-wrap max-w-screen-lg ">
       {movies.map((movie) => (
         <div key={movie.id}>
-          <ItemCard
-            itemKey={movie.id}
-            imageWidth="w-[170px]"
-            url={"https://image.tmdb.org/t/p/w500/" + movie.poster_path}
+          <Item
+            urlStatus={status}
+            url={imageUrl + movie.poster_path}
             altName={movie.id}
-            rating={movie.vote_average}
-            titleName={movie.title === undefined ? movie.name : movie.title}
-            year={
-              movie.release_date === undefined
-                ? movie.first_air_date
-                : movie.release_date
-            }
-          />
+            itemKey={movie.id}
+            imageWidth="w-[170px]">
+            <div className={`p-2 h-[120px]`}>
+              <Rating rating={movie.vote_average} />
+              <p className={`text-sm pt-2 font-bold`}>
+                {movie.title === undefined ? movie.name : movie.title}
+              </p>
+              <p className={`text-sm pt-2 opacity-70`}>
+                {movie.release_date === undefined
+                  ? movie.first_air_date
+                  : movie.release_date}
+              </p>
+            </div>
+          </Item>
         </div>
       ))}
     </div>

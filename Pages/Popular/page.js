@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <div className="flex justify-center">
       <WhereToWatch />
-      <Popular />
+      <Popular status={"movie"} />
     </div>
   );
 }
