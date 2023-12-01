@@ -1,4 +1,4 @@
-export default function Rating({ rating }) {
+export default function Rating({ rating, w, h }) {
   const newRating = Math.floor(rating / 2);
 
   switch (newRating) {
@@ -93,7 +93,7 @@ function PassifeRating() {
   return (
     <>
       <svg
-        className={`w-3 h-4 text-gray-300 dark:text-gray-500`}
+        className={`w-3 h-4  text-gray-300`}
         aria-hidden="true"
         fill="currentColor"
         viewBox="0 0 22 20">
