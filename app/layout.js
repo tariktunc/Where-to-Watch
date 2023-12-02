@@ -1,5 +1,6 @@
 "use client";
 import "./globals.css";
+import "@/app/globals.css";
 import { Rubik } from "next/font/google";
 import { Provider } from "react-redux";
 import stores from "../stores/stores";
