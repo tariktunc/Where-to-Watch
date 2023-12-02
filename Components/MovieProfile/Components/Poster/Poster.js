@@ -8,13 +8,27 @@ import { loadImage } from "@/utils/imageUtils";
 export default function Poster({ imageData, data, status }) {
   const [pageLoading, setPageLoading] = useState(true);
   const [posterImage, setPosterImage] = useState(null);
+  const [pathImage, setPathImage] = useState(null);
+  console.log(imageData);
 
   useEffect(() => {
     const moviePosterFilePath = data.poster_path;
-    console.log(moviePosterFilePath);
     loadImage(moviePosterFilePath, "w500")
-      .then((imageUrl) => {
-        setPosterImage(imageUrl);
+      .then((image) => {
+        setPosterImage(image);
+        setPageLoading(false);
+      })
+      .catch((error) => {
+        console.error("Görsel yüklenirken bir hata oluştu:", error.message);
+        setPageLoading(true);
+      });
+  }, [data]);
+
+  useEffect(() => {
+    const moviePathFilePath = data.poster_path;
+    loadImage(moviePathFilePath, "orginal")
+      .then((image) => {
+        setPathImage(image);
         setPageLoading(false);
       })
       .catch((error) => {
@@ -24,12 +38,22 @@ export default function Poster({ imageData, data, status }) {
   }, [data]);
 
   return (
-    <div className="w-full relative z-1 ">
+    <div
+      className="w-full relative z-1"
+      style={{
+        backgroundImage: `url(${pathImage})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}>
       <div
-        className="flex flex-wrap justify-center"
-        style={{ backgroundImage: `url(${imageData})` }}>
-        <div className="pt-[30px] pb-[30px] pl-[40px] pr-[40px]">
-          <section className="flex items-start content-center ">
+        className="flex justify-items-start"
+        style={{
+          backgroundColor: "rgba(0, 0, 0, 0.8)",
+        }}>
+        <div className="px-20 py-10">
+          <section className="flex ">
+            {/* Images */}
             <div id="poster" className="h-full min-w-min ">
               <div
                 id="image_content"
@@ -51,9 +75,10 @@ export default function Poster({ imageData, data, status }) {
                 )}
               </div>
             </div>
+            {/* Title */}
             <div
               id="ott_offer"
-              className="flex flex-col justify-center h-[450px] w-[500px]">
+              className="flex flex-col justify-center h-[450px] text-white ">
               <section className="flex flex-col min-w-[100%]  items-start content-center box-border pl-[40px]">
                 <div
                   id="title"
@@ -83,7 +108,7 @@ export default function Poster({ imageData, data, status }) {
                   <h3 className="italic py-2 opacity-60">{data.tagline}</h3>
                   <div>
                     <p className="py-2">Overview</p>
-                    <p className="py-2">{data.overview}</p>
+                    <p className="py-2 text-sm">{data.overview}</p>
                   </div>
                 </div>
               </section>
