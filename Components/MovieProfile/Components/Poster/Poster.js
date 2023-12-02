@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import Loading from "@/Components/Loading/Loading";
 import Rating from "@/Components/Assets/Rating/rating";
 import { loadImage } from "@/utils/imageUtils";
@@ -9,7 +10,7 @@ export default function Poster({ imageData, data, status }) {
   const [pageLoading, setPageLoading] = useState(true);
   const [posterImage, setPosterImage] = useState(null);
   const [pathImage, setPathImage] = useState(null);
-  console.log(imageData);
+  console.log(imageData.backdrops);
 
   useEffect(() => {
     const moviePosterFilePath = data.poster_path;
@@ -25,7 +26,13 @@ export default function Poster({ imageData, data, status }) {
   }, [data]);
 
   useEffect(() => {
-    const moviePathFilePath = data.poster_path;
+    let moviePathFilePath;
+    if (imageData && imageData.backdrops && imageData.backdrops.length > 0) {
+      moviePathFilePath = imageData.backdrops[0].file_path;
+    } else {
+      moviePathFilePath = data.poster_path;
+    }
+
     loadImage(moviePathFilePath, "orginal")
       .then((image) => {
         setPathImage(image);
@@ -35,7 +42,7 @@ export default function Poster({ imageData, data, status }) {
         console.error("Görsel yüklenirken bir hata oluştu:", error.message);
         setPageLoading(true);
       });
-  }, [data]);
+  }, [imageData, data]);
 
   return (
     <div
@@ -74,12 +81,21 @@ export default function Poster({ imageData, data, status }) {
                   />
                 )}
               </div>
+              {data.homepage && (
+                <Link
+                  className="text-white flex justify-center items-center h-10 w-full bg-blue-700 rounded-b-md hover:bg-blue-500 transition-all duration-100"
+                  rel="icon"
+                  href={data.homepage}>
+                  {" "}
+                  Homepage{" "}
+                </Link>
+              )}
             </div>
             {/* Title */}
             <div
               id="ott_offer"
               className="flex flex-col justify-center h-[450px] text-white ">
-              <section className="flex flex-col min-w-[100%]  items-start content-center box-border pl-[40px]">
+              <section className="flex flex-col min-w-[400px]   items-start content-center box-border pl-[40px]">
                 <div
                   id="title"
                   className="flex justify-center items-center py-1">
@@ -94,6 +110,14 @@ export default function Poster({ imageData, data, status }) {
                     )
                   </span>
                 </div>
+
+                <ul id="genre" className="flex py-1">
+                  {data.genres.map((genre, index) => (
+                    <li key={index} className="pr-1">
+                      {genre.name}
+                    </li>
+                  ))}
+                </ul>
 
                 <ul id="rating" className="py-1">
                   <li id="charts">
@@ -111,6 +135,18 @@ export default function Poster({ imageData, data, status }) {
                     <p className="py-2 text-sm">{data.overview}</p>
                   </div>
                 </div>
+
+                <ul id="language" className="py-2">
+                  {data.spoken_languages.map((language, index) => (
+                    <li key={index}> {language.english_name}</li>
+                  ))}
+                </ul>
+
+                <ul id="production_countries">
+                  {data.production_countries.map((country, index) => (
+                    <li key={index}> {country.name}</li>
+                  ))}
+                </ul>
               </section>
             </div>
           </section>
