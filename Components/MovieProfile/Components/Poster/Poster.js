@@ -10,7 +10,8 @@ export default function Poster({ imageData, data, status }) {
   const [pageLoading, setPageLoading] = useState(true);
   const [posterImage, setPosterImage] = useState(null);
   const [pathImage, setPathImage] = useState(null);
-  console.log(imageData.backdrops);
+
+  console.log(data);
 
   useEffect(() => {
     const moviePosterFilePath = data.poster_path;
@@ -87,7 +88,7 @@ export default function Poster({ imageData, data, status }) {
                   rel="icon"
                   href={data.homepage}>
                   {" "}
-                  Homepage{" "}
+                  Play{" "}
                 </Link>
               )}
             </div>
@@ -104,19 +105,21 @@ export default function Poster({ imageData, data, status }) {
                   </h2>
                   <span id="release" className=" text-xl">
                     (
-                    {status === "movie"
-                      ? data.release_date.substring(0, 4)
-                      : data.first_air_date.substring(0, 4)}
+                    {setTimeout(() => {
+                      status === "movie"
+                        ? data.release_date.substring(0, 4)
+                        : data.first_air_date.substring(0, 4);
+                    }, 100)}
                     )
                   </span>
                 </div>
 
                 <ul id="genre" className="flex py-1">
-                  {data.genres.map((genre, index) => (
+                  {/* {data.genres.map((genre, index) => (
                     <li key={index} className="pr-1">
                       {genre.name}
                     </li>
-                  ))}
+                  ))} */}
                 </ul>
 
                 <ul id="rating" className="py-1">

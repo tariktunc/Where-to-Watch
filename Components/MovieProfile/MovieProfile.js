@@ -11,6 +11,8 @@ export default function MovieProfile({ params, status }) {
   const [loadingImage, setLoadingImage] = useState(true);
   const [data, setData] = useState([]);
   const [imageData, setImageData] = useState([]);
+  const [creditstv, setCreditstv] = useState([]);
+  const [creditsMovie, setCreditsMovie] = useState([]);
 
   const languageLoCase = useSelector(
     (state) => state.languageSetting.languageLoCase
@@ -22,6 +24,8 @@ export default function MovieProfile({ params, status }) {
   useEffect(() => {
     const fetchDataUrl = `https://api.themoviedb.org/3/${status}/${params.profile}?language=${languageLoCase}-${languageUpCase}`;
     const fetchDataImage = `https://api.themoviedb.org/3/${status}/${params.profile}/images`;
+    const aggregate_credits = `https://api.themoviedb.org/3/tv/${params.profile}/credits?language=${languageLoCase}-${languageUpCase}`;
+    const movieCredits = `https://api.themoviedb.org/3/movie/${params.profile}/credits?language=${languageLoCase}-${languageUpCase}`;
 
     const fetchData = async () => {
       try {
@@ -47,6 +51,32 @@ export default function MovieProfile({ params, status }) {
       }
     };
 
+    const fetchTvCredits = async () => {
+      try {
+        setLoading(true);
+        const aggregateCredits = await fetchProfile(aggregate_credits);
+        setCreditstv(aggregateCredits);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    const fetchMovieCredits = async () => {
+      try {
+        setLoading(true);
+        const aggregateCredits = await fetchProfile(aggregate_credits);
+        setCreditsMovie(aggregateCredits);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMovieCredits();
+    fetchTvCredits();
     fetchData();
     fetchImage();
   }, [languageLoCase, languageUpCase, params.profile, status]);
@@ -62,7 +92,12 @@ export default function MovieProfile({ params, status }) {
   return (
     <div>
       <Poster imageData={imageData} data={data} status={status} />
-      <MediaV />
+      <MediaV
+        data={data}
+        status={status}
+        aggregateCreditsTv={creditstv}
+        aggregateCreditsMovie={creditsMovie}
+      />
     </div>
   );
 }
