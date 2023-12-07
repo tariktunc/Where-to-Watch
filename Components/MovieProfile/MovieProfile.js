@@ -25,6 +25,7 @@ export default function MovieProfile({ params, status }) {
     const fetchDataUrl = `https://api.themoviedb.org/3/${status}/${params.profile}?language=${languageLoCase}-${languageUpCase}`;
     const fetchDataImage = `https://api.themoviedb.org/3/${status}/${params.profile}/images`;
     const aggregate_credits = `https://api.themoviedb.org/3/tv/${params.profile}/credits?language=${languageLoCase}-${languageUpCase}`;
+    console.log("1 => ", aggregate_credits);
     const movieCredits = `https://api.themoviedb.org/3/movie/${params.profile}/credits?language=${languageLoCase}-${languageUpCase}`;
 
     const fetchData = async () => {
@@ -43,6 +44,7 @@ export default function MovieProfile({ params, status }) {
       try {
         setLoadingImage(true);
         const trendingImages = await fetchProfile(fetchDataImage);
+        console.log("2 => ", trendingImages);
         setImageData(trendingImages);
       } catch (error) {
         console.error(error);
@@ -80,14 +82,6 @@ export default function MovieProfile({ params, status }) {
     fetchData();
     fetchImage();
   }, [languageLoCase, languageUpCase, params.profile, status]);
-
-  if (loading || loadingImage) {
-    return (
-      <div className="text-2xl h-screen flex justify-center items-center bg-orange-400">
-        <Loading />
-      </div>
-    );
-  }
 
   return (
     <div>

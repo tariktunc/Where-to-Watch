@@ -19,6 +19,7 @@ export default function Poster({ imageData, data, status }) {
         setTimeout(() => {
           setPageLoading(false);
         }, 200);
+        console.log("Gorsel yuklendi. Poster Js");
       })
       .catch((error) => {
         console.error("Görsel yüklenirken bir hata oluştu:", error.message);
