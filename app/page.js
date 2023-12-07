@@ -9,12 +9,7 @@ export default function Home() {
   return (
     <div>
       <Navbar />
-      <div className="flex flex-col justify-center items-center">
-        <h1 className="text-3xl">Movie Day</h1>
-        <HorizantalItem urlStatus={"day"} status={"movie"} />
-        {/* <Popular /> */}
-        {/* <Footer /> */}
-      </div>
+      <HorizantalItem urlStatus={"day"} status={"movie"} />
     </div>
   );
 }

@@ -17,7 +17,7 @@ export default function CountryItem({ handleCountryChange, selected }) {
     const fetchData = async () => {
       try {
         const trendingMovies = await fetchUrlTheMovieDb(url);
-        setCountry(trendingMovies);
+        setCountry(trendingMovies.data.results);
       } catch (error) {
         console.error(error);
       }

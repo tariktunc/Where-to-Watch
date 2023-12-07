@@ -20,7 +20,7 @@ export default function Home({ urlStatus, status }) {
     const fetchData = async () => {
       try {
         const trendingMovies = await fetchUrlTheMovieDb(url);
-        setMovies(trendingMovies);
+        setMovies(trendingMovies.data.results);
       } catch (error) {
         console.error(error);
       }

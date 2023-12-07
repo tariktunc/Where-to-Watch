@@ -8,7 +8,6 @@ import { fetchUrlTheMovieDb } from "@/utils/apiService";
 
 export default function Popular({ status }) {
   const [data, setData] = useState([]);
-  console.log(data);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const imageUrl = "https://image.tmdb.org/t/p/w500";
@@ -24,7 +23,7 @@ export default function Popular({ status }) {
     const fetchData = async () => {
       try {
         const trendingMovies = await fetchUrlTheMovieDb(url);
-        setData(trendingMovies);
+        setData(trendingMovies.data.results);
         setLoading(false);
       } catch (error) {
         console.error(error);

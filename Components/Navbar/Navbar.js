@@ -23,7 +23,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-[#221f1f] w-full h-14 flex items-center">
+    <nav className="bg-[#221f1f] h-14 flex ">
       {/* Logo */}
       <div className="text-white text-3xl w-full">LOGO</div>
 

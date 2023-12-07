@@ -100,7 +100,7 @@ function MultiSelecet() {
     const fetchData = async () => {
       try {
         const trendingMovies = await fetchUrlTheMovieDb(url);
-        setChannelImage(trendingMovies);
+        setChannelImage(trendingMovies.data.results);
       } catch (error) {
         console.error(error);
       }

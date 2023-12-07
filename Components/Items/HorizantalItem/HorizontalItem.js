@@ -20,7 +20,7 @@ export default function Home({ urlStatus, status }) {
     const fetchData = async () => {
       try {
         const trendingMovies = await fetchUrlTheMovieDb(url);
-        setMovies(trendingMovies);
+        setMovies(trendingMovies.data.results);
       } catch (error) {
         console.error("HorizantalItem => fetchData => ", error);
       }
@@ -55,7 +55,7 @@ export default function Home({ urlStatus, status }) {
           urlStatus={status}
           url={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
           itemKey={movie.id}
-          imageWidth="w-[150px]"
+          imageWidth="w-[200px]"
           altName={movie.id}>
           <div className={`p-2 h-[120px]`}>
             <Rating rating={movie.vote_average} />
@@ -74,7 +74,7 @@ export default function Home({ urlStatus, status }) {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center my-10 px-10">
+    <div className="flex flex-col justify-center items-center my-10 px-10 ">
       <div className="grid grid-cols-5">{renderMovies(movies)}</div>
       <div className="flex justify-center">
         <button
