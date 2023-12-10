@@ -2,47 +2,17 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 
-export default function Media() {
+export default function Media(props) {
   return (
-    <div className="flex flex-col justify-center items-center">
-      <ImageGallery />
-    </div>
+    <>
+      <Image
+        key={props.key}
+        width={1920}
+        height={1080}
+        className="w-[533px] min-w-[533px] h-[300px] min-h-[300px]"
+        src={props.filePath}
+        alt={props.filePath}
+      />
+    </>
   );
 }
-
-const ImageGallery = () => {
-  return (
-    <div className="flex justify-start items-center pb-5 w-[1200px] min-w-[500px] max-w-[1200px] overflow-x-auto">
-      <Image
-        width={400}
-        height={160}
-        src="https://www.themoviedb.org/t/p/w533_and_h300_bestv2/mtvGAsY45DiPIvyppwzkIT8Sx1K.jpg"
-        alt="Image 1"
-      />
-      <Image
-        width={400}
-        height={160}
-        src="https://www.themoviedb.org/t/p/w533_and_h300_bestv2/mtvGAsY45DiPIvyppwzkIT8Sx1K.jpg"
-        alt="Image 1"
-      />
-      <Image
-        width={400}
-        height={160}
-        src="https://www.themoviedb.org/t/p/w533_and_h300_bestv2/mtvGAsY45DiPIvyppwzkIT8Sx1K.jpg"
-        alt="Image 1"
-      />
-      <Image
-        width={400}
-        height={160}
-        src="https://www.themoviedb.org/t/p/w533_and_h300_bestv2/mtvGAsY45DiPIvyppwzkIT8Sx1K.jpg"
-        alt="Image 1"
-      />
-      <Image
-        width={400}
-        height={160}
-        src="https://www.themoviedb.org/t/p/w533_and_h300_bestv2/mtvGAsY45DiPIvyppwzkIT8Sx1K.jpg"
-        alt="Image 1"
-      />
-    </div>
-  );
-};

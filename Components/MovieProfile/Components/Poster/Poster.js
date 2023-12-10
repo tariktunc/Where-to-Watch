@@ -4,9 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 import Rating from "@/Components/Assets/Rating/rating";
 
-export default function Poster() {
+export default function Poster({ profileData, status, params }) {
   const backgroundStyles = {
-    backgroundImage: `url(${"https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/3qtfbD8EapgpC7qUmJHfvrI32H4.jpg"})`,
+    backgroundImage: `url(${`https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces${profileData.backdrop_path}`})`,
     backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
@@ -19,10 +19,10 @@ export default function Poster() {
         style={{
           backgroundColor: "rgba(0, 0, 0, 0.8)",
         }}>
-        <div className="px-20 py-10 w-[1600px] min-w-[500px]">
+        <div className="px-20 py-10 w-[1600px] min-w-[400px]">
           <section className="flex py-20">
             {/* Images */}
-            <div id="poster" className="h-full min-w-min ">
+            <div id="poster" className="h-full min-w-min">
               <div
                 id="image_content"
                 className="block min-w-[300px] w-[300px] h-[500px] border-0 outline-none overflow-hidden ">
@@ -30,9 +30,7 @@ export default function Poster() {
                   className="rounded-md"
                   width={1000}
                   height={1000}
-                  src={
-                    "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/8qSov4Y66aXtMSQoVh4iEi5wLnd.jpg"
-                  }
+                  src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${profileData.poster_path}`}
                   alt={"alt"}
                 />
                 <Link
@@ -40,6 +38,7 @@ export default function Poster() {
                   className="flex justify-center items-center rounded-b-md h-10 w-auto text-white bg-blue-500 ">
                   Play
                 </Link>
+                <Image src={""} alt="" />
               </div>
             </div>
             {/* Title */}
@@ -48,47 +47,73 @@ export default function Poster() {
                 <div
                   id="title"
                   className="flex justify-center items-center py-1">
-                  <h2 className="text-4xl font-bold w-full">
-                    Data name or title
+                  <h2 className="text-6xl font-bold w-full">
+                    {status === "tv" ? profileData.name : profileData.title}
                   </h2>
-                  <span id="release" className="text-2xl px-2">
-                    (2024)
+                  <span id="release" className="text-4xl px-2">
+                    (
+                    {status === "tv"
+                      ? profileData.first_air_date.slice(0, 4)
+                      : profileData.release_date.slice(0, 4)}
+                    )
                   </span>
                 </div>
 
                 <ul id="rating" className="py-1 w-full">
                   <li id="charts">
                     <div className="flex">
-                      <Rating rating={10} />
-                      <p className="font-italic text-sm pl-2">User Score</p>
+                      <Rating
+                        rating={profileData.vote_average}
+                        w={"w-7"}
+                        h={"h-7"}
+                      />
+                      <p className="font-italic text-xl pl-2">Rating</p>
                     </div>
                   </li>
                 </ul>
 
                 <div className="w-full">
                   <ul id="genre" className="flex flex-col py-1 w-full">
-                    <li className="py-2">Data Generes</li>
                     <li>
-                      <h3 className="py-2 italic opacity-60">Data Tagline</h3>
-                      <p className="py-2">Overview</p>
-                      <p className="py-2 text-sm">data.overview</p>
-                    </li>
-                    <li className="py-2">Data Spoken</li>
-                    <li className="py-2">
-                      <ol className="flex flex-wrap justify-between">
-                        <li className="pr-2">
-                          <p>People No Image</p>
-                          <p>Profile And Creator</p>
-                        </li>
-                        <li className="pr-2">
-                          <p>People No Image</p>
-                          <p>Profile And Creator</p>
-                        </li>
-                        <li className="pr-2">
-                          <p>People No Image</p>
-                          <p>Profile And Creator</p>
-                        </li>
+                      <ol className="flex">
+                        {profileData.genres.map((item, index) => (
+                          <li key={index} className="pr-2 text-xl">
+                            {index !== profileData.genres.length - 1 ? (
+                              <span>{item.name}, </span>
+                            ) : (
+                              <span>{item.name}</span>
+                            )}
+                          </li>
+                        ))}
                       </ol>
+                    </li>
+
+                    <li>
+                      <h3 className="py-2 italic opacity-60 text-2xl">
+                        {profileData.tagline}
+                      </h3>
+                      <p className="py-2 text-2xl font-bold">Overview</p>
+                      <p className="py-2 text-xl">{profileData.overview}</p>
+                    </li>
+                    <li className="py-2 flex flex-wrap max-w-[600px] ">
+                      {profileData.spoken_languages.map((item, index) => (
+                        <React.Fragment key={index}>
+                          {index !== profileData.spoken_languages.length - 1 &&
+                          profileData.spoken_languages.length > 1 ? (
+                            <p
+                              className="py-2 pr-2 text-xl"
+                              style={{ display: "inline" }}>
+                              {item.english_name},
+                            </p>
+                          ) : (
+                            <p
+                              className="py-2 pr-2 text-xl"
+                              style={{ display: "inline" }}>
+                              {item.english_name}
+                            </p>
+                          )}
+                        </React.Fragment>
+                      ))}
                     </li>
                   </ul>
                 </div>
