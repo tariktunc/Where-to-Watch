@@ -4,9 +4,14 @@ import Image from "next/image";
 import Link from "next/link";
 import Rating from "@/Components/Assets/Rating/rating";
 
-export default function Poster({ profileData, status, params }) {
+export default function Poster({
+  watchProviders,
+  profileData,
+  status,
+  params,
+}) {
   const backgroundStyles = {
-    backgroundImage: `url(${`https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces${profileData.backdrop_path}`})`,
+    backgroundImage: `url(${`https://www.themoviedb.org/t/p/w1920_and_h1080_multi_faces${profileData.backdrop_path}`})`,
     backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
@@ -30,6 +35,7 @@ export default function Poster({ profileData, status, params }) {
                   className="rounded-md"
                   width={1000}
                   height={1000}
+                  decoding="async"
                   src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${profileData.poster_path}`}
                   alt={"alt"}
                 />
@@ -38,7 +44,6 @@ export default function Poster({ profileData, status, params }) {
                   className="flex justify-center items-center rounded-b-md h-10 w-auto text-white bg-blue-500 ">
                   Play
                 </Link>
-                <Image src={""} alt="" />
               </div>
             </div>
             {/* Title */}

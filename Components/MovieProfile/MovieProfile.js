@@ -22,7 +22,7 @@ export default function MovieProfile({ params, status }) {
   const [profileData, setProfileData] = useState(null);
   const [imageData, setImageData] = useState(null);
   const [castData, setCastData] = useState(null);
-  console.log(imageData);
+  const [watchProviders, setWatchProviders] = useState(null);
   const [loading, setLoading] = useState(true);
 
   const languageLoCase = useSelector(
@@ -35,6 +35,7 @@ export default function MovieProfile({ params, status }) {
   const fetchProfileDataUrl = `https://api.themoviedb.org/3/${status}/${params.profile}?language=${languageLoCase}-${languageUpCase}`;
   const fetchImageDataUrl = `https://api.themoviedb.org/3/${status}/${params.profile}/images`;
   const fetchCastDataUrl = `https://api.themoviedb.org/3/${status}/${params.profile}/credits?language=${languageLoCase}-${languageUpCase}`;
+  const fetchWatchProvidersUrl = `https://api.themoviedb.org/3/${status}/${params.profile}/videos?language=${languageLoCase}-${languageUpCase}`;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -70,8 +71,24 @@ export default function MovieProfile({ params, status }) {
       }
     };
 
+    const fetchWatchProviders = async () => {
+      try {
+        const data = await fetchUrlTheMovieDb(fetchWatchProvidersUrl);
+        if (data.status === 200) {
+          setWatchProviders(data.data);
+        }
+      } catch (error) {
+        console.error("Error fetching watch providers:", error);
+      }
+    };
+
     const fetchDataAsync = async () => {
-      await Promise.all([fetchData(), fetchImageData(), fetchCastData()]);
+      await Promise.all([
+        fetchData(),
+        fetchImageData(),
+        fetchCastData(),
+        fetchWatchProviders(),
+      ]);
       setLoading(false);
     };
 
@@ -80,6 +97,7 @@ export default function MovieProfile({ params, status }) {
     fetchProfileDataUrl,
     fetchImageDataUrl,
     fetchCastDataUrl,
+    fetchWatchProvidersUrl,
     languageLoCase,
     languageUpCase,
   ]);
@@ -89,9 +107,21 @@ export default function MovieProfile({ params, status }) {
       <React.Suspense fallback={<div>Loading...</div>}>
         {profileData && (
           <React.Fragment>
-            <Poster profileData={profileData} params={params} status={status} />
+            <Poster
+              watchProviders={watchProviders}
+              profileData={profileData}
+              params={params}
+              status={status}
+            />
           </React.Fragment>
         )}
+      </React.Suspense>
+      <React.Suspense fallback={<div>Loading...</div>}>
+        <React.Fragment>
+          <ul>
+            <li>XXXXX</li>
+          </ul>
+        </React.Fragment>
       </React.Suspense>
       <CastTemplate>
         <React.Suspense fallback={<div>Loading...</div>}>

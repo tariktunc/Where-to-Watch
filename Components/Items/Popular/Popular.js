@@ -47,7 +47,7 @@ export default function Popular({ status }) {
                 itemKey={item.id}
                 imageWidth="w-[200px]">
                 <div className={`p-2 h-[120px]`}>
-                  <Rating rating={item.vote_average} />
+                  <Rating w={"w-5"} h={"h-5"} rating={item.vote_average} />
                   <p className={`text-sm pt-2 font-bold`}>
                     {item.title === undefined ? item.name : item.title}
                   </p>

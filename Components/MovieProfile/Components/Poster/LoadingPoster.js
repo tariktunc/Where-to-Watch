@@ -32,15 +32,14 @@ export default function Poster({ imageData, data, status }) {
               <div
                 id="image_content"
                 className="block min-w-[300px] w-[300px] h-[450px] border-0 outline-none overflow-hidden">
-                {/* <Image
+                <Image
                   className="rounded-md"
                   width={1000}
                   height={1000}
                   src={posterImage}
                   alt={status === "movie" ? data.title : data.name}
-                  lazyRoot="lazy-root"
-                  lazyBoundary="lazy-boundary"
-                /> */}
+                  decoding="async"
+                />
               </div>
 
               <p>Home Page</p>

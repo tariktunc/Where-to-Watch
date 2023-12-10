@@ -12,6 +12,7 @@ export default function MediaV(props) {
         width={1000}
         height={1000}
         alt={props.altName}
+        decoding="async"
       />
       <div className="p-2 h-28 flex flex-col justify-start items-start shadow-md rounded-b-md">
         <p className="text-sm font-bold p-1 border-b-2">{props.name}</p>

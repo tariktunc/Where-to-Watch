@@ -40,7 +40,7 @@ export default function Home({ urlStatus, status }) {
             itemKey={movie.id}
             imageWidth="w-[170px]">
             <div className={`p-2 h-[120px]`}>
-              <Rating rating={movie.vote_average} />
+              <Rating w={"w-5"} h={"h-5"} rating={movie.vote_average} />
               <p className={`text-sm pt-2 font-bold`}>
                 {movie.title === undefined ? movie.name : movie.title}
               </p>
