@@ -30,7 +30,7 @@ export default function Home({ urlStatus, status }) {
   }, [languageLoCase, languageUpCase, urlStatus, status]);
 
   return (
-    <div className="flex flex-wrap max-w-screen-lg ">
+    <div className="flex flex-wrap max-w-screen-lg rounded-xl">
       {movies.map((movie) => (
         <div key={movie.id}>
           <Item

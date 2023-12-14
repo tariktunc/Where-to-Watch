@@ -1,8 +1,15 @@
 "use client";
-import Link from "next/link";
+// React and NextJS
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
+import Link from "next/link";
+// Redux
 import { setLanguage } from "@/stores/Slices/languageSettingSlice";
+import { toggleTheme } from "@/stores/Slices/ThemeSlice";
+// FontAwesome
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMoon, faUniversalAccess } from "@fortawesome/free-solid-svg-icons";
+// Components
 import Country from "@/Components/Country/Country";
 
 export default function Navbar() {
@@ -10,6 +17,12 @@ export default function Navbar() {
   const languageUpCase = useSelector(
     (state) => state.languageSetting.languageUpCase
   );
+  // DARK MODE
+  const theme = useSelector((state) => state.theme.theme);
+  const handleThemeToggle = () => {
+    dispatch(toggleTheme());
+  };
+  // DARK MODE
 
   const buttonUrls = [
     { name: "Home", id: "home", url: "/" },
@@ -23,34 +36,41 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-[#221f1f] h-14 flex ">
-      {/* Logo */}
-      <div className="text-white text-3xl w-full">LOGO</div>
-
-      {/* Buttons */}
-      <div className="flex justify-center items-center h-full w-full">
-        {buttonUrls.map((button) => (
-          <div
-            className="w-full h-full items-center justify-center flex m-1"
-            key={button.id}>
-            <Link
-              className="w-full h-full items-center justify-center flex text-white text-md hover:opacity-50"
-              href={button.url}>
-              {button.name}
-            </Link>
-          </div>
-        ))}
+    <nav
+      style={{
+        backgroundColor: theme === "dark" ? "#00050d" : "#fff",
+        color: theme === "dark" ? "#fff" : "#00050d",
+        borderBottom: theme === "dark" ? "1px solid #fff" : "1px solid #232f3e",
+      }}
+      className="shadow-lg px-20 flex justify-between items-center h-20 w-screen ">
+      <div id="logo" className="flex">
+        <p className="font-extrabold pr-1">BLAKFY</p>
+        <p className="font-extrabold pr-1">MOVIE</p>
+      </div>
+      <div id="menu">
+        <ul className="flex items-center  font-bold">
+          {buttonUrls.map((item) => (
+            <li key={item.id} className="m-3">
+              <Link href={item.url}>{item.name}</Link>
+            </li>
+          ))}
+        </ul>
       </div>
 
-      {/* Search Bar */}
-      <div className="text-white text-md flex justify-end w-full">
-        <div className="text-black w-60 flex items-center">
-          <p className="mr-3 text-white">{languageUpCase}</p>
-          <Country
-            handleCountryChange={handleChange}
-            selected={languageUpCase}
-          />
-        </div>
+      <div id="country" className="flex items-center  ">
+        <FontAwesomeIcon
+          className="cursor-pointer w-8 h-8 pl-3 "
+          icon={faMoon}
+          size="2xl"
+          onClick={handleThemeToggle}
+        />
+        <FontAwesomeIcon
+          className="cursor-pointer w-8 h-8 pl-3"
+          icon={faUniversalAccess}
+          size="2xl"
+        />
+        <span className="p-3">{languageUpCase}</span>
+        <Country handleCountryChange={handleChange} selected={languageUpCase} />
       </div>
     </nav>
   );

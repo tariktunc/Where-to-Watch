@@ -1,15 +1,28 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Navbar from "@/Components/Navbar/Navbar";
-import HorizantalItem from "@/Components/Items/HorizantalItem/HorizontalItem";
-// import Footer from "@/Components/Footer/Footer";
-// import Popular from "@/Components/Items/Popular/Popular";
+import HorizontallyItem from "@/Components/Items/HorizontallyItem/HorizontallyItem";
+import DiscoverSection from "@/Components/DiscoverSection/DiscoverSection";
+import { useSelector } from "react-redux";
 
 export default function Home() {
+  const theme = useSelector((state) => state.theme.theme);
+
   return (
-    <div>
+    <>
       <Navbar />
-      <HorizantalItem urlStatus={"day"} status={"movie"} />
-    </div>
+      <DiscoverSection />
+      <div
+        style={{
+          backgroundColor: theme === "dark" ? "#00050d" : "#fff",
+          color: theme === "dark" ? "#fff" : "#00050d",
+        }}
+        className="flex flex-col items-center">
+        <HorizontallyItem urlStatus={"day"} status={"movie"} />
+        <HorizontallyItem urlStatus={"day"} status={"tv"} />
+        <HorizontallyItem urlStatus={"week"} status={"movie"} />
+        <HorizontallyItem urlStatus={"week"} status={"tv"} />
+      </div>
+    </>
   );
 }

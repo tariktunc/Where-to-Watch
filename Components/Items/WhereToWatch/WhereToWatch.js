@@ -14,6 +14,8 @@ import Image from "next/image";
 import Country from "@/Components/Country/Country";
 
 export default function WhereToWatch() {
+  const theme = useSelector((state) => state.theme.theme);
+
   const [isOpen, setIsOpen] = useState(true);
   function handleClick() {
     setIsOpen(!isOpen);
@@ -21,12 +23,13 @@ export default function WhereToWatch() {
 
   return (
     <div className="m-4">
-      <div className="w-[300px] shadow shadow-gray-600/50 rounded-md">
+      <div className="w-[300px] rounded-xl shadow-md">
         {isOpen ? (
           <>
             <OpenItem handleClick={handleClick} />
             <CountryItem />
             <MultiSelecet />
+            <p></p>
           </>
         ) : (
           <>
@@ -62,9 +65,7 @@ function OpenItem({ handleClick }) {
 
 function CountryItem() {
   const dispatch = useDispatch();
-  const countryLoCase = useSelector(
-    (state) => state.whereToWatchSetting.countryLoCase
-  );
+
   const countryUpCase = useSelector(
     (state) => state.whereToWatchSetting.countryUpCase
   );
@@ -74,9 +75,7 @@ function CountryItem() {
   };
   return (
     <div className="w-[auto] m-2 p-2 flex  flex-col ">
-      <label
-        htmlFor="countries"
-        className="block mb-2 text-sm font-medium text-gray-900 ">
+      <label htmlFor="countries" className="block mb-2 text-sm font-medium  ">
         Country: {countryUpCase}
       </label>
       <Country handleCountryChange={handleChange} selected={countryUpCase} />

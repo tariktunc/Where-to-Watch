@@ -8,3 +8,18 @@
   padding: 0;
   font-family: "Montserrat", sans-serif;
 }
+
+/* horizontalItem.js */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+  height: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px; /* Yatay scrollbar için genişlik */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: darkgray; /* Daha belirgin bir gri tonu */
+  border-radius: 10px;
+}
