@@ -53,7 +53,7 @@ export default function Home({ urlStatus, status }) {
   return (
     // custom-scrollbar, global css icerisinde duzenlenmistir.
     <div>
-      <div className="flex flex-col justify-start pl-20 w-[1200px]">
+      <div className="flex flex-col justify-start w-[1200px]">
         <p className="my-2 text-xl font-bold">
           TOP {urlStatus.toUpperCase()} {status.toUpperCase()}
         </p>
