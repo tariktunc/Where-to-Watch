@@ -1,5 +1,3 @@
-"use client";
-
 import VerticalItem from "@/Components/Items/VerticalItem/VerticalItem";
 import WhereToWatch from "@/Components/Items/WhereToWatch/WhereToWatch";
 

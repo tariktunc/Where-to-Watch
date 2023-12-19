@@ -116,13 +116,6 @@ export default function MovieProfile({ params, status }) {
           </React.Fragment>
         )}
       </React.Suspense>
-      <React.Suspense fallback={<div>Loading...</div>}>
-        <React.Fragment>
-          <ul>
-            <li>XXXXX</li>
-          </ul>
-        </React.Fragment>
-      </React.Suspense>
       <CastTemplate>
         <React.Suspense fallback={<div>Loading...</div>}>
           {!loading && castData && castData.cast && castData.cast.length > 0 ? (

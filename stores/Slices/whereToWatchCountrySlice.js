@@ -1,4 +1,4 @@
-import { createSlice, current } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   countryLoCase: "en",
@@ -19,10 +19,6 @@ export const whereToWatchCountrySlice = createSlice({
       // Durumu güncelle
       state.countryLoCase = countryLoCase;
       state.countryUpCase = countryUpCase;
-
-      // Küçük harfli ülke değerini JSON dizesi olarak yerel depolamaya kaydet
-      let userCountry = JSON.stringify(state.countryLoCase);
-      localStorage.setItem("country", userCountry);
     },
   },
 });

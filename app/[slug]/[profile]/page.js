@@ -1,5 +1,6 @@
-import Link from "next/link";
+// Buradaki errorPage calismamaktadir. MovieProfile icerisindeki API istekleri bu sayfaya alinacak, API isteklerinin status`u gozden gecirilecek ve sayfa ciktilari ona gore donecektir.
 import MovieProfile from "@/Components/MovieProfile/MovieProfile";
+import Error from "@/Pages/Error/page";
 
 export default function Page({ params }) {
   switch (params.slug) {
@@ -9,23 +10,8 @@ export default function Page({ params }) {
     case "tv":
       return <MovieProfile params={params} status={"tv"} />;
       break;
-    case "popular":
-      return <MovieProfile params={params} status={"popular"} />;
-      break;
     default:
-      return <ErrorPage />;
+      return <Error />;
       break;
   }
-}
-
-function ErrorPage() {
-  return (
-    <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-4xl">
-      404 This page could not be found.
-      <hr></hr>
-      <Link className="text-blue-500" href="/">
-        Home
-      </Link>
-    </div>
-  );
 }
