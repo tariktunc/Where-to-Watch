@@ -11,15 +11,11 @@ export default function Popular({ status }) {
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const imageUrl = "https://image.tmdb.org/t/p/w500";
-  const languageLoCase = useSelector(
-    (state) => state.languageSetting.languageLoCase
-  );
-  const languageUpCase = useSelector(
-    (state) => state.languageSetting.languageUpCase
-  );
+  const language = useSelector((state) => state.languageSetting);
+  const isLanguage = `${language.toLowerCase()}-${language}`;
 
   useEffect(() => {
-    const url = `https://api.themoviedb.org/3/movie/popular?language=${languageLoCase}-${languageUpCase}&page=${page}`;
+    const url = `https://api.themoviedb.org/3/movie/popular?language=${isLanguage}&page=${page}`;
     const fetchData = async () => {
       try {
         const trendingMovies = await fetchUrlTheMovieDb(url);
@@ -30,7 +26,7 @@ export default function Popular({ status }) {
       }
     };
     fetchData();
-  }, [languageLoCase, languageUpCase, page]);
+  }, [isLanguage, page]);
 
   return (
     <div className="flex flex-wrap max-w-screen-lg">

@@ -24,18 +24,13 @@ export default function MovieProfile({ params, status }) {
   const [castData, setCastData] = useState(null);
   const [watchProviders, setWatchProviders] = useState(null);
   const [loading, setLoading] = useState(true);
+  const language = useSelector((state) => state.languageSetting);
+  const isLanguage = `${language.toLowerCase()}-${language}`;
 
-  const languageLoCase = useSelector(
-    (state) => state.languageSetting.languageLoCase
-  );
-  const languageUpCase = useSelector(
-    (state) => state.languageSetting.languageUpCase
-  );
-
-  const fetchProfileDataUrl = `https://api.themoviedb.org/3/${status}/${params.profile}?language=${languageLoCase}-${languageUpCase}`;
+  const fetchProfileDataUrl = `https://api.themoviedb.org/3/${status}/${params.profile}?language=${isLanguage}`;
   const fetchImageDataUrl = `https://api.themoviedb.org/3/${status}/${params.profile}/images`;
-  const fetchCastDataUrl = `https://api.themoviedb.org/3/${status}/${params.profile}/credits?language=${languageLoCase}-${languageUpCase}`;
-  const fetchWatchProvidersUrl = `https://api.themoviedb.org/3/${status}/${params.profile}/videos?language=${languageLoCase}-${languageUpCase}`;
+  const fetchCastDataUrl = `https://api.themoviedb.org/3/${status}/${params.profile}/credits?language=${isLanguage}`;
+  const fetchWatchProvidersUrl = `https://api.themoviedb.org/3/${status}/${params.profile}/videos?language=${isLanguage}`;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -98,8 +93,7 @@ export default function MovieProfile({ params, status }) {
     fetchImageDataUrl,
     fetchCastDataUrl,
     fetchWatchProvidersUrl,
-    languageLoCase,
-    languageUpCase,
+    isLanguage,
   ]);
 
   return (

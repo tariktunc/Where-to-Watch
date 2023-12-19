@@ -14,8 +14,6 @@ import Image from "next/image";
 import Country from "@/Components/Country/Country";
 
 export default function WhereToWatch() {
-  const theme = useSelector((state) => state.theme.theme);
-
   const [isOpen, setIsOpen] = useState(true);
   function handleClick() {
     setIsOpen(!isOpen);
@@ -66,36 +64,33 @@ function OpenItem({ handleClick }) {
 function CountryItem() {
   const dispatch = useDispatch();
 
-  const countryUpCase = useSelector(
-    (state) => state.whereToWatchSetting.countryUpCase
-  );
+  const country = useSelector((state) => state.whereToWatchSetting);
 
-  const handleChange = (e) => {
+  const handleCountryChange = (e) => {
     dispatch(setCountry(e.target.value));
+    localStorage.setItem("country", e.target.value);
   };
   return (
     <div className="w-[auto] m-2 p-2 flex  flex-col ">
       <label htmlFor="countries" className="block mb-2 text-sm font-medium  ">
-        Country: {countryUpCase}
+        Country: {country}
       </label>
-      <Country handleCountryChange={handleChange} selected={countryUpCase} />
+      <Country handleCountryChange={handleCountryChange} />
     </div>
   );
 }
 
 function MultiSelecet() {
   const [channelImage, setChannelImage] = useState([]);
-  const countryLoCase = useSelector(
-    (state) => state.whereToWatchSetting.countryLoCase
-  );
-  const languageLoCase = useSelector(
-    (state) => state.languageSetting.languageLoCase
-  );
+  const country = useSelector((state) => state.whereToWatchSetting);
+  const isCountry = `${country.toLowerCase()}`;
+  const language = useSelector((state) => state.languageSetting);
+  const isLanguage = `${language.toLowerCase()}-${language}`;
 
   const imageUrl = "https://image.tmdb.org/t/p/w500/";
 
   useEffect(() => {
-    const url = `https://api.themoviedb.org/3/watch/providers/movie?language=${languageLoCase}&watch_region=${countryLoCase}`;
+    const url = `https://api.themoviedb.org/3/watch/providers/movie?language=${isLanguage}&watch_region=${isCountry}`;
     const fetchData = async () => {
       try {
         const trendingMovies = await fetchUrlTheMovieDb(url);
@@ -106,7 +101,7 @@ function MultiSelecet() {
     };
 
     fetchData();
-  }, [languageLoCase, countryLoCase]);
+  }, [isLanguage, isCountry]);
 
   return (
     <div>

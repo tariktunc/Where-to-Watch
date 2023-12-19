@@ -9,15 +9,11 @@ export default function Home({ urlStatus, status }) {
   const [moviesData, setMoviesData] = useState([]);
   const router = useRouter();
 
-  const languageLoCase = useSelector(
-    (state) => state.languageSetting.languageLoCase
-  );
-  const languageUpCase = useSelector(
-    (state) => state.languageSetting.languageUpCase
-  );
+  const language = useSelector((state) => state.languageSetting);
+  const isLanguage = `${language.toLowerCase()}-${language}`;
 
   useEffect(() => {
-    const url = `https://api.themoviedb.org/3/trending/${status}/${urlStatus}?language=${languageLoCase}-${languageUpCase}`;
+    const url = `https://api.themoviedb.org/3/trending/${status}/${urlStatus}?language=${isLanguage}`;
     const fetchData = async () => {
       try {
         const trendingMovies = await fetchUrlTheMovieDb(url);
@@ -28,7 +24,7 @@ export default function Home({ urlStatus, status }) {
     };
 
     fetchData();
-  }, [languageLoCase, languageUpCase, urlStatus, status]);
+  }, [isLanguage, urlStatus, status]);
 
   const topList = () => {
     const item = [];

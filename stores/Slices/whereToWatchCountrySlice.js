@@ -1,9 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
-  countryLoCase: "en",
-  countryUpCase: "US",
-};
+function getCountry() {
+  const country = localStorage.getItem("country");
+  if (country) {
+    return country;
+  } else {
+    return "TR";
+  }
+}
+
+const initialState = getCountry();
 
 export const whereToWatchCountrySlice = createSlice({
   name: "countrySetting",
@@ -11,31 +17,10 @@ export const whereToWatchCountrySlice = createSlice({
   reducers: {
     setCountry: (state, action) => {
       let country = action.payload;
-
-      // Gelen ülke değerini küçük harfe ve büyük harfe dönüştür
-      const countryLoCase = convertToLowerCase(country);
-      const countryUpCase = convertToUpperCase(country);
-
-      // Durumu güncelle
-      state.countryLoCase = countryLoCase;
-      state.countryUpCase = countryUpCase;
+      return (state = country);
     },
   },
 });
 
 export const { setCountry } = whereToWatchCountrySlice.actions;
 export default whereToWatchCountrySlice.reducer;
-
-// Bir stringi küçük harfe dönüştürmek için yardımcı bir fonksiyon
-function convertToLowerCase(value) {
-  // Kendi mantığınıza göre değeri küçük harfe dönüştürün
-  // Örneğin, value.toLowerCase() kullanabilirsiniz
-  return value.toLowerCase();
-}
-
-// Bir stringi büyük harfe dönüştürmek için yardımcı bir fonksiyon
-function convertToUpperCase(value) {
-  // Kendi mantığınıza göre değeri büyük harfe dönüştürün
-  // Örneğin, value.toUpperCase() kullanabilirsiniz
-  return value.toUpperCase();
-}
