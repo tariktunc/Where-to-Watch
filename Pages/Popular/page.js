@@ -1,4 +1,4 @@
-import WhereToWatch from "@/Components/Items/WhereToWatch/WhereToWatch";
+import WhereToWatch from "@/Components/WhereToWatch/WhereToWatch";
 import Popular from "@/Components/Items/Popular/Popular";
 
 export default function Home() {

@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Rating from "@/Components/Assets/Rating/rating";
+import Rating from "@/Components/common/Rating/rating";
 import Item from "@/Components/Items/Item/Item";
 import { fetchUrlTheMovieDb } from "@/utils/apiService";
 import { useSelector } from "react-redux";

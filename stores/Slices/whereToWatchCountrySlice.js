@@ -1,15 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-function getCountry() {
-  const country = localStorage.getItem("country");
-  if (country) {
-    return country;
-  } else {
-    return "TR";
-  }
-}
-
-const initialState = getCountry();
+const initialState = "TR";
 
 export const whereToWatchCountrySlice = createSlice({
   name: "countrySetting",

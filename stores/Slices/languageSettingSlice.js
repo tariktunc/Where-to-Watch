@@ -1,28 +1,19 @@
+"use client";
 import { createSlice } from "@reduxjs/toolkit";
 
-function getLanguage() {
-  const language = localStorage.getItem("language");
-  const defaultLanguage = "TR";
-  if (language) {
-    return language;
-  } else {
-    return defaultLanguage;
-  }
-}
+const initialState = "TR";
 
-console.log("language", getLanguage());
-const initialState = getLanguage();
-
-const languageSettingSlice = createSlice({
-  name: "languageSetting",
+const languageSlice = createSlice({
+  name: "language",
   initialState,
   reducers: {
     setLanguage: (state, action) => {
-      let language = action.payload;
+      const language = action.payload;
+      localStorage.setItem("language", language);
       return (state = language);
     },
   },
 });
 
-export const { setLanguage } = languageSettingSlice.actions;
-export default languageSettingSlice.reducer;
+export const { setLanguage } = languageSlice.actions;
+export default languageSlice.reducer;

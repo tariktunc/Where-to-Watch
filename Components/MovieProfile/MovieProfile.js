@@ -20,6 +20,7 @@ import MediaTemplate from "@/Components/MovieProfile/Components/Media/Template";
 
 export default function MovieProfile({ params, status }) {
   const [profileData, setProfileData] = useState(null);
+  const [profileDataDefault, setProfileDataDefault] = useState(null);
   const [imageData, setImageData] = useState(null);
   const [castData, setCastData] = useState(null);
   const [watchProviders, setWatchProviders] = useState(null);
@@ -28,6 +29,7 @@ export default function MovieProfile({ params, status }) {
   const isLanguage = `${language.toLowerCase()}-${language}`;
 
   const fetchProfileDataUrl = `https://api.themoviedb.org/3/${status}/${params.profile}?language=${isLanguage}`;
+  const fetchProfileDataUrlDefault = `https://api.themoviedb.org/3/${status}/${params.profile}?language=en-US`;
   const fetchImageDataUrl = `https://api.themoviedb.org/3/${status}/${params.profile}/images`;
   const fetchCastDataUrl = `https://api.themoviedb.org/3/${status}/${params.profile}/credits?language=${isLanguage}`;
   const fetchWatchProvidersUrl = `https://api.themoviedb.org/3/${status}/${params.profile}/videos?language=${isLanguage}`;
@@ -38,6 +40,17 @@ export default function MovieProfile({ params, status }) {
         const data = await fetchUrlTheMovieDb(fetchProfileDataUrl);
         if (data.status === 200) {
           setProfileData(data.data);
+        }
+      } catch (error) {
+        console.error("Error fetching profile data:", error);
+      }
+    };
+
+    const fetchDataDefault = async () => {
+      try {
+        const data = await fetchUrlTheMovieDb(fetchProfileDataUrlDefault);
+        if (data.status === 200) {
+          setProfileDataDefault(data.data);
         }
       } catch (error) {
         console.error("Error fetching profile data:", error);
@@ -80,6 +93,7 @@ export default function MovieProfile({ params, status }) {
     const fetchDataAsync = async () => {
       await Promise.all([
         fetchData(),
+        fetchDataDefault(),
         fetchImageData(),
         fetchCastData(),
         fetchWatchProviders(),
@@ -90,6 +104,7 @@ export default function MovieProfile({ params, status }) {
     fetchDataAsync();
   }, [
     fetchProfileDataUrl,
+    fetchProfileDataUrlDefault,
     fetchImageDataUrl,
     fetchCastDataUrl,
     fetchWatchProvidersUrl,

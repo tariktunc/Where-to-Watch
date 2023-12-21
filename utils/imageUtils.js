@@ -1,5 +1,3 @@
-// utils/imageUtils.js
-
 const baseImageUrl = "https://image.tmdb.org/t/p";
 const pathUrl = "https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces";
 

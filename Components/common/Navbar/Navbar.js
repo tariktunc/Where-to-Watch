@@ -1,6 +1,5 @@
 "use client";
 // React and NextJS
-import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
 import { setLanguage } from "@/stores/Slices/languageSettingSlice";
@@ -15,7 +14,6 @@ export default function Navbar() {
   const dispatch = useDispatch();
   const language = useSelector((state) => state.languageSetting);
   const theme = useSelector((state) => state.theme.theme);
-  console.log(theme);
   const buttonUrls = [
     { name: "Home", id: "home", url: "/" },
     { name: "Movie", id: "movie", url: "/movie" },
@@ -24,7 +22,6 @@ export default function Navbar() {
   ];
   const handleCountryChange = (e) => {
     dispatch(setLanguage(e.target.value));
-    localStorage.setItem("language", e.target.value);
   };
 
   return (
@@ -60,7 +57,10 @@ export default function Navbar() {
           size="2xl"
         />
         <span className="p-3">{language}</span>
-        <Country handleCountryChange={handleCountryChange} />
+        <Country
+          handleCountryChange={handleCountryChange}
+          language={language}
+        />
       </div>
     </nav>
   );

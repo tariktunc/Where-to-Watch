@@ -1,5 +1,5 @@
-import VerticalItem from "@/Components/Items/VerticalItem/VerticalItem";
-import WhereToWatch from "@/Components/Items/WhereToWatch/WhereToWatch";
+import VerticalItem from "@/Components/VerticalItem/VerticalItem";
+import WhereToWatch from "@/Components/WhereToWatch/WhereToWatch";
 
 export default function Home({ params }) {
   return (

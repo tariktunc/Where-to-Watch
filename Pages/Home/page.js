@@ -1,5 +1,5 @@
-import HorizontallyItem from "@/Components/Items/HorizontallyItem/HorizontallyItem";
-import Navbar from "@/Components/Navbar/Navbar";
+import HorizontallyItem from "@/Components/HorizontallyItem/HorizontallyItem";
+import Navbar from "@/Components/common/Navbar/Navbar";
 import DiscoverSection from "@/Components/DiscoverSection/DiscoverSection";
 
 export default function Home() {

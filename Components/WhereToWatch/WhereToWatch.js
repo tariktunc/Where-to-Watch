@@ -68,14 +68,13 @@ function CountryItem() {
 
   const handleCountryChange = (e) => {
     dispatch(setCountry(e.target.value));
-    localStorage.setItem("country", e.target.value);
   };
   return (
     <div className="w-[auto] m-2 p-2 flex  flex-col ">
       <label htmlFor="countries" className="block mb-2 text-sm font-medium  ">
         Country: {country}
       </label>
-      <Country handleCountryChange={handleCountryChange} />
+      <Country handleCountryChange={handleCountryChange} language={country} />
     </div>
   );
 }
@@ -83,10 +82,9 @@ function CountryItem() {
 function MultiSelecet() {
   const [channelImage, setChannelImage] = useState([]);
   const country = useSelector((state) => state.whereToWatchSetting);
-  const isCountry = `${country.toLowerCase()}`;
   const language = useSelector((state) => state.languageSetting);
+  const isCountry = `${country.toLowerCase()}`;
   const isLanguage = `${language.toLowerCase()}-${language}`;
-
   const imageUrl = "https://image.tmdb.org/t/p/w500/";
 
   useEffect(() => {

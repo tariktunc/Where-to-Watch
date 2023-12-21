@@ -2,8 +2,8 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import Loading from "@/Components/Loading/Loading";
-import Rating from "@/Components/Assets/Rating/rating";
+import Loading from "@/Components/common/Loading/Loading";
+import Rating from "@/Components/common/Rating/rating";
 import { loadImage } from "@/utils/imageUtils";
 
 export default function Poster({ imageData, data, status }) {

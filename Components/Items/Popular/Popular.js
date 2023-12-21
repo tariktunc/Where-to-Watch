@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import Item from "@/Components/Items/Item/Item";
-import Rating from "@/Components/Assets/Rating/rating";
+import Rating from "@/Components/common/Rating/rating";
 import { fetchUrlTheMovieDb } from "@/utils/apiService";
 
 export default function Popular({ status }) {

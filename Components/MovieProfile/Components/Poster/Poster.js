@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import Rating from "@/Components/Assets/Rating/rating";
+import Rating from "@/Components/common/Rating/rating";
 
 export default function Poster({
   watchProviders,

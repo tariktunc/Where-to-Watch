@@ -14,6 +14,7 @@ export default function Home({ urlStatus, status }) {
 
   useEffect(() => {
     const url = `https://api.themoviedb.org/3/trending/${status}/${urlStatus}?language=${isLanguage}`;
+
     const fetchData = async () => {
       try {
         const trendingMovies = await fetchUrlTheMovieDb(url);
@@ -26,35 +27,28 @@ export default function Home({ urlStatus, status }) {
     fetchData();
   }, [isLanguage, urlStatus, status]);
 
-  const topList = () => {
-    const item = [];
-    for (let i = 0; i <= 10; i++) {
-      item.push(
-        <div
-          key={i}
-          className="flex justify-center items-center min-w-[300px] h-[200px] m-1 hover:scale-105 hover:rounded-md ease-in duration-200">
-          <Image
-            onClick={() => router.push(`${status}/${moviesData[i]?.id}`)}
-            className="rounded-xl cursor-pointer h-[175px]"
-            src={`https://image.tmdb.org/t/p/w500${moviesData[i]?.backdrop_path}`}
-            width={1000}
-            height={1000}
-            alt="image"
-          />
-        </div>
-      );
-    }
-    return item;
-  };
+  function TopList() {
+    return moviesData.map((item, index) => (
+      <Image
+        key={index}
+        onClick={() => router.push(`${status}/${item.id}`)}
+        className="rounded-xl cursor-pointer w-[200px] h-[300px] m-2 scale-100 hover:scale-105 transition-all duraction-500"
+        src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
+        width={200}
+        height={300}
+        alt={item.title || item.name}
+      />
+    ));
+  }
+
   return (
-    // custom-scrollbar, global css icerisinde duzenlenmistir.
     <div>
-      <div className="flex flex-col justify-start w-[1200px]">
+      <div className="flex flex-col justify-start w-[1200px] ">
         <p className="my-2 text-xl font-bold">
           TOP {urlStatus.toUpperCase()} {status.toUpperCase()}
         </p>
-        <div className="flex justify-start items-center pb-5   how-screen overflow-x-auto custom-scrollbar">
-          {topList()}
+        <div className="flex justify-start items-center overflow-x-auto custom-scrollbar">
+          {<TopList />}
         </div>
       </div>
     </div>
