@@ -1,56 +1,8 @@
-"use client";
-import React, { useState, useEffect } from "react";
-import Rating from "@/Components/common/Rating/rating";
-import Item from "@/Components/Items/Item/Item";
-import { fetchUrlTheMovieDb } from "@/utils/apiService";
-import { useSelector } from "react-redux";
-export default function Home({ urlStatus, status }) {
-  const language = useSelector((state) => state.languageSetting);
-  const isLanguage = `${language.toLowerCase()}-${language}`;
-
-  const [movies, setMovies] = useState([]);
-
-  console.log(movies);
-  const imageUrl = "https://image.tmdb.org/t/p/w500";
-
-  useEffect(() => {
-    const url = `https://api.themoviedb.org/3/trending/${status}/${urlStatus}?language=${isLanguage}`;
-    const fetchData = async () => {
-      try {
-        const trendingMovies = await fetchUrlTheMovieDb(url);
-        setMovies(trendingMovies.data.results);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchData();
-  }, [isLanguage, urlStatus, status]);
-
+import Item from "./Item";
+export default function Home() {
   return (
-    <div className="flex flex-wrap max-w-screen-lg rounded-xl">
-      {movies.map((movie) => (
-        <div key={movie.id}>
-          <Item
-            urlStatus={status}
-            url={imageUrl + movie.poster_path}
-            altName={movie.id}
-            itemKey={movie.id}
-            imageWidth="w-[170px]">
-            <div className={`p-2 h-[120px]`}>
-              <Rating w={"w-5"} h={"h-5"} rating={movie.vote_average} />
-              <p className={`text-sm pt-2 font-bold`}>
-                {movie.title === undefined ? movie.name : movie.title}
-              </p>
-              <p className={`text-sm pt-2 opacity-70`}>
-                {movie.release_date === undefined
-                  ? movie.first_air_date
-                  : movie.release_date}
-              </p>
-            </div>
-          </Item>
-        </div>
-      ))}
+    <div className="flex flex-wrap justify-start min-w-[200px] max-w-[1400px] w-[1200px]">
+      <Item />
     </div>
   );
 }

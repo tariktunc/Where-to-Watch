@@ -10,7 +10,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon, faUniversalAccess } from "@fortawesome/free-solid-svg-icons";
 // Components
 import Country from "@/Components/Country/Country";
-import { Item } from "@/Components/Items/Item/Item";
 
 export default function Navbar() {
   const [showMovies, setShowMovies] = useState(false);
@@ -45,7 +44,7 @@ export default function Navbar() {
     },
     tv: {
       name: "TV Show",
-      url: "tv",
+      url: "tvshow",
       submenu: {
         popular: {
           name: "Popular",
@@ -77,14 +76,14 @@ export default function Navbar() {
     },
   };
 
-  function Movie(props) {
+  function Routing(props) {
     const submenu = props.item.submenu;
     return (
       <ul className="m-3 transition-all duraction-300">
         <li
           onMouseEnter={() => props.setShowItem(true)}
           onMouseLeave={() => props.setShowItem(false)}>
-          <Link className="hover:opacity-90" href={props.item.url}>
+          <Link className="hover:opacity-90" href={`/${props.item.url}`}>
             {props.item.name}
           </Link>
         </li>
@@ -96,12 +95,16 @@ export default function Navbar() {
               backgroundColor: theme !== "light" ? "black" : "white",
               color: theme !== "light" ? "white" : "black",
             }}
-            className="absolute rounded-md pt-2  w-48">
+            className="absolute rounded-md pt-2 w-48 zIndex-50">
             {Object.keys(submenu).map((key) => (
               <li
                 key={key}
-                className="hover:bg-blue-100 hover:text-black p-2 cursor-pointer rounded-md">
-                <Link href={submenu[key].url}>{submenu[key].name}</Link>{" "}
+                className="hover:bg-blue-100 hover:text-black py-1 cursor-pointer rounded-md">
+                <Link
+                  className="block p-2"
+                  href={`/${props.item.url}/${submenu[key].url}`}>
+                  {submenu[key].name}
+                </Link>
               </li>
             ))}
           </ul>
@@ -130,17 +133,17 @@ export default function Navbar() {
         </Link>
       </div>
       <div id="menu" className="flex">
-        <Movie
+        <Routing
           item={pageRouter.movie}
           showItem={showMovies}
           setShowItem={setShowMovies}
         />
-        <Movie
+        <Routing
           item={pageRouter.tv}
           showItem={showTVShows}
           setShowItem={setShowTVShows}
         />
-        <Movie
+        <Routing
           item={pageRouter.people}
           showItem={showPeople}
           setShowItem={setShowPeople}
