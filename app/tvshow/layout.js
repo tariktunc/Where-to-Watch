@@ -3,7 +3,7 @@ export const metadata = {
   title: "Tv Show",
   description: "Movie Description",
 };
-export default function Home({ children, params }) {
+export default function Home({ children }) {
   return (
     <>
       <Navbar />

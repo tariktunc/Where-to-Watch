@@ -132,7 +132,7 @@ export default function Navbar() {
           MOVIE
         </Link>
       </div>
-      <div id="menu" className="flex">
+      <div id="menu" className="flex z-50">
         <Routing
           item={pageRouter.movie}
           showItem={showMovies}

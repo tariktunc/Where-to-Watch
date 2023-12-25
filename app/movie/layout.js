@@ -1,9 +1,9 @@
 import Navbar from "@/Components/common/Navbar/Navbar";
 export const metadata = {
-  title: "Movie",
+  title: "Tv Show",
   description: "Movie Description",
 };
-export default function Home({ children, params }) {
+export default function Home({ children }) {
   return (
     <>
       <Navbar />

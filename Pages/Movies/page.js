@@ -5,7 +5,7 @@ import WhereToWatch from "@/Components/WhereToWatch/WhereToWatch";
 import { fetchUrlTheMovieDb } from "@/utils/apiService";
 import { useSelector } from "react-redux";
 
-export default function Home({ params }) {
+export default function Home() {
   const language = useSelector((state) => state.languageSetting);
   const isLanguage = `${language.toLowerCase()}-${language}`;
   const [movies, setMovies] = useState([]);

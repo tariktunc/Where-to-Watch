@@ -6,7 +6,7 @@ import Item from "@/Components/Items/Item/Item";
 import Rating from "@/Components/common/Rating/rating";
 import { fetchUrlTheMovieDb } from "@/utils/apiService";
 
-export default function Popular({ status }) {
+export default function Lists({ status }) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
@@ -15,7 +15,7 @@ export default function Popular({ status }) {
   const isLanguage = `${language.toLowerCase()}-${language}`;
 
   useEffect(() => {
-    const url = `https://api.themoviedb.org/3/movie/popular?language=${isLanguage}&page=${page}`;
+    const url = `https://api.themoviedb.org/3/movie/now_playing?language=${isLanguage}&page=${page}`;
     const fetchData = async () => {
       try {
         const trendingMovies = await fetchUrlTheMovieDb(url);

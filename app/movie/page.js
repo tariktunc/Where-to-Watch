@@ -1,5 +1,6 @@
 import Movies from "@/Pages/Movies/page";
 
-export default function page({ params }) {
+
+export default function Home() {
   return <Movies />;
 }
