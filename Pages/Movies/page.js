@@ -6,7 +6,7 @@ export default function Home({ params }) {
     <>
       <div className="flex justify-center">
         <WhereToWatch />
-        <VerticalItem urlStatus={"day"} status={"movie"} />
+        <VerticalItem urlStatus={"week"} status={"movie"} />
       </div>
     </>
   );

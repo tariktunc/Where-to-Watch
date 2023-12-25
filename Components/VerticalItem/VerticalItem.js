@@ -9,6 +9,8 @@ export default function Home({ urlStatus, status }) {
   const isLanguage = `${language.toLowerCase()}-${language}`;
 
   const [movies, setMovies] = useState([]);
+
+  console.log(movies);
   const imageUrl = "https://image.tmdb.org/t/p/w500";
 
   useEffect(() => {
