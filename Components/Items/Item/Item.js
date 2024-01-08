@@ -1,37 +1,27 @@
-import React from "react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import Rating from "@/Components/common/Rating/rating";
 
-export default function Item({
-  url,
-  urlStatus,
-  altName,
-  imageWidth,
-  children,
-}) {
-  const router = useRouter();
-
-  const handleClick = () => {
-    router.push(`${urlStatus}/${altName}`);
-  };
-  const mainStyles = `m-4 ${imageWidth} h-[full] bg-white shadow shadow-gray-600/30 rounded-xl`;
+export default function Item(props) {
   return (
-    <div className={mainStyles}>
+    <div className="w-[200px] h-[450px] bg-white m-3 rounded-md shadow-lg shadow-gray-200 drop-shadow-md ">
       <Image
-        onClick={handleClick}
-        width={100}
-        height={100}
-        sizes="100vw"
-        style={{ width: "100%", height: "100%" }} // optional
-        className="rounded-t-md cursor-pointer"
+        onClick={props.onClick}
+        className="rounded-t-md h-[300px]"
         src={
-          url !== null && url !== undefined
-            ? url
-            : "https://loading.io/asset/705446"
+          props.imageUrl ||
+          "https://image.tmdb.org/t/p/w500/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg"
         }
-        alt={altName}
+        width={1000}
+        height={1000}
+        alt={props.altName}
       />
-      {children}
+      <div className="p-2">
+        <Rating rating={props.rating} w="w-[20px]" h="h-[20px]" />
+      </div>
+      <div className="p-2">
+        <h2 className="font-bold break-words cursor-pointer">{props.name}</h2>
+        <p className="text-sm opacity-70 mt-1">{props.release}</p>
+      </div>
     </div>
   );
 }

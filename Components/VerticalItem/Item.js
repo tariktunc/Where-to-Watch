@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Rating from "../common/Rating/rating";
+import Rating from "@/Components/common/Rating/rating";
 
 export default function Item(props) {
   return (

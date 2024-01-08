@@ -3,18 +3,18 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 // import Item from "@/Components/Items/Item/Item";
-import Item from "@/Components/VerticalItem/Item";
-import Rating from "@/Components/common/Rating/rating";
+import Item from "@/Components/Items/Item/Item";
 import { fetchUrlTheMovieDb } from "@/utils/apiService";
+import { useRouter } from "next/navigation";
 
 export default function Lists({ status, lists }) {
-  console.log(status);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const imageUrl = "https://image.tmdb.org/t/p/w500";
   const language = useSelector((state) => state.languageSetting);
   const isLanguage = `${language.toLowerCase()}-${language}`;
+  const router = useRouter();
 
   useEffect(() => {
     const url = `https://api.themoviedb.org/3/${status}/${lists}?language=${isLanguage}&page=${page}`;
@@ -88,6 +88,11 @@ export default function Lists({ status, lists }) {
           data.map((item, index) => (
             <div key={index} className="w-60 h-auto">
               <Item
+                onClick={() =>
+                  router.push(
+                    `/${status !== "movie" ? "tvshow" : status}/${item.id}`
+                  )
+                }
                 key={item.id}
                 name={item.name || item.title}
                 imageUrl={`${imageUrl}${

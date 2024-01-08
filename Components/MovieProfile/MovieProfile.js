@@ -25,14 +25,15 @@ export default function MovieProfile({ params, status }) {
   const [castData, setCastData] = useState(null);
   const [watchProviders, setWatchProviders] = useState(null);
   const [loading, setLoading] = useState(true);
+  // Redux
   const language = useSelector((state) => state.languageSetting);
   const isLanguage = `${language.toLowerCase()}-${language}`;
 
-  const fetchProfileDataUrl = `https://api.themoviedb.org/3/${status}/${params.profile}?language=${isLanguage}`;
-  const fetchProfileDataUrlDefault = `https://api.themoviedb.org/3/${status}/${params.profile}?language=en-US`;
-  const fetchImageDataUrl = `https://api.themoviedb.org/3/${status}/${params.profile}/images`;
-  const fetchCastDataUrl = `https://api.themoviedb.org/3/${status}/${params.profile}/credits?language=${isLanguage}`;
-  const fetchWatchProvidersUrl = `https://api.themoviedb.org/3/${status}/${params.profile}/videos?language=${isLanguage}`;
+  const fetchProfileDataUrl = `https://api.themoviedb.org/3/${status}/${params}?language=${isLanguage}`;
+  const fetchProfileDataUrlDefault = `https://api.themoviedb.org/3/${status}/${params}?language=en-US`;
+  const fetchImageDataUrl = `https://api.themoviedb.org/3/${status}/${params}/images`;
+  const fetchCastDataUrl = `https://api.themoviedb.org/3/${status}/${params}/credits?language=${isLanguage}`;
+  const fetchWatchProvidersUrl = `https://api.themoviedb.org/3/${status}/${params}/videos?language=${isLanguage}`;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -143,7 +144,7 @@ export default function MovieProfile({ params, status }) {
             </React.Fragment>
           ) : (
             <p>
-              We don't have any cast added to this TV Show. You can help by
+              We don&apos;t have any cast added to this TV Show. You can help by
               adding some!
             </p>
           )}
