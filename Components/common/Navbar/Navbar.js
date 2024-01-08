@@ -83,7 +83,9 @@ export default function Navbar() {
         <li
           onMouseEnter={() => props.setShowItem(true)}
           onMouseLeave={() => props.setShowItem(false)}>
-          <Link className="hover:opacity-90" href={`/${props.item.url}`}>
+          <Link
+            className="hover:opacity-90"
+            href={`/${props.item.url}/popular`}>
             {props.item.name}
           </Link>
         </li>
