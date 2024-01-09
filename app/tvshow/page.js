@@ -1,5 +1,11 @@
-import Tv from "@/Pages/Tv/page";
+import WhereToWatch from "@/Components/WhereToWatch/WhereToWatch";
+import Lists from "@/Components/Items/Lists/Lists";
 
 export default function Home() {
-  return <Tv />;
+  return (
+    <div className="flex justify-center">
+      <WhereToWatch />
+      <Lists status={"tv"} lists={"popular"} />
+    </div>
+  );
 }

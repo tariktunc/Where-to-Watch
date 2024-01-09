@@ -1,5 +1,11 @@
-import People from "@/Pages/People/page";
+import WhereToWatch from "@/Components/WhereToWatch/WhereToWatch";
+import Lists from "@/Components/Items/Lists/Lists";
 
 export default function Home() {
-  return <People />;
+  return (
+    <div className="flex justify-center">
+      <WhereToWatch />
+      <Lists status={"person"} lists={"popular"} />
+    </div>
+  );
 }

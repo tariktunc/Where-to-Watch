@@ -20,16 +20,22 @@ export default function DiscoverSection() {
             </h2>
           </div>
           <div id="discoverSearch" className=" w-3/4">
-            <label className="bg-white rounded-3xl flex">
+            <form
+              action={"/search"}
+              method="GET"
+              className="bg-white rounded-3xl flex">
               <input
                 type="text"
+                name="query"
                 placeholder="Search for a movie, tv show, coming soon person"
                 className="h-14  rounded-3xl w-full text-black text-opacity-60 px-5 border-0 outline-none"
               />
-              <button className="w-40 h-14 rounded-r-3xl bg-[#00050d] hover:bg-[#00050de1] text-white ">
+              <button
+                type="submit"
+                className="w-40 h-14 rounded-r-3xl bg-[#00050d] hover:bg-[#00050de1] text-white ">
                 Search
               </button>
-            </label>
+            </form>
           </div>
         </div>
       </div>

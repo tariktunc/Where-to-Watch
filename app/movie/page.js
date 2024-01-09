@@ -1,6 +1,11 @@
-import Movies from "@/Pages/Movies/page";
-
+import WhereToWatch from "@/Components/WhereToWatch/WhereToWatch";
+import Lists from "@/Components/Items/Lists/Lists";
 
 export default function Home() {
-  return <Movies />;
+  return (
+    <div className="flex justify-center">
+      <WhereToWatch />
+      <Lists status={"movie"} lists={"popular"} />
+    </div>
+  );
 }
