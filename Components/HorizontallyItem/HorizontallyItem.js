@@ -31,7 +31,9 @@ export default function Home({ urlStatus, status }) {
     return moviesData.map((item, index) => (
       <Image
         key={index}
-        onClick={() => router.push(`${status}/${item.id}`)}
+        onClick={() =>
+          router.push(`${status === "tv" ? "tvshow" : status}/${item.id}`)
+        }
         className="rounded-xl cursor-pointer w-[200px] h-[300px] m-2 scale-100 hover:scale-105 transition-all duraction-500"
         src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
         width={200}

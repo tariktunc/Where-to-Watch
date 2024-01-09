@@ -6,7 +6,7 @@ export default function Item(props) {
     <div className="w-[200px] h-[450px] bg-white m-3 rounded-md shadow-lg shadow-gray-200 drop-shadow-md ">
       <Image
         onClick={props.onClick}
-        className="rounded-t-md h-[300px]"
+        className="rounded-t-md h-[300px] cursor-pointer"
         src={
           props.imageUrl ||
           "https://image.tmdb.org/t/p/w500/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg"

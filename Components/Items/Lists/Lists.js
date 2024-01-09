@@ -90,7 +90,7 @@ export default function Lists({ status, lists }) {
               <Item
                 onClick={() =>
                   router.push(
-                    `/${status !== "movie" ? "tvshow" : status}/${item.id}`
+                    `/${status === "tv" ? "tvshow" : status}/${item.id}`
                   )
                 }
                 key={item.id}
