@@ -2,7 +2,6 @@
 import Image from "next/image";
 import styles from "./style.module.css";
 import { fetchUrlTheMovieDb } from "@/utils/apiService";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useSelector } from "react-redux";
@@ -10,26 +9,69 @@ import { useSelector } from "react-redux";
 export default function Home({ params }) {
   const searchParams = useSearchParams();
   const query = searchParams.get("query");
-  const router = useRouter();
   const language = useSelector((state) => state.languageSetting);
-  console.log(language);
   const [loading, setLoading] = useState(true);
   const [results, setResults] = useState([]);
+  const isLanguage = `${language.toLowerCase()}-${language}`;
 
-  const fetchData = async (query) => {
-    const url = `https://api.themoviedb.org/3/search/collection?query=${query}&language=${language.toLowerCase()}-${language}&page=1`;
-    console.log(url);
-    try {
-      const discoverSearch = await fetchUrlTheMovieDb(url);
-      setResults(discoverSearch.data.results);
-      setLoading(false);
-    } catch (error) {
-      console.error("Veri yüklenirken bir hata oluştu.", error);
-    }
-  };
+  const collection = `https://api.themoviedb.org/3/search/collection?query=${query}&language=${isLanguage}&page=1`;
+  const movie = `https://api.themoviedb.org/3/search/movie?query=${query}&language=${isLanguage}&page=1`;
+  const tv = `https://api.themoviedb.org/3/search/tv?query=${query}&language=${isLanguage}&page=1`;
+  const person = `https://api.themoviedb.org/3/search/person?query=${query}&language=${isLanguage}&page=1`;
 
   useEffect(() => {
-    fetchData(query);
+    const collectionData = async () => {
+      try {
+        const data = await fetchUrlTheMovieDb(collection);
+        if (data.status === 200) {
+          setResults(data.data.results);
+        }
+      } catch (error) {
+        console.error("Veri yüklenirken bir hata oluştu.", error);
+      }
+    };
+    const movieData = async () => {
+      try {
+        const data = await fetchUrlTheMovieDb(movie);
+        if (data.status === 200) {
+          setResults(data.data.results);
+        }
+      } catch (error) {
+        console.error("Veri yüklenirken bir hata oluştu.", error);
+      }
+    };
+
+    const tvData = async () => {
+      try {
+        const data = await fetchUrlTheMovieDb(tv);
+        if (data.status === 200) {
+          setResults(data.data.results);
+        }
+      } catch (error) {
+        console.error("Veri yüklenirken bir hata oluştu.", error);
+      }
+    };
+
+    const personData = async () => {
+      try {
+        const data = await fetchUrlTheMovieDb(person);
+        if (data.status === 200) {
+          setResults(data.data.results);
+        }
+      } catch (error) {}
+    };
+
+    const fetchDataAsync = async () => {
+      await Promise.all([
+        collectionData(),
+        movieData(),
+        tvData(),
+        personData(),
+      ]);
+      setLoading(false);
+    };
+
+    fetchDataAsync();
   }, [query, language]);
   function Card(props) {
     return (
@@ -57,27 +99,27 @@ export default function Home({ params }) {
       </div>
     );
   }
+
+  // gelen istekler wheretowatch gibi da olduug listelenecek ve hangi seççenek seçildi ise o seçenek ekranda gösterilecektir. buna göre çalışma yapılacaktır.
   return (
-    <>
-      <section className="flex flex-col justify-center items-center m-2">
-        {loading ? (
-          <p>Loading...</p>
-        ) : (
-          <>
-            <div className="flex flex-col justify-center items-center">
-              {results.map((result) => (
-                <Card
-                  key={result.id}
-                  title={result.name}
-                  id={result.id}
-                  overview={result.overview}
-                  src={result.poster_path}
-                />
-              ))}
-            </div>
-          </>
-        )}
-      </section>
-    </>
+    <section className="flex flex-col justify-center items-center m-2">
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
+        <>
+          <div className="flex flex-col justify-center items-center">
+            {results.map((result) => (
+              <Card
+                key={result.id}
+                title={result.name}
+                id={result.id}
+                overview={result.overview}
+                src={result.poster_path}
+              />
+            ))}
+          </div>
+        </>
+      )}
+    </section>
   );
 }
