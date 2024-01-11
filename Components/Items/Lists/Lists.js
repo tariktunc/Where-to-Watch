@@ -28,7 +28,7 @@ export default function Lists({ status, lists }) {
       }
     };
     fetchData();
-  }, [isLanguage, page]);
+  }, [isLanguage, page, status, lists]);
 
   function PaginationChange() {
     return (
