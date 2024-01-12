@@ -13,117 +13,31 @@ import { faMoon, faUniversalAccess } from "@fortawesome/free-solid-svg-icons";
 import Country from "@/Components/Country/Country";
 
 export default function Navbar() {
-  const [showMovies, setShowMovies] = useState(false);
-  const [showTVShows, setShowTVShows] = useState(false);
-  const [showPeople, setShowPeople] = useState(false);
+  const [activeMenu, setActiveMenu] = useState(null);
+  const [activeMobileMenu, setActiveMobileMenu] = useState(false);
   const dispatch = useDispatch();
   const language = useSelector((state) => state.languageSetting);
   const theme = useSelector((state) => state.theme.theme);
 
-  const pageRouter = {
-    movie: {
-      name: "Movie",
-      url: "movie",
-      submenu: {
-        popular: {
-          name: "Popular",
-          url: "popular",
-        },
-        nowPlaying: {
-          name: "Now Playing",
-          url: "now_playing",
-        },
-        upcoming: {
-          name: "Upcoming",
-          url: "upcoming",
-        },
-        topRated: {
-          name: "Top Rated",
-          url: "top_rated",
-        },
-      },
-    },
-    tv: {
-      name: "TV Show",
-      url: "tvshow",
-      submenu: {
-        popular: {
-          name: "Popular",
-          url: "popular",
-        },
-        airingToday: {
-          name: "Airing Today",
-          url: "airing_today",
-        },
-        onTv: {
-          name: "On Tv",
-          url: "on_the_air",
-        },
-        topRated: {
-          name: "Top Rated",
-          url: "top_rated",
-        },
-      },
-    },
-    people: {
-      name: "People",
-      url: "people",
-      submenu: {
-        popular: {
-          name: "Popular",
-          url: "popular",
-        },
-      },
-    },
+  const handleClick = () => {
+    setActiveMobileMenu(!activeMobileMenu);
   };
 
-  function Routing(props) {
-    const submenu = props.item.submenu;
-    return (
-      <ul className="m-3 transition-all duraction-300">
-        <li
-          onMouseEnter={() => props.setShowItem(true)}
-          onMouseLeave={() => props.setShowItem(false)}>
-          <Link
-            className="hover:opacity-90"
-            href={`/${props.item.url}/popular`}>
-            {props.item.name}
-          </Link>
-        </li>
-        {props.showItem && (
-          <ul
-            onMouseEnter={() => props.setShowItem(true)}
-            onMouseLeave={() => props.setShowItem(false)}
-            style={{
-              backgroundColor: theme !== "light" ? "black" : "white",
-              color: theme !== "light" ? "white" : "black",
-            }}
-            className="absolute rounded-md pt-2 w-48 zIndex-50">
-            {Object.keys(submenu).map((key) => (
-              <li
-                key={key}
-                className="hover:bg-blue-100 hover:text-black py-1 cursor-pointer rounded-md">
-                <Link
-                  className="block p-2"
-                  href={`/${props.item.url}/${submenu[key].url}`}>
-                  {submenu[key].name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        )}
-      </ul>
-    );
-  }
+  const handleMouseOver = (menuId) => {
+    console.log(menuId);
+    setActiveMenu(menuId);
+  };
+
+  const handleMouseOut = () => {
+    setActiveMenu(null);
+  };
 
   const handleCountryChange = (e) => {
     dispatch(setLanguage(e.target.value));
   };
 
-  //! Navbar da mouse üzerine geldiğide hidden kaldırılması ayarları yapılacaktır. hamburger menu içinde ayar yapılacaktır.
-
   return (
-    <nav className="bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700">
+    <nav className="dark border-gray-200sss bg-gray-900 border-gray-700">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         {/* LOGO */}
         <Link
@@ -136,15 +50,19 @@ export default function Navbar() {
             className="h-8"
             alt="Flowbite Logo"
           />
-          <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
+          <span className=" self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
             BLAKFY MOVIE
           </span>
         </Link>
+
         {/* HAMBURGER MENU BUTTON */}
         <button
+          onClick={() => {
+            handleClick();
+          }}
           data-collapse-toggle="navbar-dropdown"
           type="button"
-          className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+          className=" inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
           aria-controls="navbar-dropdown"
           aria-expanded="false">
           <span className="sr-only">Open main menu</span>
@@ -163,15 +81,22 @@ export default function Navbar() {
             />
           </svg>
         </button>
+
         {/* ROUTER LINK */}
-        <div className="hidden  w-full md:block md:w-auto" id="navbar-dropdown">
-          <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+        <div
+          className={`${
+            activeMobileMenu ? "hidden" : ""
+          } w-full md:block md:w-auto`}
+          id="navbar-dropdown">
+          <ul className=" flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
             {/* MOVİE */}
-            <li>
+            <li
+              onMouseOver={() => handleMouseOver("movie")}
+              onMouseOut={handleMouseOut}>
               <button
                 id="dropdownNavbarLink"
                 data-dropdown-toggle="dropdownNavbar"
-                className="flex items-center justify-between w-full py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-white md:dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent">
+                className=" flex items-center justify-between w-full py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-white md:dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent">
                 <Link href="/movie/popular">Movie</Link>
                 {/* <---- DROPDOWN MENU ----> */}
                 <svg
@@ -191,15 +116,15 @@ export default function Navbar() {
               </button>
               {/* <---- DROPDOWN MENU ----> */}
               <div
-                id="dropdownNavbar"
-                className="z-10 hidden  font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+                style={{ display: activeMenu === "movie" ? "block" : "none" }}
+                className=" z-10 absolute  font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
                 <ul
-                  className="py-2 text-sm text-gray-700 dark:text-gray-400"
+                  className=" py-2 text-sm text-gray-700 dark:text-gray-400"
                   aria-labelledby="dropdownLargeButton">
                   <li>
                     <Link
                       href="/movie/popular"
-                      className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                      className=" block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                       Popular
                     </Link>
                   </li>
@@ -228,11 +153,13 @@ export default function Navbar() {
               </div>
             </li>
             {/* TV SHOW */}
-            <li>
+            <li
+              onMouseOver={() => handleMouseOver("tvshow")}
+              onMouseOut={handleMouseOut}>
               <button
                 id="dropdownNavbarLink"
                 data-dropdown-toggle="dropdownNavbar"
-                className="flex items-center justify-between w-full py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-white md:dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent">
+                className=" flex items-center justify-between w-full py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-white md:dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent">
                 <Link href="/tvshow/popular">TV Show</Link>
                 {/* <---- DROPDOWN MENU ----> */}
                 <svg
@@ -252,36 +179,37 @@ export default function Navbar() {
               </button>
               {/* <---- DROPDOWN MENU ----> */}
               <div
+                style={{ display: activeMenu === "tvshow" ? "block" : "none" }}
                 id="dropdownNavbar"
-                className="z-10 hidden  font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+                className=" z-10 absolute  font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
                 <ul
-                  className="py-2 text-sm text-gray-700 dark:text-gray-400"
+                  className=" py-2 text-sm text-gray-700 dark:text-gray-400"
                   aria-labelledby="dropdownLargeButton">
                   <li>
                     <Link
                       href="/tvshow/popular"
-                      className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                      className=" block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                       Popular
                     </Link>
                   </li>
                   <li>
                     <Link
                       href="/tvshow/now_playing"
-                      className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                      className=" block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                       Airing Today
                     </Link>
                   </li>
                   <li>
                     <Link
                       href="/tvshow/upcoming"
-                      className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                      className=" block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                       On The Air
                     </Link>
                   </li>
                   <li>
                     <Link
                       href="/tvshow/top_rated"
-                      className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                      className=" block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                       Top Rated
                     </Link>
                   </li>
@@ -289,11 +217,13 @@ export default function Navbar() {
               </div>
             </li>
             {/* PEOPLE */}
-            <li>
+            <li
+              onMouseOver={() => handleMouseOver("people")}
+              onMouseOut={handleMouseOut}>
               <button
                 id="dropdownNavbarLink"
                 data-dropdown-toggle="dropdownNavbar"
-                className="flex items-center justify-between w-full py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-white md:dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent">
+                className="  flex items-center justify-between w-full py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-white md:dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent">
                 <Link href="/people/popular">People</Link>
                 {/* <---- DROPDOWN MENU ----> */}
                 <svg
@@ -313,8 +243,9 @@ export default function Navbar() {
               </button>
               {/* <---- DROPDOWN MENU ----> */}
               <div
+                style={{ display: activeMenu === "people" ? "block" : "none" }}
                 id="dropdownNavbar"
-                className="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+                className="z-10 absolute font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
                 <ul
                   className="py-2 text-sm text-gray-700 dark:text-gray-400"
                   aria-labelledby="dropdownLargeButton">
@@ -327,6 +258,32 @@ export default function Navbar() {
                   </li>
                 </ul>
               </div>
+            </li>
+
+            {/* DARK MODE */}
+            <li className='flex'>
+              <FontAwesomeIcon
+                onClick={() => dispatch(toggleTheme())}
+                className=" flex items-center justify-between w-full py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-white md:dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent"
+                icon={faMoon}
+                size="2xl"
+              />
+              <FontAwesomeIcon
+                className=" items-center justify-between w-full py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-white md:dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent"
+                icon={faUniversalAccess}
+                size="2xl"
+              />
+            </li>
+
+            {/* Country */}
+            <li className="flex justify-center items-center">
+            <p className="py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-white md:dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent">
+                {language}
+              </p>
+              <Country
+                handleCountryChange={handleCountryChange}
+                language={language}
+              />
             </li>
           </ul>
         </div>

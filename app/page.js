@@ -5,9 +5,7 @@ import DiscoverSection from "@/Components/DiscoverSection/DiscoverSection";
 export default function Home() {
   return (
     <>
-      <div>
-        <Navbar />
-      </div>
+      <Navbar />
       <DiscoverSection />
       <div className="flex flex-col items-center">
         <HorizontallyItem urlStatus={"day"} status={"movie"} />
