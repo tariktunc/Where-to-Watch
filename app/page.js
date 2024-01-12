@@ -7,11 +7,13 @@ export default function Home() {
     <>
       <Navbar />
       <DiscoverSection />
-      <div className="flex flex-col items-center">
-        <HorizontallyItem urlStatus={"day"} status={"movie"} />
-        <HorizontallyItem urlStatus={"day"} status={"tv"} />
-        <HorizontallyItem urlStatus={"week"} status={"movie"} />
-        <HorizontallyItem urlStatus={"week"} status={"tv"} />
+      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+        <div className="flex flex-col">
+          <HorizontallyItem urlStatus={"day"} status={"movie"} />
+          <HorizontallyItem urlStatus={"day"} status={"tv"} />
+          <HorizontallyItem urlStatus={"week"} status={"movie"} />
+          <HorizontallyItem urlStatus={"week"} status={"tv"} />
+        </div>
       </div>
     </>
   );

@@ -44,14 +44,12 @@ export default function Home({ urlStatus, status }) {
   }
 
   return (
-    <div>
-      <div className="flex flex-col justify-start w-[1200px] ">
-        <p className="my-2 text-xl font-bold">
-          TOP {urlStatus.toUpperCase()} {status.toUpperCase()}
-        </p>
-        <div className="flex justify-start items-center overflow-x-auto custom-scrollbar">
-          {<TopList />}
-        </div>
+    <div className="flex flex-col justify-start">
+      <p className="my-2 text-xl font-bold">
+        TOP {urlStatus.toUpperCase()} {status.toUpperCase()}
+      </p>
+      <div className="flex justify-start items-center overflow-x-auto custom-scrollbar">
+        {<TopList />}
       </div>
     </div>
   );

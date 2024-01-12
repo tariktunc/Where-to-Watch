@@ -1,12 +1,9 @@
-
-const Person = () => {
-
-
+import Link from "next/link";
+import Image from "next/image";
+export default function Person() {
   return (
     <div>
-      <p>person profile</p>
+      <h1>Person Page</h1>
     </div>
   );
-};
-
-export default Person;
+}

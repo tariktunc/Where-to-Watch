@@ -5,7 +5,6 @@ export const metadata = {
   description: "Movie Description",
 };
 
-
 export default function Home({ children }) {
   return (
     <>

@@ -10,7 +10,7 @@ export default function RootLayout({ children }) {
   return (
     <Provider store={stores}>
       <html lang="en" className={fontName.className}>
-        <body>{children}</body>
+        <body className="dark">{children}</body>
       </html>
     </Provider>
   );
