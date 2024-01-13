@@ -23,7 +23,6 @@ export default function Home({ urlStatus, status }) {
         console.error("HorizontallyItem.js => fetchData => ", error);
       }
     };
-
     fetchData();
   }, [isLanguage, urlStatus, status]);
 
@@ -34,21 +33,21 @@ export default function Home({ urlStatus, status }) {
         onClick={() =>
           router.push(`${status === "tv" ? "tvshow" : status}/${item.id}`)
         }
-        className="rounded-xl cursor-pointer w-[200px] h-[300px] m-2 scale-100 hover:scale-105 transition-all duraction-500"
+        className="rounded-xl cursor-pointer w-[200px] h-[200px] md:h-[300px]  m-2 scale-100 hover:scale-105 transition-all duraction-500"
         src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
-        width={200}
-        height={300}
+        width={100}
+        height={100}
         alt={item.title || item.name}
       />
     ));
   }
 
   return (
-    <div className="flex flex-col justify-start">
-      <p className="my-2 text-xl font-bold">
+    <div className="flex flex-col justify-start ">
+      <p className="my-2 text-xl font-bold text-black dark:text-white">
         TOP {urlStatus.toUpperCase()} {status.toUpperCase()}
       </p>
-      <div className="flex justify-start items-center overflow-x-auto custom-scrollbar">
+      <div className="flex justify-start items-center overflow-x-auto custom-scrollbar h-[250px] md:h-[350px]">
         {<TopList />}
       </div>
     </div>

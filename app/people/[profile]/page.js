@@ -19,10 +19,5 @@ export default function Page({ params }) {
     }
   };
 
-  return (
-    <div className="flex justify-center">
-      <WhereToWatch />
-      {renderContent()}
-    </div>
-  );
+  return <>{renderContent()}</>;
 }

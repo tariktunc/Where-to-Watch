@@ -1,5 +1,3 @@
-// Buradaki errorPage calismamaktadir. MovieProfile icerisindeki API istekleri bu sayfaya alinacak, API isteklerinin status`u
-// gozden gecirilecek ve sayfa ciktilari ona gore donecektir.
 import Error from "@/Components/common/Error/page";
 import Lists from "@/Components/Items/Lists/Lists";
 import WhereToWatch from "@/Components/WhereToWatch/WhereToWatch";
@@ -9,39 +7,20 @@ export const metadata = {
   description: "Movie Description",
 };
 export default function Page({ params }) {
+  metadata.title = `Movie - ${params.profile}`;
   const renderContent = () => {
     switch (params.profile) {
       case "popular":
-        return (
-          <div className="flex justify-center">
-            <WhereToWatch />
-            <Lists status={"movie"} lists={"popular"} />
-          </div>
-        );
+        return <Lists status={"movie"} lists={"popular"} />;
         break;
       case "now_playing":
-        return (
-          <div className="flex justify-center">
-            <WhereToWatch />
-            <Lists status={"movie"} lists={"now_playing"} />
-          </div>
-        );
+        return <Lists status={"movie"} lists={"now_playing"} />;
         break;
       case "upcoming":
-        return (
-          <div className="flex justify-center">
-            <WhereToWatch />
-            <Lists status={"movie"} lists={"upcoming"} />
-          </div>
-        );
+        return <Lists status={"movie"} lists={"upcoming"} />;
         break;
       case "top_rated":
-        return (
-          <div className="flex justify-center">
-            <WhereToWatch />
-            <Lists status={"movie"} lists={"top_rated"} />
-          </div>
-        );
+        return <Lists status={"movie"} lists={"top_rated"} />;
         break;
       default:
         // Check if the profile is a number between 1 and 2147483647

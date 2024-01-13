@@ -2,9 +2,10 @@
 // React and NextJS
 import Link from "next/link";
 import React, { useState } from "react";
+import Image from "next/image";
+// Redux
 import { useSelector, useDispatch } from "react-redux";
 import { setLanguage } from "@/stores/Slices/languageSettingSlice";
-import Image from "next/image";
 import { toggleTheme } from "@/stores/Slices/ThemeSlice";
 // FontAwesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,9 +16,9 @@ import Country from "@/Components/Country/Country";
 export default function Navbar() {
   const [activeMenu, setActiveMenu] = useState(null);
   const [activeMobileMenu, setActiveMobileMenu] = useState(false);
+  // Redux
   const dispatch = useDispatch();
   const language = useSelector((state) => state.languageSetting);
-  const theme = useSelector((state) => state.theme.theme);
 
   const handleClick = () => {
     setActiveMobileMenu(!activeMobileMenu);
@@ -33,6 +34,15 @@ export default function Navbar() {
 
   const handleCountryChange = (e) => {
     dispatch(setLanguage(e.target.value));
+  };
+
+  const handleThemeChange = () => {
+    dispatch(toggleTheme());
+  };
+
+  const handleAccessibilityChange = () => {
+    alert("Accessibility not active");
+    console.log("Accessibility not active");
   };
 
   return (
@@ -259,15 +269,17 @@ export default function Navbar() {
               </div>
             </li>
 
-            {/* DARK MODE */}
+            {/* DARK MODE AND ACCESSIBILITY */}
             <li>
               <div className="flex items-center py-2 px-3">
                 <FontAwesomeIcon
+                  onClick={handleThemeChange}
                   className="w-full px-2 h-8 dark:hover:bg-gray-700 md:dark:hover:bg-gray-900 md:hover:text-blue-500 rounded dark:text-white"
                   icon={faMoon}
                   size="2xl"
                 />
                 <FontAwesomeIcon
+                  onClick={handleAccessibilityChange}
                   className="w-full px-2 h-8 dark:hover:bg-gray-700 md:dark:hover:bg-gray-900 md:hover:text-blue-500 rounded dark:text-white"
                   icon={faUniversalAccess}
                   size="2xl"

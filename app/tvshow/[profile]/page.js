@@ -7,33 +7,13 @@ export default function Page({ params }) {
   const renderContent = () => {
     switch (params.profile) {
       case "popular":
-        return (
-          <div className="flex justify-center">
-            <WhereToWatch />
-            <Lists status={"tv"} lists={"popular"} />
-          </div>
-        );
+        return <Lists status={"tv"} lists={"popular"} />;
       case "airing_today":
-        return (
-          <div className="flex justify-center">
-            <WhereToWatch />
-            <Lists status={"tv"} lists={"airing_today"} />
-          </div>
-        );
+        return <Lists status={"tv"} lists={"airing_today"} />;
       case "on_the_air":
-        return (
-          <div className="flex justify-center">
-            <WhereToWatch />
-            <Lists status={"tv"} lists={"on_the_air"} />
-          </div>
-        );
+        return <Lists status={"tv"} lists={"on_the_air"} />;
       case "top_rated":
-        return (
-          <div className="flex justify-center">
-            <WhereToWatch />
-            <Lists status={"tv"} lists={"top_rated"} />
-          </div>
-        );
+        return <Lists status={"tv"} lists={"top_rated"} />;
       default:
         // Check if the profile is a number between 1 and 2147483647
         const profileNumber = parseInt(params.profile);

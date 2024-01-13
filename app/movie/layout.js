@@ -1,6 +1,6 @@
 import Navbar from "@/Components/common/Navbar/Navbar";
 export const metadata = {
-  title: "Tv Show",
+  title: "Movie",
   description: "Movie Description",
 };
 export default function Home({ children }) {
