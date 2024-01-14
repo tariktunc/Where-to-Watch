@@ -81,7 +81,7 @@ export default function Lists({ status, lists }) {
   return (
     <div className="xl:max-w-screen-2xl lg:max-w-screen-lg md:max-w-screen-md  mx-auto p-4 dark:bg-gray-900">
       <PaginationChange />
-      <div className="flex flex-wrap items-center justify-center">
+      <div className="flex flex-wrap items-start justify-center">
         {loading ? (
           <p>Loading...</p>
         ) : (
