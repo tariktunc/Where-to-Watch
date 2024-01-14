@@ -12,7 +12,7 @@ export default function Home({ params }) {
   const language = useSelector((state) => state.languageSetting);
   const [loading, setLoading] = useState(true);
   const [results, setResults] = useState([]);
-
+  console.log(results);
   const fetchData = async (url) => {
     try {
       const response = await fetchUrlTheMovieDb(url);
@@ -28,9 +28,9 @@ export default function Home({ params }) {
   useEffect(() => {
     const isLanguage = `${language.toLowerCase()}-${language}`;
     const urls = {
-      collection: `https://api.themoviedb.org/3/search/collection?query=${query}&language=${isLanguage}&page=1`,
       movie: `https://api.themoviedb.org/3/search/movie?query=${query}&language=${isLanguage}&page=1`,
       tv: `https://api.themoviedb.org/3/search/tv?query=${query}&language=${isLanguage}&page=1`,
+      collection: `https://api.themoviedb.org/3/search/collection?query=${query}&language=${isLanguage}&page=1`,
       person: `https://api.themoviedb.org/3/search/person?query=${query}&language=${isLanguage}&page=1`,
     };
 
@@ -45,25 +45,25 @@ export default function Home({ params }) {
     fetchAllData();
   }, [query, language]);
 
-  // gelen istekler wheretowatch gibi da olduug listelenecek ve hangi seççenek seçildi ise o seçenek ekranda gösterilecektir. buna göre çalışma yapılacaktır.e
   return (
-    <section className="flex flex-col justify-center items-center m-2">
+    <section className="max-w-screen-xl  items-center justify-center mx-auto p-4 dark:bg-gray-900 ">
       {loading ? (
         <>
           <Loading />
           <Loading />
           <Loading />
           <Loading />
+          <Loading />
         </>
       ) : (
-        <div className="flex flex-col justify-center items-center">
+        <div className="flex flex-wrap justify-center">
           {results.length === 0 && <h1>There is no result</h1>}
           {results.map((result) => (
             <Card
               key={result.id}
               title={result.name || result.title}
               overview={result.overview}
-              src={result.poster_path || result.profile_path}
+              src={result.poster_path || result.profile_path || null}
             />
           ))}
         </div>

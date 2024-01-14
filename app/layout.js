@@ -6,6 +6,7 @@ import stores from "@/stores/stores";
 
 const fontName = Rubik({ weight: "300", subsets: ["latin"] });
 
+
 export default function RootLayout({ children }) {
   return (
     <Provider store={stores}>

@@ -2,7 +2,6 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import styles from "../style.module.css";
 
 export default function Card(props) {
   function createParagraph(overview) {
@@ -26,30 +25,18 @@ export default function Card(props) {
   return (
     <Link
       href="#"
-      class="m-2 flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-      {props.src !== null ? (
-        <Image
-          className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg"
-          width={1000}
-          height={1000}
-          alt="alt"
-          src={`https://www.themoviedb.org/t/p/w94_and_h141_bestv2${props.src}`}
-        />
-      ) : (
-        <div className="bg-gray-200 w-full h-full flex justify-center rounded-l-md">
-          <Image
-            width={50}
-            height={50}
-            className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg"
-            src="/placeholder-image.svg"
-            alt="image description"
-          />
-        </div>
-      )}
-      <div class="flex flex-col justify-between p-4 leading-normal">
-        {props.title}
-        {createParagraph(props.overview)}
-      </div>
+      class="w-24 md:w-44 lg:w-52 h-36 md:h-72 lg:h-80 m-2 bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+      <Image
+        className="w-full h-full object-cover rounded-lg md:rounded-lg"
+        width={1000}
+        height={1000}
+        alt={props.title}
+        src={
+          props.src !== null
+            ? `https://www.themoviedb.org/t/p/w1280${props.src}`
+            : "/placeholder-image.svg"
+        }
+      />
     </Link>
   );
 }
