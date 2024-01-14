@@ -53,7 +53,7 @@ export default function Lists({ status, lists }) {
             </div>
           </button>
           <div className="flex flex-row items-center">
-            <p className="mx-2">{page}</p>
+            <p className="mx-2 dark:text-white">{page}</p>
           </div>
           <button
             onClick={() => setPage(page <= data.length ? page + 1 : page)}
@@ -79,29 +79,27 @@ export default function Lists({ status, lists }) {
   }
 
   return (
-    <div className="flex flex-wrap max-w-[1200px] w-[1000px] min-w-[500px] min-h-[1600px] mx-auto">
+    <div className="xl:max-w-screen-2xl lg:max-w-screen-lg md:max-w-screen-md  mx-auto p-4 dark:bg-gray-900">
       <PaginationChange />
-      <div className="flex flex-wrap">
+      <div className="flex flex-wrap items-center justify-center">
         {loading ? (
           <p>Loading...</p>
         ) : (
           data.map((item, index) => (
-            <div key={index} className="w-60 h-auto">
-              <Item
-                onClick={() =>
-                  router.push(
-                    `/${status === "tv" ? "tvshow" : status}/${item.id}`
-                  )
-                }
-                key={item.id}
-                name={item.name || item.title}
-                imageUrl={`${imageUrl}${
-                  item.poster_path || item.backdrop_path || item.profile_path
-                }`}
-                rating={item.vote_average || item.vote_count}
-                release={item.release_date || item.first_air_date}
-              />
-            </div>
+            <Item
+              onClick={() =>
+                router.push(
+                  `/${status === "tv" ? "tvshow" : status}/${item.id}`
+                )
+              }
+              key={item.id}
+              name={item.name || item.title}
+              src={`${imageUrl}${
+                item.poster_path || item.backdrop_path || item.profile_path
+              }`}
+              rating={item.vote_average || item.vote_count}
+              release={item.release_date || item.first_air_date}
+            />
           ))
         )}
       </div>
