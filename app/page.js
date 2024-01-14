@@ -9,7 +9,7 @@ export default function Home() {
 
   return (
     <div className={`${theme !== "dark" ? "dark" : ""} h-full w-full`}>
-      <div style={{ height: "100vh" }} className="dark:bg-gray-900">
+      <div className="dark:bg-gray-900">
         <Navbar />
         <DiscoverSection />
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 dark:bg-gray-900">

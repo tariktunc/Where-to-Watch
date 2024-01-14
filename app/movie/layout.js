@@ -1,13 +1,16 @@
+"use client";
 import Navbar from "@/Components/common/Navbar/Navbar";
-export const metadata = {
-  title: "Movie",
-  description: "Movie Description",
-};
+import { useSelector } from "react-redux";
+
 export default function Home({ children }) {
+  const theme = useSelector((state) => state.theme.theme);
+
   return (
-    <>
-      <Navbar />
-      {children}
-    </>
+    <div className={`${theme !== "dark" ? "dark" : ""}`}>
+      <div className="dark:bg-gray-900">
+        <Navbar />
+        {children}
+      </div>
+    </div>
   );
 }
