@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Rating from "@/Components/common/Rating/rating";
-import Item from "@/Components/Items/Item/Item";
+import Item from "@/Components/Items/Item";
 import { fetchUrlTheMovieDb } from "@/utils/apiService";
 import { useSelector } from "react-redux";
 export default function Home({ urlStatus, status }) {

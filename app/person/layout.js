@@ -1,6 +1,8 @@
 "use client";
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
+import Loading from "../search/Components/Loading";
+import { ErrorBoundary } from "next/dist/client/components/error-boundary";
 
 import Navbar from "@/Components/common/Navbar/Navbar";
 export default function Home({ children }) {
@@ -17,7 +19,9 @@ export default function Home({ children }) {
     <>
       <Navbar />
       <p className="dark:text-white">Person Layout Page</p>
-      {children}
+      <ErrorBoundary fallback={<Loading />}>
+        <React.Suspense fallback={<Loading />}>{children}</React.Suspense>
+      </ErrorBoundary>
     </>
   );
 }

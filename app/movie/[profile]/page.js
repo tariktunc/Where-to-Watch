@@ -1,13 +1,11 @@
+"use client";
+import React from "react";
+
 import Error from "@/Components/common/Error/page";
-import Lists from "@/Components/Items/Lists/Lists";
-import WhereToWatch from "@/Components/WhereToWatch/WhereToWatch";
+import Lists from "@/Components/Items/Lists";
 import MovieProfile from "@/Components/MovieProfile/MovieProfile";
-export const metadata = {
-  title: "Movie",
-  description: "Movie Description",
-};
+
 export default function Page({ params }) {
-  metadata.title = `Movie - ${params.profile}`;
   const renderContent = () => {
     switch (params.profile) {
       case "popular":

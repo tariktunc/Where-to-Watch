@@ -1,4 +1,4 @@
-import Lists from "@/Components/Items/Lists/Lists";
+import Lists from "@/Components/Items/Lists";
 import Error from "@/Components/common/Error/page";
 import WhereToWatch from "@/Components/WhereToWatch/WhereToWatch";
 import MovieProfile from "@/Components/MovieProfile/MovieProfile";

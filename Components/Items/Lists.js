@@ -3,9 +3,10 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 // import Item from "@/Components/Items/Item/Item";
-import Item from "@/Components/Items/Item/Item";
+import Item from "@/Components/Items/Item";
 import { fetchUrlTheMovieDb } from "@/utils/apiService";
 import { useRouter } from "next/navigation";
+import Loading from "@/Components/common/Loading/Loading";
 
 export default function Lists({ status, lists }) {
   const [data, setData] = useState([]);
@@ -83,7 +84,7 @@ export default function Lists({ status, lists }) {
       <PaginationChange />
       <div className="flex flex-wrap items-start justify-center">
         {loading ? (
-          <p>Loading...</p>
+          <Loading />
         ) : (
           data.map((item, index) => (
             <Item
