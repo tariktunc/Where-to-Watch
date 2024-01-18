@@ -2,9 +2,13 @@
 //React Hooks
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import CastTemplate from "@/Components/MovieProfile/Components/Cast/Template";
+import MediaTemplate from "@/Components/MovieProfile/Components/Media/Template";
+
 // Utils
 import { fetchUrlTheMovieDb } from "@/utils/apiService";
 // Components Page
+import LoadingPoster from "@/Components/MovieProfile/Components/Poster/LoadingPoster";
 const Poster = React.lazy(() =>
   import("@/Components/MovieProfile/Components/Poster/Poster")
 );
@@ -14,9 +18,8 @@ const Cast = React.lazy(() =>
 const Media = React.lazy(() =>
   import("@/Components/MovieProfile/Components/Media/Media")
 );
-
-import CastTemplate from "@/Components/MovieProfile/Components/Cast/Template";
-import MediaTemplate from "@/Components/MovieProfile/Components/Media/Template";
+import { ErrorBoundary } from "next/dist/client/components/error-boundary";
+import Error from "@/Components/common/Error/Error";
 
 export default function MovieProfile({ params, status }) {
   const [profileData, setProfileData] = useState(null);
@@ -25,6 +28,7 @@ export default function MovieProfile({ params, status }) {
   const [castData, setCastData] = useState(null);
   const [watchProviders, setWatchProviders] = useState(null);
   const [loading, setLoading] = useState(true);
+
   // Redux
   const language = useSelector((state) => state.languageSetting);
   const isLanguage = `${language.toLowerCase()}-${language}`;
@@ -113,8 +117,8 @@ export default function MovieProfile({ params, status }) {
   ]);
 
   return (
-    <div className="flex flex-col">
-      <React.Suspense fallback={<div>Loading...</div>}>
+    <ErrorBoundary fallback={<Error />}>
+      <React.Suspense fallback={<LoadingPoster />}>
         {profileData && (
           <React.Fragment>
             <Poster
@@ -126,8 +130,8 @@ export default function MovieProfile({ params, status }) {
           </React.Fragment>
         )}
       </React.Suspense>
-      <CastTemplate>
-        <React.Suspense fallback={<div>Loading...</div>}>
+      <React.Suspense fallback={<div>Loading...</div>}>
+        <CastTemplate>
           {!loading && castData && castData.cast && castData.cast.length > 0 ? (
             <React.Fragment>
               {castData.cast.slice(0, 11).map((actor, index) => (
@@ -148,10 +152,10 @@ export default function MovieProfile({ params, status }) {
               adding some!
             </p>
           )}
-        </React.Suspense>
-      </CastTemplate>
-      <MediaTemplate>
-        <React.Suspense fallback={<div>Loading...</div>}>
+        </CastTemplate>
+      </React.Suspense>
+      <React.Suspense fallback={<div>Loading...</div>}>
+        <MediaTemplate>
           {imageData && imageData.backdrops && (
             <React.Fragment>
               {imageData.backdrops
@@ -174,8 +178,8 @@ export default function MovieProfile({ params, status }) {
                 ))}
             </React.Fragment>
           )}
-        </React.Suspense>
-      </MediaTemplate>
-    </div>
+        </MediaTemplate>
+      </React.Suspense>
+    </ErrorBoundary>
   );
 }

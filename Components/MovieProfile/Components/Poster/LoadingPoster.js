@@ -1,15 +1,10 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import Link from "next/link";
-import Loading from "@/Components/common/Loading/Loading";
 import Rating from "@/Components/common/Rating/rating";
-import { loadImage } from "@/utils/imageUtils";
 
 export default function Poster({ imageData, data, status }) {
-  const [pageLoading, setPageLoading] = useState(true);
-  const [posterImage, setPosterImage] = useState(null);
-  const [pathImage, setPathImage] = useState(null);
+  const [posterImage, setPosterImage] = useState([]);
 
   const backgroundStyles = {
     backgroundColor: "rgba(0, 0, 0, 0.8)",
@@ -36,8 +31,8 @@ export default function Poster({ imageData, data, status }) {
                   className="rounded-md"
                   width={1000}
                   height={1000}
-                  src={posterImage}
-                  alt={status === "movie" ? data.title : data.name}
+                  src={"/placeholder-image.svg"}
+                  alt="loading"
                   decoding="async"
                 />
               </div>

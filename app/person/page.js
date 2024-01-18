@@ -1,9 +1,5 @@
-import Link from "next/link";
-import Image from "next/image";
+import Loading from "@/Components/common/Loading/Loading"
+
 export default function Person() {
-  return (
-    <div>
-      <h1>Person Page</h1>
-    </div>
-  );
+return (<Loading />)
 }

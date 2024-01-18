@@ -1,5 +1,5 @@
 import Lists from "@/Components/Items/Lists";
-import Error from "@/Components/common/Error/page";
+import Error from "@/Components/common/Error/Error";
 import WhereToWatch from "@/Components/WhereToWatch/WhereToWatch";
 import MovieProfile from "@/Components/MovieProfile/MovieProfile";
 

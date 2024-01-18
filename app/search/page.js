@@ -47,27 +47,16 @@ export default function Home({ params }) {
 
   return (
     <section className="max-w-screen-xl  items-center justify-center mx-auto p-4 dark:bg-gray-900 ">
-      {loading ? (
-        <>
-          <Loading />
-          <Loading />
-          <Loading />
-          <Loading />
-          <Loading />
-        </>
-      ) : (
-        <div className="flex flex-wrap justify-center">
-          {results.length === 0 && <h1>There is no result</h1>}
-          {results.map((result) => (
-            <Card
-              key={result.id}
-              title={result.name || result.title}
-              overview={result.overview}
-              src={result.poster_path || result.profile_path || null}
-            />
-          ))}
-        </div>
-      )}
+      <div className="flex flex-wrap justify-center">
+        {results.map((result) => (
+          <Card
+            key={result.id}
+            title={result.name || result.title}
+            overview={result.overview}
+            src={result.poster_path || result.profile_path || null}
+          />
+        ))}
+      </div>
     </section>
   );
 }

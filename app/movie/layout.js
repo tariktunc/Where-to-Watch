@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect } from "react";
+import Error from "@/Components/common/Error/Error";
 import Navbar from "@/Components/common/Navbar/Navbar";
 import { useSelector } from "react-redux";
 import Loading from "../search/Components/Loading";
@@ -17,11 +18,9 @@ export default function Home({ children }) {
   }, [theme]);
 
   return (
-    <>
+    <ErrorBoundary fallback={<Error />}>
       <Navbar />
-      <ErrorBoundary fallback={<Loading />}>
-        <React.Suspense fallback={<Loading />}>{children}</React.Suspense>
-      </ErrorBoundary>
-    </>
+      <React.Suspense fallback={<Loading />}>{children}</React.Suspense>
+    </ErrorBoundary>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 
-import Error from "@/Components/common/Error/page";
+import Error from "@/Components/common/Error/Error";
 import Lists from "@/Components/Items/Lists";
 import MovieProfile from "@/Components/MovieProfile/MovieProfile";
 

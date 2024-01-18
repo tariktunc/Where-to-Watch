@@ -30,7 +30,7 @@ export default function Home(props) {
     );
   }
   return (
-    <div className="flex flex-wrap justify-center items-center min-w-screen-xs max-w-screen-lg">
+    <div className="flex flex-wrap justify-center items-center">
       {loadingItem}
     </div>
   );

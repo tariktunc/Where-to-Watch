@@ -1,12 +1,11 @@
-// Buradaki errorPage calismamaktadir. MovieProfile icerisindeki API istekleri bu sayfaya alinacak, API isteklerinin status`u
-// gozden gecirilecek ve sayfa ciktilari ona gore donecektir.
-import Error from "@/Components/common/Error/page";
+"use client";
+import React from "react";
+import Error from "@/Components/common/Error/Error";
 import Lists from "@/Components/Items/Lists";
-import WhereToWatch from "@/Components/WhereToWatch/WhereToWatch";
-export const metadata = {
-  title: "People",
-  description: "Movie Description",
-};
+import Loading from "@/app/search/Components/Loading";
+import { ErrorBoundary } from "next/dist/client/components/error-boundary";
+
+
 export default function Page({ params }) {
   const renderContent = () => {
     switch (params.profile) {
@@ -19,5 +18,9 @@ export default function Page({ params }) {
     }
   };
 
-  return <>{renderContent()}</>;
+  return (
+    <ErrorBoundary fallback={<Error />}>
+      <React.Suspense fallback={<Loading />}>{renderContent()}</React.Suspense>
+    </ErrorBoundary>
+  );
 }

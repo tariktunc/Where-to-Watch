@@ -19,7 +19,7 @@ export default function Home() {
     <>
       <Navbar />
       <DiscoverSection />
-      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 dark:bg-gray-900">
+      <div className="xl:max-w-screen-xl lg:max-w-screen-lg md:max-w-screen-md flex flex-wrap items-center justify-between mx-auto p-4 dark:bg-gray-900">
         <div className="flex flex-col">
           <HorizontallyItem urlStatus={"day"} status={"movie"} />
           <HorizontallyItem urlStatus={"day"} status={"tv"} />
