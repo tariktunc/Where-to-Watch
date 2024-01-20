@@ -17,7 +17,7 @@ export default function Home(props) {
     // MovieProfile JS içerisinde yapılan isteğin farklı bir şeklidir. Test edilmektedir.
     const fetchData = fetchUrlTheMovieDb(detailsUrl);
     fetchData.then((data) => setDetails(data));
-  },[props.params.person, isLanguage]);
+  },[props.params.person, isLanguage,details]);
 
   return (
     <section>

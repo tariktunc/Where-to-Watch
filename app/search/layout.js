@@ -19,7 +19,7 @@ export default function Home({ children }) {
   return (
     <ErrorBoundary fallback={<Error />}>
       <Navbar />
-      <React.Suspense fallback={<Loading />}>{children}</React.Suspense>
+      {children}
     </ErrorBoundary>
   );
 }

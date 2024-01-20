@@ -21,15 +21,7 @@ export default function details() {
               Biyografi
             </h3>
             <p className="text-xs sm:text-sm md:text-md lg:text-lg xl:text-xl leading-2 ">
-              Jackie Chan (d. 7 Nisan 1954, Hong Kong), dövüş ustası, aktör,
-              yönetmen, yapımcı, senarist, dublör, dbulör koordinatörü, ses
-              dublajcısı, kameraman ve şarkıcıdır. Filmlerinde; akrobatik dövüş
-              stili, eğlenceli bir unsur oluşturan zamanlaması ve çevresindeki
-              eşyaları silah olarak kullanması ile tanınır. Jackie Chan,
-              1962'den beridir 100'ün üstünde filmde oynamıştır. Hollywood
-              Bulvarı'nda kendi adına yapılmış yıldızı vardır. Filmlerinde çoğu
-              zaman şarkıları da seslendirmektedir ve 1980'lerde başlayan bir
-              pop müzik kariyeri de vardır.
+               Burası metin alanıdır burada belirli isaretlere dikkat edilmesi gerekilmektedir. Burayı code larken metinlerin ifadelerine lütfen dikkat edin.
             </p>
           </div>
         </section>
