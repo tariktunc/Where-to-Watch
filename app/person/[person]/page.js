@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Profile from "./Components/Profile/Profile";
@@ -11,13 +11,13 @@ export default function Home(props) {
   const language = useSelector((state) => state.languageSetting);
   const isLanguage = `${language.toLowerCase()}-${language}`;
 
-  const detailsUrl = `https://api.themoviedb.org/3/person/${props.params.person}?language=${isLanguage}`;
-
+  
   useEffect(() => {
+    const detailsUrl = `https://api.themoviedb.org/3/person/${props.params.person}?language=${isLanguage}`;
     // MovieProfile JS içerisinde yapılan isteğin farklı bir şeklidir. Test edilmektedir.
     const fetchData = fetchUrlTheMovieDb(detailsUrl);
     fetchData.then((data) => setDetails(data));
-  },[props.params.person, isLanguage,details]);
+  }, [props.params.person, isLanguage, details]);
 
   return (
     <section>

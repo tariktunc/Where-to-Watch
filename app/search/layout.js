@@ -4,6 +4,7 @@ import Navbar from "@/Components/common/Navbar/Navbar";
 import { useSelector } from "react-redux";
 import Loading from "../search/Components/Loading";
 import { ErrorBoundary } from "next/dist/client/components/error-boundary";
+import Error from "../search/Components/Error";
 
 export default function Home({ children }) {
   const theme = useSelector((state) => state.theme.theme);
