@@ -125,43 +125,43 @@ export default function details() {
               Oyunculuk
             </h3>
             <div className="w-full rounded shadow-xl border-solid border-inherit dark:border-gray-800 border-2">
-                <ul>
-                  <li>
-                    <ul className="flex justify-start items-center h-20">
-                      <li className="p-5">
-                        <p>2025</p>
-                      </li>
-                      <li className="p-5 flex flex-col">
-                        <Link href="#">Fast X: Part 2</Link>
-                        <span>
-                          "as"
-                          <span id="character">Deckard Shaw</span>
-                        </span>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
+              <ul>
+                <li>
+                  <ul className="flex justify-start items-center h-20">
+                    <li className="p-5">
+                      <p>2025</p>
+                    </li>
+                    <li className="p-5 flex flex-col">
+                      <Link href="#">Fast X: Part 2</Link>
+                      <span>
+                        &quot;as&quot;
+                        <span id="character"> Deckard Shaw</span>
+                      </span>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
             </div>
             <h3 className="font-bold py-4 text-xs sm:text-sm md:text-md lg:text-lg xl:text-xl">
               Prodüksiyon
             </h3>
             <div className="w-full rounded shadow-xl border-solid border-inherit dark:border-gray-800 border-2">
-                <ul>
-                  <li>
-                    <ul className="flex justify-start items-center h-20">
-                      <li className="p-5">
-                        <p>2025</p>
-                      </li>
-                      <li className="p-5 flex flex-col">
-                        <Link href="#">Fast X: Part 2</Link>
-                        <span>
-                          "as"
-                          <span id="character">Deckard Shaw</span>
-                        </span>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
+              <ul>
+                <li>
+                  <ul className="flex justify-start items-center h-20">
+                    <li className="p-5">
+                      <p>2025</p>
+                    </li>
+                    <li className="p-5 flex flex-col">
+                      <Link href="#">Fast X: Part 2</Link>
+                      <span>
+                      &quot;as&quot;
+                        <span id="character"> Deckard Shaw</span>
+                      </span>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
             </div>
           </div>
         </section>
