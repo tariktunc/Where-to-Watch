@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { useSelector } from "react-redux";
 import Card from "./Components/Card";
 import Loading from "./Components/Loading";
+import Link from "next/link";
 
 export default function Home({ params }) {
   const searchParams = useSearchParams();
@@ -13,11 +14,11 @@ export default function Home({ params }) {
   const [loading, setLoading] = useState(true);
   const [results, setResults] = useState([]);
   console.log(results);
-  const fetchData = async (url) => {
+  const fetchData = async (url, type) => {
     try {
       const response = await fetchUrlTheMovieDb(url);
       if (response.status === 200) {
-        return response.data.results;
+        return response.data.results.map((result) => ({ ...result, type }));
       }
     } catch (error) {
       console.error("Error while fetching data: ", error);
@@ -36,7 +37,7 @@ export default function Home({ params }) {
 
     const fetchAllData = async () => {
       const data = await Promise.all(
-        Object.values(urls).map((url) => fetchData(url))
+        Object.entries(urls).map(([type, url]) => fetchData(url, type))
       );
       setResults(data.flat());
       setLoading(false);
@@ -48,12 +49,32 @@ export default function Home({ params }) {
   return (
     <section className="max-w-screen-xl  items-center justify-center mx-auto p-4 dark:bg-gray-900 ">
       <div className="flex flex-wrap justify-center">
+        {loading && <Loading />}
+        {!loading && (
+          <>
+            {results.length === 0 && (
+              <div className="dark:text-white">
+                <p className="text-sm md:text-lg">The searched word was not found.</p>
+                <Link className="text-blue-500 text-md md:text-2xl" href="/">
+                  Home
+                </Link>
+              </div>
+            )}
+          </>
+        )}
         {results.map((result) => (
           <Card
             key={result.id}
             title={result.name || result.title}
             overview={result.overview}
             src={result.poster_path || result.profile_path || null}
+            link={
+              result.type === "movie"
+                ? `/movie/${result.id}`
+                : result.type === "tv"
+                ? `/tvshow/${result.id}`
+                : `/person/${result.id}`
+            }
           />
         ))}
       </div>

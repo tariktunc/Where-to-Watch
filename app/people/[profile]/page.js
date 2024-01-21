@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import Error from "@/Components/common/Error/Error";
-import Lists from "@/Components/Items/Lists";
+import Lists from "@/app/people/[profile]/Components/Lists"
 import Loading from "@/app/search/Components/Loading";
 import { ErrorBoundary } from "next/dist/client/components/error-boundary";
 

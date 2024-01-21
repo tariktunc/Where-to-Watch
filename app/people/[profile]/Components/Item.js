@@ -19,7 +19,7 @@ export default function Item(props) {
           lazy
         />
       </div>
-      <div className="p-5 w-40 md:w-44 lg:w-52 h-28 md:h-40 lg:h-50">
+      <div className="p-5 w-40 md:w-44 lg:w-52 h-20 md:h-20 lg:h-20">
         <Rating rating={props.rating} w="w-[20px]" h="h-[20px]" />
         <h5 className="my-2  h-auto w-auto text-xs md:text-base lg:text-lg font-bold tracking-tight text-gray-900 dark:text-white">
           {props.name}
