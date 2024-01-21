@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home(props) {
   return (
@@ -9,8 +10,12 @@ export default function Home(props) {
         <div id="image_content">
           <div id="image">
             <Image
-              className="rounded-md w-80"
-              src="https://media.themoviedb.org/t/p/w300_and_h450_bestv2/dHBHZRHEVBAdozGC4SWyIIP5NLh.jpg"
+              className="rounded-md w-[300px] h-[450px]"
+              src={
+                props.details.profile_path === null
+                  ? "/placeholder-image.svg"
+                  : `https://image.tmdb.org/t/p/w500${props.details.profile_path}`
+              }
               alt="loading"
               width={1000}
               height={1000}
@@ -22,25 +27,32 @@ export default function Home(props) {
         <section id="details">
           <div className="dark:text-white">
             <h3 className="font-bold 2xl:text-2xl lg:text-xl md:text-md sm:text-sm text-xs my-3">
-              Kisi Bilgileri
+              Personal Info
             </h3>
             <div className="w-full ">
               <section>
                 <p className="flex flex-col my-3">
-                  <strong className="my-2 font-bold">Bilinen Işi</strong>
-                  Oyunculuk
+                  <strong className="my-2 font-bold">Known For</strong>
+                  {props.details.known_for_department}
                 </p>
                 <p className="flex flex-col my-3">
-                  <strong className="my-2 font-bold">Bilinen Filmleri</strong>
-                  27
+                  <strong className="my-2 font-bold">Known Credits</strong>
+                  Coming Soon
                 </p>
                 <p className="flex flex-col my-3">
-                  <strong className="my-2 font-bold">Doğum Günü</strong>
-                  1997-06-26 (26 yasinda)
+                  <strong className="my-2 font-bold">Birthday</strong>
+                  {props.details.birthday}
                 </p>
                 <p className="flex flex-col my-3">
-                  <strong className="my-2 font-bold">Dogum yeri</strong>
-                  Brisbane, Queensland, Australia
+                  <strong className="my-2 font-bold">Place Of Birth</strong>
+                  {props.details.place_of_birth}
+                </p>
+                <p className="flex flex-col my-3">
+                  <strong className="my-2 font-bold">IMDB Profile</strong>
+                  <Link
+                    href={`https://www.imdb.com/name/${props.details.imdb_id}`}>
+                    {props.details.name}
+                  </Link>
                 </p>
               </section>
             </div>

@@ -3,9 +3,7 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Rating from "@/Components/common/Rating/rating";
 
-export default function Poster({ imageData, data, status }) {
-  const [posterImage, setPosterImage] = useState([]);
-
+export default function Poster() {
   const backgroundStyles = {
     backgroundColor: "rgba(0, 0, 0, 0.8)",
     backgroundSize: "cover",

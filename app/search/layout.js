@@ -2,9 +2,8 @@
 import React, { useEffect } from "react";
 import Navbar from "@/Components/common/Navbar/Navbar";
 import { useSelector } from "react-redux";
-import Loading from "../search/Components/Loading";
 import { ErrorBoundary } from "next/dist/client/components/error-boundary";
-import Error from "../search/Components/Error";
+import Error from "@/Components/common/Error/Error";
 
 export default function Home({ children }) {
   const theme = useSelector((state) => state.theme.theme);
