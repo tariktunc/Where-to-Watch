@@ -1,4 +1,4 @@
-### [Live Stream](https://blakfymovieapp.netlify.app/)
+### [Live Stream](https://where-to-watch-blakfy.netlify.app/)
 ---
 # Where to Watch
 
