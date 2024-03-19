@@ -6,9 +6,11 @@ export default function Home({ page }) {
         role="main"
         className="min-w-full min-h-screen flex flex-col justify-center items-center "
       >
-        <p>/{page}</p>
-        <p>404 Page Not Found</p>
-        <Link className="text-blue-500" href="/" tabIndex={0} passHref>
+        <p className="text-2xl">/{page}</p>
+        <p className="text-3xl">
+          I'm so sorry, we couldn't find the page you were looking for.
+        </p>
+        <Link className="text-blue-500 text-xl" href="/" tabIndex={0} passHref>
           Home
         </Link>
       </div>
