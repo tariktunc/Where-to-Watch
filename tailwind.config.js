@@ -8,7 +8,7 @@ module.exports = {
     "./stores/**/*.{js,ts,jsx,tsx,mdx}",
     "./utils/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  darkMode: "class", // "media" veya "class"
+  darkMode: "selector", // "media" veya "class"
 
   theme: {
     screens: {

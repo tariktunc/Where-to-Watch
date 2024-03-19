@@ -49,12 +49,15 @@ export default function Home({ params }) {
   return (
     <section className="max-w-screen-xl  items-center justify-center mx-auto p-4 dark:bg-gray-900 ">
       <div className="flex flex-wrap justify-center">
-        {loading && <Loading />}
-        {!loading && (
+        {loading ? (
+          <Loading />
+        ) : (
           <>
             {results.length === 0 && (
               <div className="dark:text-white">
-                <p className="text-sm md:text-lg">The searched word was not found.</p>
+                <p className="text-sm md:text-lg">
+                  The searched word was not found.
+                </p>
                 <Link className="text-blue-500 text-md md:text-2xl" href="/">
                   Home
                 </Link>

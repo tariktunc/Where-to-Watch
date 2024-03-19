@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function MediaV(props) {
   const tailwindStyles =
-    "rounded-md mx-2 min-w-[200px] max-w-[200px] h-full rounded-md";
+    "rounded-t-md mx-2 min-w-[200px] max-w-[200px] h-full rounded-md dark:text-white  shadow-md dark:shadow-sm dark:shadow-gray-500";
 
   return (
     <li id={props.id} className={tailwindStyles}>
@@ -14,7 +14,7 @@ export default function MediaV(props) {
         alt={props.altName}
         decoding="async"
       />
-      <div className="p-2 h-28 flex flex-col justify-start items-start shadow-md rounded-b-md">
+      <div className="p-2 h-28 flex flex-col justify-start items-start rounded-b-md">
         <p className="text-sm font-bold p-1 border-b-2">{props.name}</p>
         <p className="text-sm p-1">{props.characterName}</p>
         <p className="text-xs p-1">{props.episodes}</p>

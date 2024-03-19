@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Rating from "@/Components/common/Rating/rating";
@@ -18,14 +18,16 @@ export default function Poster({ profileData, status }) {
         className="flex justify-center items-center"
         style={{
           backgroundColor: "rgba(0, 0, 0, 0.8)",
-        }}>
+        }}
+      >
         <div className="px-20 py-10 w-[1600px] min-w-[400px]">
           <section className="flex py-20">
             {/* Images */}
             <div id="poster" className="h-full min-w-min">
               <div
                 id="image_content"
-                className="block min-w-[300px] w-[300px] h-[500px] border-0 outline-none overflow-hidden ">
+                className="block min-w-[300px] w-[300px] h-[500px] border-0 outline-none overflow-hidden "
+              >
                 <Image
                   className="rounded-md"
                   width={1000}
@@ -36,7 +38,8 @@ export default function Poster({ profileData, status }) {
                 />
                 <Link
                   href={"/"}
-                  className="flex justify-center items-center rounded-b-md h-10 w-auto text-white bg-blue-500 ">
+                  className="flex justify-center items-center rounded-b-md h-10 w-auto text-white bg-blue-500 "
+                >
                   Play
                 </Link>
               </div>
@@ -46,7 +49,8 @@ export default function Poster({ profileData, status }) {
               <section className="flex pl-10 py-20 flex-wrap min-w-[400px] ">
                 <div
                   id="title"
-                  className="flex justify-center items-center py-1">
+                  className="flex justify-center items-center py-1"
+                >
                   <h2 className="text-6xl font-bold w-full">
                     {status === "tv" ? profileData.name : profileData.title}
                   </h2>
@@ -102,13 +106,15 @@ export default function Poster({ profileData, status }) {
                           profileData.spoken_languages.length > 1 ? (
                             <p
                               className="py-2 pr-2 text-xl"
-                              style={{ display: "inline" }}>
+                              style={{ display: "inline" }}
+                            >
                               {item.english_name},
                             </p>
                           ) : (
                             <p
                               className="py-2 pr-2 text-xl"
-                              style={{ display: "inline" }}>
+                              style={{ display: "inline" }}
+                            >
                               {item.english_name}
                             </p>
                           )}

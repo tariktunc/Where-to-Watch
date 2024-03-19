@@ -117,69 +117,57 @@ export default function MovieProfile({ params, status }) {
   ]);
 
   return (
-    <ErrorBoundary fallback={<Error />}>
-      <React.Suspense fallback={<LoadingPoster />}>
-        {profileData && (
-          <React.Fragment>
-            <Poster
-              watchProviders={watchProviders}
-              profileData={profileData}
-              params={params}
-              status={status}
-            />
-          </React.Fragment>
-        )}
-      </React.Suspense>
-      <React.Suspense fallback={<div>Loading...</div>}>
+    <>
+      {profileData && (
+        <React.Fragment>
+          <Poster
+            watchProviders={watchProviders}
+            profileData={profileData}
+            params={params}
+            status={status}
+          />
+        </React.Fragment>
+      )}
+      {!loading && castData && castData.cast && castData.cast.length > 0 && (
         <CastTemplate>
-          {!loading && castData && castData.cast && castData.cast.length > 0 ? (
-            <React.Fragment>
-              {castData.cast.slice(0, 11).map((actor, index) => (
-                <Cast
-                  id={index}
-                  key={index}
-                  image={`https://www.themoviedb.org/t/p/w500${actor.profile_path}`}
-                  altName={actor.original_name}
-                  name={actor.name}
-                  characterName={actor.character}
-                  episodes={actor.known_for_department}
-                />
-              ))}
-            </React.Fragment>
-          ) : (
-            <p>
-              We don&apos;t have any cast added to this TV Show. You can help by
-              adding some!
-            </p>
-          )}
+          <React.Fragment>
+            {castData.cast.slice(0, 11).map((actor, index) => (
+              <Cast
+                id={index}
+                key={index}
+                image={`https://www.themoviedb.org/t/p/w500${actor.profile_path}`}
+                altName={actor.original_name}
+                name={actor.name}
+                characterName={actor.character}
+                episodes={actor.known_for_department}
+              />
+            ))}
+          </React.Fragment>
         </CastTemplate>
-      </React.Suspense>
-      <React.Suspense fallback={<div>Loading...</div>}>
+      )}
+      {imageData && imageData.backdrops && (
         <MediaTemplate>
-          {imageData && imageData.backdrops && (
-            <React.Fragment>
-              {imageData.backdrops
-                .filter((item) => item.iso_639_1 !== null)
-                .slice(
-                  0,
-                  Math.min(
-                    10,
-                    imageData.backdrops.filter(
-                      (item) => item.iso_639_1 !== null
-                    ).length
-                  )
+          <React.Fragment>
+            {imageData.backdrops
+              .filter((item) => item.iso_639_1 !== null)
+              .slice(
+                0,
+                Math.min(
+                  10,
+                  imageData.backdrops.filter((item) => item.iso_639_1 !== null)
+                    .length
                 )
-                .map((item, index) => (
-                  <div key={index} className="w-[533px] h-[300px] m-1">
-                    <Media
-                      filePath={`https://www.themoviedb.org/t/p/w533_and_h300_bestv2${item.file_path}`}
-                    />
-                  </div>
-                ))}
-            </React.Fragment>
-          )}
+              )
+              .map((item, index) => (
+                <div key={index} className="w-[533px] h-[300px] m-1 ">
+                  <Media
+                    filePath={`https://www.themoviedb.org/t/p/w533_and_h300_bestv2${item.file_path}`}
+                  />
+                </div>
+              ))}
+          </React.Fragment>
         </MediaTemplate>
-      </React.Suspense>
-    </ErrorBoundary>
+      )}
+    </>
   );
 }

@@ -6,7 +6,8 @@ export default function Home(props) {
     loadingItem.push(
       <div
         key={i}
-        className="m-2 bg-white border border-gray-200 rounded-md shadow-sm md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+        className="m-2 bg-white border border-gray-200 rounded-md shadow-sm md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
+      >
         <div className="w-40 md:w-44 lg:w-52 h-38 md:h-72 lg:h-80">
           <Image
             className="w-full h-full"

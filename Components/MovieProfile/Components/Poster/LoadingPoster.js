@@ -17,14 +17,16 @@ export default function Poster() {
         className="flex justify-items-start"
         style={{
           backgroundColor: "rgba(0, 0, 0, 0.8)",
-        }}>
+        }}
+      >
         <div className="px-20 py-10">
           <section className="flex ">
             {/* Images */}
             <div id="poster" className="h-full min-w-min ">
               <div
                 id="image_content"
-                className="block min-w-[300px] w-[300px] h-[450px] border-0 outline-none overflow-hidden">
+                className="block min-w-[300px] w-[300px] h-[450px] border-0 outline-none overflow-hidden"
+              >
                 <Image
                   className="rounded-md"
                   width={1000}
@@ -40,11 +42,13 @@ export default function Poster() {
             {/* Title */}
             <div
               id="ott_offer"
-              className="flex flex-col justify-center h-[450px] text-white ">
+              className="flex flex-col justify-center h-[450px] text-white "
+            >
               <section className="flex flex-col min-w-[400px]   items-start content-center box-border pl-[40px]">
                 <div
                   id="title"
-                  className="flex justify-center items-center py-1">
+                  className="flex justify-center items-center py-1"
+                >
                   <h2 className="text-3xl font-bold">data name or title</h2>
                   <span id="release" className=" text-xl">
                     data release
