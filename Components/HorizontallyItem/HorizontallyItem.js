@@ -35,8 +35,8 @@ export default function Home({ urlStatus, status }) {
         }
         className="rounded-xl cursor-pointer w-[200px] h-[200px] md:h-[300px]  m-2 scale-100 hover:scale-105 transition-all duraction-500"
         src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
-        width={100}
-        height={100}
+        width={1000}
+        height={1000}
         alt={item.title || item.name}
       />
     ));
