@@ -64,27 +64,18 @@ export default function Home(props) {
   }, [isLanguage]);
 
   return (
-    <section>
-      <div id="media_v4">
-        <div id="column_wrapper">
-          <div id="content_wrapper" className="grid grid-cols-6">
-            {/* Grey */}
-            <React.Fragment>
-              {!loading && <Profile details={details} />}
-            </React.Fragment>
-            {/* White */}
-            <React.Fragment>
-              {!loading && (
-                <Detail
-                  tvCredits={tvCredits}
-                  movieCredits={movieCredits}
-                  biography={details.biography}
-                />
-              )}
-            </React.Fragment>
-          </div>
-        </div>
-      </div>
-    </section>
+    <div className="sm:max-screen-sm md:max-w-screen-md lg:max-w-screen-lg dark:text-white p-2 md:p-0">
+      {/* Grey */}
+      {!loading && <Profile details={details} />}
+      {/* White */}
+      {!loading && (
+        <Detail
+          tvCredits={tvCredits}
+          movieCredits={movieCredits}
+          biography={details.biography}
+          details={details}
+        />
+      )}
+    </div>
   );
 }

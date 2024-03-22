@@ -5,60 +5,47 @@ import Link from "next/link";
 
 export default function Home(props) {
   return (
-    <div className="min-w-[300px] col-start-1 col-end-3">
-      <section id="orginal_header">
-        <div id="image_content">
-          <div id="image">
-            <Image
-              className="rounded-md w-[300px] h-[450px]"
-              src={
-                props.details.profile_path === null
-                  ? "/placeholder-image.svg"
-                  : `https://image.tmdb.org/t/p/w500${props.details.profile_path}`
-              }
-              alt="loading"
-              width={1000}
-              height={1000}
-            />
+    <section className="flex flex-wrap justify-center md:justify-start gap-3 md:gap-10 ">
+      {/* IMAGE */}
+      <Image
+        className="rounded-md "
+        src={
+          props.details.profile_path === null
+            ? "/placeholder-image.svg"
+            : `https://image.tmdb.org/t/p/w500${props.details.profile_path}`
+        }
+        alt={props.details.name}
+        width={300}
+        height={300}
+      />
+      {/* DETAILS */}
+      <div className="pt-5 md:pt-10">
+        <h2 id="title" className="text-xl md:text-5xl">
+          <Link href="/">Jacob Elordi</Link>
+        </h2>
+        <div className="flex flex-wrap justify-start gap-5 md:gap-10 mt-5 md:mt-10">
+          <div>
+            <strong className="text-bold">Known For</strong>
+            <p>{props.details.known_for_department}</p>
+          </div>
+          <div>
+            <p>Birthday</p>
+            <p>{props.details.birthday}</p>
+          </div>
+          <div>
+            <p>Place Of Birth</p>
+            <p>{props.details.place_of_birth}</p>
+          </div>
+          <div>
+            <p>IMDB Profile</p>
+            <p className="text-blue-200 italic">
+              <Link href={`https://www.imdb.com/name/${props.details.imdb_id}`}>
+                {props.details.name}
+              </Link>
+            </p>
           </div>
         </div>
-      </section>
-      <div>
-        <section id="details">
-          <div className="dark:text-white">
-            <h3 className="font-bold 2xl:text-2xl lg:text-xl md:text-md sm:text-sm text-xs my-3">
-              Personal Info
-            </h3>
-            <div className="w-full ">
-              <section>
-                <p className="flex flex-col my-3">
-                  <strong className="my-2 font-bold">Known For</strong>
-                  {props.details.known_for_department}
-                </p>
-                <p className="flex flex-col my-3">
-                  <strong className="my-2 font-bold">Known Credits</strong>
-                  Coming Soon
-                </p>
-                <p className="flex flex-col my-3">
-                  <strong className="my-2 font-bold">Birthday</strong>
-                  {props.details.birthday}
-                </p>
-                <p className="flex flex-col my-3">
-                  <strong className="my-2 font-bold">Place Of Birth</strong>
-                  {props.details.place_of_birth}
-                </p>
-                <p className="flex flex-col my-3">
-                  <strong className="my-2 font-bold">IMDB Profile</strong>
-                  <Link
-                    href={`https://www.imdb.com/name/${props.details.imdb_id}`}>
-                    {props.details.name}
-                  </Link>
-                </p>
-              </section>
-            </div>
-          </div>
-        </section>
       </div>
-    </div>
+    </section>
   );
 }

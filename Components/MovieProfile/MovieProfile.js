@@ -18,8 +18,6 @@ const Cast = React.lazy(() =>
 const Media = React.lazy(() =>
   import("@/Components/MovieProfile/Components/Media/Media")
 );
-import { ErrorBoundary } from "next/dist/client/components/error-boundary";
-import Error from "@/Components/common/Error/Error";
 
 export default function MovieProfile({ params, status }) {
   const [profileData, setProfileData] = useState(null);
