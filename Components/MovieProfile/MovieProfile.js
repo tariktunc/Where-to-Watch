@@ -157,7 +157,7 @@ export default function MovieProfile({ params, status }) {
                 )
               )
               .map((item, index) => (
-                <div key={index} className="w-[533px] h-[300px] m-1 ">
+                <div key={index} className="m-1">
                   <Media
                     filePath={`https://www.themoviedb.org/t/p/w533_and_h300_bestv2${item.file_path}`}
                   />

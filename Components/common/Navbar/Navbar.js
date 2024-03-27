@@ -18,10 +18,8 @@ export default function Navbar() {
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between md:justify-evenly mx-auto p-4">
         {/* LOGO */}
         <Logo />
-
         {/* HAMBURGER MENU BUTTON */}
         <HamburgerMenu handleClick={handleClick} />
-
         {/* ROUTER MENU */}
         <WebMenu
           setActiveMobileMenu={setActiveMobileMenu}
