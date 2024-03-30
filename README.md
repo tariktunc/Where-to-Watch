@@ -52,4 +52,4 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## API Kullanımı
 
-Bu proje, [TMDb API](https://developer.themoviedb.org/docs/getting-started)'sini kullanmaktadır. API'yi kullanmak için TMDb'den bir API anahtarı almanız gerekmektedir.
+Bu proje, [TMDb API](https://developer.themoviedb.org/docs/getting-started)'sini kullanmaktadır. API'yi kullanmak için TMDb'den bir API anahtarı almanız gerekmektedir...
