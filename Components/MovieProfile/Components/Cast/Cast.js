@@ -1,11 +1,13 @@
 import Image from "next/image";
 
 export default function MediaV(props) {
-  const tailwindStyles =
-    "rounded-t-md mx-2 min-w-[200px] max-w-[200px] h-full rounded-md dark:text-white  shadow-md dark:shadow-sm dark:shadow-gray-500";
-
   return (
-    <li id={props.id} className={tailwindStyles}>
+    <li
+      id={props.id}
+      className={
+        "rounded-t-md mx-2 min-w-[200px] max-w-[200px] h-full rounded-md dark:text-white  shadow-md dark:shadow-sm dark:shadow-gray-500"
+      }
+    >
       <Image
         className="rounded-t-md w-full"
         src={props.image}
