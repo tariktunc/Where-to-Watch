@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 
 // Utils
 import { fetchUrlTheMovieDb } from "@/utils/apiService";
+import { act } from "react";
 // Components Page
 const Poster = React.lazy(() =>
   import("@/Components/MovieProfile/Components/Poster/Poster")
@@ -120,7 +121,7 @@ export default function MovieProfile({ params, status }) {
               <ul className="flex justify-start items-center">
                 {castData.cast.slice(0, 11).map((actor, index) => (
                   <Cast
-                    id={index}
+                    id={actor.id}
                     key={index}
                     image={`https://www.themoviedb.org/t/p/w500${actor.profile_path}`}
                     altName={actor.original_name}
