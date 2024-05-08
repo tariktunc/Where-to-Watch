@@ -2,13 +2,10 @@
 //React Hooks
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import CastTemplate from "@/Components/MovieProfile/Components/Cast/Template";
-import MediaTemplate from "@/Components/MovieProfile/Components/Media/Template";
 
 // Utils
 import { fetchUrlTheMovieDb } from "@/utils/apiService";
 // Components Page
-import LoadingPoster from "@/Components/MovieProfile/Components/Poster/LoadingPoster";
 const Poster = React.lazy(() =>
   import("@/Components/MovieProfile/Components/Poster/Poster")
 );
@@ -21,7 +18,6 @@ const Media = React.lazy(() =>
 
 export default function MovieProfile({ params, status }) {
   const [profileData, setProfileData] = useState(null);
-  const [profileDataDefault, setProfileDataDefault] = useState(null);
   const [imageData, setImageData] = useState(null);
   const [castData, setCastData] = useState(null);
   const [watchProviders, setWatchProviders] = useState(null);
@@ -43,17 +39,6 @@ export default function MovieProfile({ params, status }) {
         const data = await fetchUrlTheMovieDb(fetchProfileDataUrl);
         if (data.status === 200) {
           setProfileData(data.data);
-        }
-      } catch (error) {
-        console.error("Error fetching profile data:", error);
-      }
-    };
-
-    const fetchDataDefault = async () => {
-      try {
-        const data = await fetchUrlTheMovieDb(fetchProfileDataUrlDefault);
-        if (data.status === 200) {
-          setProfileDataDefault(data.data);
         }
       } catch (error) {
         console.error("Error fetching profile data:", error);
@@ -96,7 +81,6 @@ export default function MovieProfile({ params, status }) {
     const fetchDataAsync = async () => {
       await Promise.all([
         fetchData(),
-        fetchDataDefault(),
         fetchImageData(),
         fetchCastData(),
         fetchWatchProviders(),
@@ -115,57 +99,68 @@ export default function MovieProfile({ params, status }) {
   ]);
 
   return (
-    <>
+    <div>
       {profileData && (
-        <React.Fragment>
-          <Poster
-            watchProviders={watchProviders}
-            profileData={profileData}
-            params={params}
-            status={status}
-          />
-        </React.Fragment>
+        <Poster
+          watchProviders={watchProviders}
+          profileData={profileData}
+          params={params}
+          status={status}
+        />
       )}
-      {!loading && castData && castData.cast && castData.cast.length > 0 && (
-        <CastTemplate>
-          <React.Fragment>
-            {castData.cast.slice(0, 11).map((actor, index) => (
-              <Cast
-                id={index}
-                key={index}
-                image={`https://www.themoviedb.org/t/p/w500${actor.profile_path}`}
-                altName={actor.original_name}
-                name={actor.name}
-                characterName={actor.character}
-                episodes={actor.known_for_department}
-              />
-            ))}
-          </React.Fragment>
-        </CastTemplate>
-      )}
+      <div className="flex justify-center items-center">
+        <div className="max-w-screen-xl flex justify-start flex-col pb-5 custom-scrollbar overflow-x-auto ">
+          <h3 className="my-2 mx-1 font-bold text-xl w-auto dark:text-white">
+            Populer Player
+          </h3>
+          {!loading &&
+            castData &&
+            castData.cast &&
+            castData.cast.length > 0 && (
+              <ul className="flex justify-start items-center">
+                {castData.cast.slice(0, 11).map((actor, index) => (
+                  <Cast
+                    id={index}
+                    key={index}
+                    image={`https://www.themoviedb.org/t/p/w500${actor.profile_path}`}
+                    altName={actor.original_name}
+                    name={actor.name}
+                    characterName={actor.character}
+                    episodes={actor.known_for_department}
+                  />
+                ))}
+              </ul>
+            )}
+        </div>
+      </div>
       {imageData && imageData.backdrops && (
-        <MediaTemplate>
-          <React.Fragment>
-            {imageData.backdrops
-              .filter((item) => item.iso_639_1 !== null)
-              .slice(
-                0,
-                Math.min(
-                  10,
-                  imageData.backdrops.filter((item) => item.iso_639_1 !== null)
-                    .length
+        <div className="flex justify-center items-center ">
+          <div className="flex flex-col max-w-screen-xl">
+            <div className="my-2 mx-1 font-bold text-xl w-auto ">
+              <h3 className="text-xl font-bold dark:text-white">Backdrops</h3>
+            </div>
+            <div className="flex justify-start items-center pb-5 custom-scrollbar overflow-x-auto gap-5">
+              {imageData.backdrops
+                .filter((item) => item.iso_639_1 !== null)
+                .slice(
+                  0,
+                  Math.min(
+                    10,
+                    imageData.backdrops.filter(
+                      (item) => item.iso_639_1 !== null
+                    ).length
+                  )
                 )
-              )
-              .map((item, index) => (
-                <div key={index} className="m-1">
+                .map((item, index) => (
                   <Media
+                    key={index}
                     filePath={`https://www.themoviedb.org/t/p/w533_and_h300_bestv2${item.file_path}`}
                   />
-                </div>
-              ))}
-          </React.Fragment>
-        </MediaTemplate>
+                ))}
+            </div>
+          </div>
+        </div>
       )}
-    </>
+    </div>
   );
 }
