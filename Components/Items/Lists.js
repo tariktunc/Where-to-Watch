@@ -1,7 +1,9 @@
 // Popular Page istegi components donusturulecek.
+
 "use client";
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+
 // import Item from "@/Components/Items/Item/Item";
 import Item from "@/Components/Items/Item";
 import { fetchUrlTheMovieDb } from "@/utils/apiService";
@@ -38,7 +40,7 @@ export default function Lists({ status, lists }) {
           <button
             onClick={() => setPage(page > 1 ? page - 1 : page)}
             type="button"
-            className="bg-gray-800 text-white rounded-l-md border-r border-gray-100 py-2 hover:bg-red-700 hover:text-white px-3"
+            className="bg-gray-500 dark:bg-gray-800 text-white rounded-l-md border-r border-gray-100 py-2 hover:bg-red-700 hover:text-white px-3"
           >
             <div className="flex flex-row items-center">
               <svg
@@ -62,7 +64,7 @@ export default function Lists({ status, lists }) {
           <button
             onClick={() => setPage(page <= data.length ? page + 1 : page)}
             type="button"
-            className="bg-gray-800 text-white rounded-r-md py-2 border-l border-gray-200 hover:bg-red-700 hover:text-white px-3"
+            className="bg-gray-500 dark:bg-gray-800 text-white rounded-r-md py-2 border-l border-gray-200 hover:bg-red-700 hover:text-white px-3"
           >
             <div className="flex flex-row items-center">
               <span className="mr-2">Next</span>

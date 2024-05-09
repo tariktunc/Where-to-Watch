@@ -8,8 +8,8 @@ export default function Item(props) {
         <Image
           onClick={() => props.onClick()}
           className="w-full h-full"
-          width={100}
-          height={100}
+          width={1000}
+          height={1000}
           alt={props.title}
           src={
             props.src !== null
@@ -18,15 +18,6 @@ export default function Item(props) {
           }
           lazy
         />
-      </div>
-      <div className="p-5 w-40 md:w-44 lg:w-52 h-28 md:h-40 lg:h-50">
-        <Rating rating={props.rating} w="w-[20px]" h="h-[20px]" />
-        <h5 className="my-2  h-auto w-auto text-xs md:text-base lg:text-lg font-bold tracking-tight text-gray-900 dark:text-white">
-          {props.name}
-        </h5>
-        <p className="font-normal h-auto w-auto  text-xs md:text-base lg:text-lg text-gray-700 dark:text-gray-400">
-          {props.release}
-        </p>
       </div>
     </div>
   );

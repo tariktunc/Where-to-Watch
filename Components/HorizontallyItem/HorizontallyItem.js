@@ -33,6 +33,22 @@ export default function Home({ urlStatus, status }) {
         onClick={() =>
           router.push(`${status === "tv" ? "tvshow" : status}/${item.id}`)
         }
+        className="rounded-sm initial:w-24 md:w-52"
+        src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
+        width={1000}
+        height={1000}
+        alt={item.title || item.name}
+      />
+    ));
+  }
+
+  function List() {
+    return moviesData.map((item, index) => (
+      <Image
+        key={index}
+        onClick={() =>
+          router.push(`${status === "tv" ? "tvshow" : status}/${item.id}`)
+        }
         className="rounded-xl cursor-pointer w-[200px] h-[200px] md:h-[300px]  m-2 scale-100 hover:scale-105 transition-all duraction-500"
         src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
         width={1000}
@@ -43,13 +59,8 @@ export default function Home({ urlStatus, status }) {
   }
 
   return (
-    <div className="flex flex-col justify-start ">
-      <p className="my-2 text-xl font-bold text-black dark:text-white">
-        TOP {urlStatus.toUpperCase()} {status.toUpperCase()}
-      </p>
-      <div className="flex justify-start items-center overflow-x-auto custom-scrollbar h-[250px] md:h-[350px]">
-        {<TopList />}
-      </div>
+    <div className="flex flex-wrap initial:gap-3 md:gap-5 justify-center items-center">
+      {<TopList />}
     </div>
   );
 }
