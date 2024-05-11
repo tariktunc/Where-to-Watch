@@ -2,10 +2,8 @@
 //React Hooks
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-
 // Utils
 import { fetchUrlTheMovieDb } from "@/utils/apiService";
-import { act } from "react";
 // Components Page
 const Poster = React.lazy(() =>
   import("@/Components/MovieProfile/Components/Poster/Poster")
@@ -32,7 +30,7 @@ export default function MovieProfile({ params, status }) {
   const fetchProfileDataUrlDefault = `https://api.themoviedb.org/3/${status}/${params}?language=en-US`;
   const fetchImageDataUrl = `https://api.themoviedb.org/3/${status}/${params}/images`;
   const fetchCastDataUrl = `https://api.themoviedb.org/3/${status}/${params}/credits?language=${isLanguage}`;
-  const fetchWatchProvidersUrl = `https://api.themoviedb.org/3/${status}/${params}/videos?language=${isLanguage}`;
+  const fetchWatchProvidersUrl = `https://api.themoviedb.org/3/${status}/${params}/videos`;
 
   useEffect(() => {
     const fetchData = async () => {

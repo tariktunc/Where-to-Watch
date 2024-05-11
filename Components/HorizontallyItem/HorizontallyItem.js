@@ -59,7 +59,7 @@ export default function Home({ urlStatus, status }) {
   }
 
   return (
-    <div className="flex flex-wrap initial:gap-3 md:gap-5 justify-center items-center">
+    <div className="flex flex-wrap initial:gap-3 md:gap-5 justify-center items-center py-5">
       {<TopList />}
     </div>
   );

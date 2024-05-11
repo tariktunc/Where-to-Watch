@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import Card from "./Components/Card";
 import Loading from "./Components/Loading";
 import Link from "next/link";
+import DiscoverSection from "@/Components/DiscoverSection/DiscoverSection";
 
 export default function Home({ params }) {
   const searchParams = useSearchParams();
@@ -13,7 +14,7 @@ export default function Home({ params }) {
   const language = useSelector((state) => state.languageSetting);
   const [loading, setLoading] = useState(true);
   const [results, setResults] = useState([]);
-  console.log(results);
+
   const fetchData = async (url, type) => {
     try {
       const response = await fetchUrlTheMovieDb(url);
@@ -47,8 +48,9 @@ export default function Home({ params }) {
   }, [query, language]);
 
   return (
-    <section className="max-w-screen-xl  items-center justify-center mx-auto p-4 dark:bg-gray-900 ">
-      <div className="flex flex-wrap justify-center">
+    <section className="max-w-screen-xl flex flex-col gap-5 mx-auto dark:bg-gray-900 ">
+      <DiscoverSection />
+      <div className="flex flex-wrap justify-center gap-5">
         {loading ? (
           <Loading />
         ) : (

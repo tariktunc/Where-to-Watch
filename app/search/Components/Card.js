@@ -23,17 +23,15 @@ export default function Card(props) {
   }
 
   return (
-    <Link
-      href={props.link}
-      className="m-1 w-24 md:w-44 lg:w-52 h-38 md:h-72 lg:h-80 bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+    <Link href={props.link} className="initial:w-24 sm:w-52">
       <Image
-        className="w-full h-full object-cover rounded-lg md:rounded-lg"
+        className="w-full h-full object-cover rounded-sm"
         width={1000}
         height={1000}
         alt={props.title}
         src={
           props.src !== null
-            ? `https://www.themoviedb.org/t/p/w1280${props.src}`
+            ? `https://www.themoviedb.org/t/p/w500${props.src}`
             : "/placeholder-image.svg"
         }
       />

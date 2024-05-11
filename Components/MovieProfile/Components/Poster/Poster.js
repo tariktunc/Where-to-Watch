@@ -1,16 +1,19 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import Rating from "@/Components/common/Rating/rating";
 
-export default function Poster({ profileData, status }) {
+export default function Poster({ profileData, status, watchProviders }) {
   const backgroundStyles = {
     backgroundImage: `url(${`https://www.themoviedb.org/t/p/w1920_and_h1080_multi_faces${profileData.backdrop_path}`})`,
     backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
   };
+
+  useEffect(() => {
+    console.log(watchProviders);
+  }, []);
 
   return (
     <div className="w-full relative z-1" style={backgroundStyles}>
@@ -31,7 +34,7 @@ export default function Poster({ profileData, status }) {
             alt={"alt"}
           />
           {/* Title */}
-          <div className="">
+          <div>
             <div className="sm:flex sm:flex-wrap md:flex items-center gap-5">
               <h2 className="initial:text-2xl md:text-4xl font-bold">
                 {status === "tv" ? profileData.name : profileData.title}
@@ -96,6 +99,10 @@ export default function Poster({ profileData, status }) {
                 ))}
               </li>
             </ul>
+            {/* Watch Provider */}
+            <div>
+              <h3>Watch Provider</h3>
+            </div>
           </div>
         </section>
       </div>

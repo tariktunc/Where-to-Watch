@@ -3,7 +3,6 @@ import React, { useEffect } from "react";
 import Error from "@/Components/common/Error/Error";
 import Navbar from "@/Components/common/Navbar/Navbar";
 import { useSelector } from "react-redux";
-import Loading from "../search/Components/Loading";
 import { ErrorBoundary } from "next/dist/client/components/error-boundary";
 
 export default function Home({ children }) {
