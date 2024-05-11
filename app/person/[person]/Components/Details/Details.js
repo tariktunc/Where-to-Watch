@@ -10,7 +10,12 @@ export default function Home(props) {
         (a, b) => b.first_air_date.slice(0, 4) - a.first_air_date.slice(0, 4)
       )
       .map((crew, index) => (
-        <li key={index}>
+        <li
+          key={index}
+          className={`${
+            crew.character && crew.character.length === 0 ? "hidden" : ""
+          }`}
+        >
           <ul className="flex justify-start items-center h-20">
             <li className="p-5">
               <p>{crew.first_air_date.slice(0, 4)}</p>
@@ -18,7 +23,7 @@ export default function Home(props) {
             <li className="p-5 flex flex-col">
               <Link href="#">{crew.name || crew.character}</Link>
               <span>
-                &quot; as &quot;
+                &quot; Character &quot;
                 <span id="character"> {crew.character}</span>
               </span>
             </li>
@@ -32,7 +37,10 @@ export default function Home(props) {
       .filter((crew) => crew.release_date)
       .sort((a, b) => b.release_date.slice(0, 4) - a.release_date.slice(0, 4))
       .map((crew, index) => (
-        <li key={index}>
+        <li
+          key={index}
+          className={`${crew.character.length === 0 ? "hidden" : ""}`}
+        >
           <ul className="flex justify-start items-center h-20">
             <li className="p-5">
               <p>{crew.release_date.slice(0, 4)}</p>
@@ -40,7 +48,7 @@ export default function Home(props) {
             <li className="p-5 flex flex-col">
               <Link href="#">{crew.character}</Link>
               <span>
-                &quot; as &quot;
+                &quot; Character &quot;
                 <span id="character"> {crew.character}</span>
               </span>
             </li>

@@ -7,7 +7,7 @@ export default function Item(props) {
       <div className="w-40 md:w-44 lg:w-52 h-38 md:h-72 lg:h-80">
         <Image
           onClick={() => props.onClick()}
-          className="w-full h-full"
+          className="w-full h-full cursor-pointer"
           width={1000}
           height={1000}
           alt={props.title}

@@ -1,10 +1,9 @@
 "use client";
 import React from "react";
 import Error from "@/Components/common/Error/Error";
-import Lists from "@/app/people/[profile]/Components/Lists"
+import Lists from "@/app/people/[profile]/Components/Lists";
 import Loading from "@/app/search/Components/Loading";
 import { ErrorBoundary } from "next/dist/client/components/error-boundary";
-
 
 export default function Page({ params }) {
   const renderContent = () => {
@@ -18,9 +17,5 @@ export default function Page({ params }) {
     }
   };
 
-  return (
-    <ErrorBoundary fallback={<Error />}>
-      <React.Suspense fallback={<Loading />}>{renderContent()}</React.Suspense>
-    </ErrorBoundary>
-  );
+  return <ErrorBoundary fallback={<Error />}>{renderContent()}</ErrorBoundary>;
 }

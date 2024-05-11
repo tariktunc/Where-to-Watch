@@ -33,7 +33,7 @@ export default function Home({ urlStatus, status }) {
         onClick={() =>
           router.push(`${status === "tv" ? "tvshow" : status}/${item.id}`)
         }
-        className="rounded-sm initial:w-24 md:w-52"
+        className="rounded-sm initial:w-24 md:w-52 cursor-pointer"
         src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
         width={1000}
         height={1000}
