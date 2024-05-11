@@ -18,9 +18,7 @@ export default function Page({ params }) {
   return (
     <>
       <Navbar />
-      <ErrorBoundary fallback={<Error />}>
-        <Error page={params.slug} />
-      </ErrorBoundary>
+      <Error page={params.slug} />
     </>
   );
 }

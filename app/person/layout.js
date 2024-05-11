@@ -16,11 +16,11 @@ export default function Home({ children }) {
     }
   }, [theme]);
   return (
-    <ErrorBoundary fallback={<Loading />}>
+    <>
       <Navbar />
       <main className="xl:max-w-screen-xl lg:max-w-screen-lg md:max-w-screen-md flex items-center justify-center mx-auto p-4 dark:bg-gray-900">
         {children}
       </main>
-    </ErrorBoundary>
+    </>
   );
 }

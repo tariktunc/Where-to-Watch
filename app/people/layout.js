@@ -16,10 +16,8 @@ export default function Home({ children }) {
   }, [theme]);
   return (
     <>
-      <ErrorBoundary fallback={<Error />}>
-        <Navbar />
-        {children}
-      </ErrorBoundary>
+      <Navbar />
+      {children}
     </>
   );
 }
