@@ -1,19 +1,16 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import Rating from "@/Components/common/Rating/rating";
 
-export default function Poster({ profileData, status, watchProviders }) {
+export default function Poster({ profileData, status }) {
   const backgroundStyles = {
     backgroundImage: `url(${`https://www.themoviedb.org/t/p/w1920_and_h1080_multi_faces${profileData.backdrop_path}`})`,
     backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
   };
-
-  useEffect(() => {
-    console.log(watchProviders);
-  }, []);
 
   return (
     <div className="w-full relative z-1" style={backgroundStyles}>

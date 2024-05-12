@@ -31,8 +31,8 @@ export default function Home() {
               <button
                 className={` ${
                   movieOrTvPreference === "movie"
-                    ? "bg-gray-600"
-                    : "bg-gray-800"
+                    ? "bg-gray-100 dark:bg-gray-600 dark:text-white text-black"
+                    : "bg-gray-300 dark:bg-gray-800 dark:text-white text-black"
                 }  hover:opacity-70 transition ease-in-out duraction-100 w-16 h-8 rounded-sm`}
                 onClick={() => setMovieOrTvPreference("movie")}
               >
@@ -40,7 +40,9 @@ export default function Home() {
               </button>
               <button
                 className={` ${
-                  movieOrTvPreference === "tv" ? "bg-gray-600" : "bg-gray-800"
+                  movieOrTvPreference === "tv"
+                    ? "bg-gray-100 dark:bg-gray-600 dark:text-white text-black"
+                    : "bg-gray-300 dark:bg-gray-800 dark:text-white text-black"
                 }  hover:opacity-70 transition ease-in-out duraction-100 w-16 h-8 rounded-sm`}
                 onClick={() => setMovieOrTvPreference("tv")}
               >
@@ -50,7 +52,9 @@ export default function Home() {
             <div className="flex gap-1 rounded-sm">
               <button
                 className={` ${
-                  weekOrDayPreference === "day" ? "bg-gray-600" : "bg-gray-800"
+                  weekOrDayPreference === "day"
+                    ? "bg-gray-100 dark:bg-gray-600 dark:text-white text-black"
+                    : "bg-gray-300 dark:bg-gray-800 dark:text-white text-black"
                 }  hover:opacity-70 transition ease-in-out duraction-100 w-16 h-8 rounded-sm`}
                 onClick={() => setWeekOrDayPreference("day")}
               >
@@ -58,7 +62,9 @@ export default function Home() {
               </button>
               <button
                 className={` ${
-                  weekOrDayPreference === "week" ? "bg-gray-600" : "bg-gray-800"
+                  weekOrDayPreference === "week"
+                    ? "bg-gray-100 dark:bg-gray-600 dark:text-white text-black"
+                    : "bg-gray-300 dark:bg-gray-800 dark:text-white text-black"
                 }  hover:opacity-70 transition ease-in-out duraction-100 w-16 h-8 rounded-sm`}
                 onClick={() => setWeekOrDayPreference("week")}
               >
