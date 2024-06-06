@@ -1,9 +1,11 @@
 /** @type {import('next').NextConfig} */
+const dotenv = require("dotenv");
+dotenv.config();
 
 module.exports = {
-   env: {
-    API_KEY: API_KEY;
-  },  
+  env: {
+    API_KEY: process.env.API_KEY_SECRET,
+  },
   images: {
     domains: [
       "image.tmdb.org",
