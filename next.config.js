@@ -1,10 +1,12 @@
 /** @type {import('next').NextConfig} */
 
 module.exports = {
-  /* env: {
+   env: {
+     /*
     API_KEY:
       "your_api_key_here",
-  }, */ 
+      */
+  },  
   images: {
     domains: [
       "image.tmdb.org",
