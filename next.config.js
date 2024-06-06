@@ -2,10 +2,7 @@
 
 module.exports = {
    env: {
-     /*
-    API_KEY:
-      "your_api_key_here",
-      */
+    API_KEY: API_KEY;
   },  
   images: {
     domains: [
