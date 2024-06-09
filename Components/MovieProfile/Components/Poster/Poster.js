@@ -4,13 +4,37 @@ import Image from "next/image";
 import Link from "next/link";
 import Rating from "@/Components/common/Rating/rating";
 
-export default function Poster({ profileData, status }) {
+export default function Poster({
+  watchProviders,
+  profileData,
+  params,
+  status,
+  isLanguage,
+}) {
   const backgroundStyles = {
     backgroundImage: `url(${`https://www.themoviedb.org/t/p/w1920_and_h1080_multi_faces${profileData.backdrop_path}`})`,
     backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
   };
+
+  const [watchProvider, setWatchProvider] = useState(null);
+
+  useEffect(() => {
+    // 'watchProviders' içindeki 'results' objesini değişkene atama
+    const { results } = watchProviders || {};
+
+    // 'US' veya 'TR' anahtarlarına göre uygun değeri seçme
+    const provider = results[isLanguage?.slice(0, 2)?.toUpperCase() || "US"];
+
+    if (provider) {
+      // Eğer provider bulunursa, durumu güncelle
+      setWatchProvider(provider);
+    } else {
+      // Provider bulunamazsa, konsola log yaz
+      console.log("No provider available");
+    }
+  }, [watchProviders, isLanguage]);
 
   return (
     <div className="w-full relative z-1" style={backgroundStyles}>
@@ -98,7 +122,21 @@ export default function Poster({ profileData, status }) {
             </ul>
             {/* Watch Provider */}
             <div>
-              <h3>Watch Provider</h3>
+              <h3>Just Watch</h3>
+              {watchProvider?.flatrate?.length > 0 ? (
+                <div>
+                  <Link href={watchProvider.link}>
+                    <Image
+                      src={`https://www.themoviedb.org/t/p/w500${watchProvider.flatrate[0].logo_path}`}
+                      alt="logo"
+                      width={50}
+                      height={50}
+                    />
+                  </Link>
+                </div>
+              ) : (
+                <p>Not available</p>
+              )}
             </div>
           </div>
         </section>

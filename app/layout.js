@@ -1,6 +1,7 @@
 import "@/app/globals.css";
 import { Rubik } from "next/font/google";
 import ReduxProvider from "@/utils/ReduxProvider";
+
 const fontName = Rubik({ weight: "300", subsets: ["latin"] });
 
 export const metadata = {

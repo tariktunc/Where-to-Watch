@@ -1,5 +1,4 @@
 import React from "react";
-import Navbar from "@/Components/common/Navbar/Navbar";
 import Link from "next/link";
 
 export default function Notfound() {

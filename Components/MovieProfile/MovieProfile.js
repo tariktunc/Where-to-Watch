@@ -30,6 +30,7 @@ export default function MovieProfile({ params, status }) {
   const fetchProfileDataUrlDefault = `https://api.themoviedb.org/3/${status}/${params}?language=en-US`;
   const fetchImageDataUrl = `https://api.themoviedb.org/3/${status}/${params}/images`;
   const fetchCastDataUrl = `https://api.themoviedb.org/3/${status}/${params}/credits?language=${isLanguage}`;
+  const fetchWatchProviderUrl = `https://api.themoviedb.org/3/${status}/${params}/watch/providers`;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -65,13 +66,26 @@ export default function MovieProfile({ params, status }) {
       }
     };
 
+    const fetchWatchProvider = async () => {
+      try {
+        const data = await fetchUrlTheMovieDb(fetchWatchProviderUrl);
+        if (data.status === 200) {
+          setWatchProviders(data.data);
+        }
+      } catch (error) {
+        console.error("Error fetching cast data:", error);
+      }
+    };
+
     const fetchDataAsync = async () => {
       await Promise.all([fetchData(), fetchImageData(), fetchCastData()]);
       setLoading(false);
     };
 
     fetchDataAsync();
+    fetchWatchProvider();
   }, [
+    fetchWatchProviderUrl,
     fetchProfileDataUrl,
     fetchProfileDataUrlDefault,
     fetchImageDataUrl,
@@ -82,7 +96,13 @@ export default function MovieProfile({ params, status }) {
   return (
     <div>
       {profileData && (
-        <Poster profileData={profileData} params={params} status={status} />
+        <Poster
+          watchProviders={watchProviders}
+          profileData={profileData}
+          params={params}
+          status={status}
+          isLanguage={isLanguage}
+        />
       )}
       <div className="flex justify-center items-center">
         <div className="max-w-screen-xl flex justify-start flex-col pb-5 custom-scrollbar overflow-x-auto ">

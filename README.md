@@ -1,5 +1,12 @@
 ### [Live Stream](https://where-to-watch-blakfy.netlify.app/)
+
+## Environment Variable Setup
+
+- .env file should be created in the root directory.
+- API_KEY_SECRET = "YOUR_API"
+
 ---
+
 # Where to Watch
 
 "Where to Watch", The Movie Database (TMDb) API'sini kullanarak kullanıcılara film ve dizi arama, kategori bazında seçim yapma ve en çok izlenen içerikleri keşfetme imkanı sunan bir web sitesidir. Bu platform, kullanıcılara her bir film ve dizinin hangi yayın platformlarında bulunduğunu ve ilgili diğer bilgileri göstererek, izlemek istedikleri içeriği nerede bulabileceklerini kolayca öğrenmelerini sağlar.
