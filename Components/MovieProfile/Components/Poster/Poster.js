@@ -18,14 +18,16 @@ export default function Poster({
     backgroundRepeat: "no-repeat",
   };
 
+  console.log(profileData);
   const [watchProvider, setWatchProvider] = useState(null);
 
   useEffect(() => {
     // 'watchProviders' içindeki 'results' objesini değişkene atama
     const { results } = watchProviders || {};
 
-    // 'US' veya 'TR' anahtarlarına göre uygun değeri seçme
-    const provider = results[isLanguage?.slice(0, 2)?.toUpperCase() || "US"];
+    // 'dil seçeneğine göre ayarlar' veya 'TR' anahtarlarına göre uygun değeri seçme
+    const provider =
+      (results && results[isLanguage.slice(0, 2).toUpperCase()]) || "US";
 
     if (provider) {
       // Eğer provider bulunursa, durumu güncelle
@@ -34,7 +36,36 @@ export default function Poster({
       // Provider bulunamazsa, konsola log yaz
       console.log("No provider available");
     }
+    console.log(isLanguage);
   }, [watchProviders, isLanguage]);
+
+  const DisplayAvailabilityMessage = () => {
+    switch (isLanguage) {
+      case "tr-TR":
+        return (
+          <p>
+            Bu başlık şu anda dijital platformlarda bulunmamaktadır. Gösterim
+            zamanları için yerel sinemaları kontrol edin.
+          </p>
+        );
+      case "us-US":
+        return (
+          <p>
+            Currently, this title is not available for streaming. Check local
+            theaters for showtimes.
+          </p>
+        );
+      case "gr-GR":
+        return (
+          <p>
+            Dieser Titel ist momentan nicht zum Streamen verfügbar. Überprüfen
+            Sie lokale Kinos für Spielzeiten.
+          </p>
+        );
+      default:
+        return <p>Available on these platforms:</p>;
+    }
+  };
 
   return (
     <div className="w-full relative z-1" style={backgroundStyles}>
@@ -129,13 +160,13 @@ export default function Poster({
                     <Image
                       src={`https://www.themoviedb.org/t/p/w500${watchProvider.flatrate[0].logo_path}`}
                       alt="logo"
-                      width={50}
-                      height={50}
+                      width={60}
+                      height={60}
                     />
                   </Link>
                 </div>
               ) : (
-                <p>Not available</p>
+                <>{DisplayAvailabilityMessage()}</>
               )}
             </div>
           </div>
