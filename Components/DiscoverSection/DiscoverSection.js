@@ -5,7 +5,7 @@ export default function DiscoverSection() {
         className="w-full max-w-screen-xl h-[300px] md:h-[400px] lg:h-[500px]"
         style={{
           backgroundImage:
-            "url(https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/wVJG3u5Ru9tInxYiTCrJr4MpJ7Z.jpg)",
+            "url(https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/hoVj2lYW3i7oMd1o7bPQRZd1lk1.jpg)",
           backgroundPosition: "center",
           backgroundSize: "cover",
         }}

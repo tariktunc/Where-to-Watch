@@ -18,7 +18,6 @@ export default function Poster({
     backgroundRepeat: "no-repeat",
   };
 
-  console.log(profileData);
   const [watchProvider, setWatchProvider] = useState(null);
 
   useEffect(() => {
@@ -33,10 +32,8 @@ export default function Poster({
       // Eğer provider bulunursa, durumu güncelle
       setWatchProvider(provider);
     } else {
-      // Provider bulunamazsa, konsola log yaz
-      console.log("No provider available");
+      return false;
     }
-    console.log(isLanguage);
   }, [watchProviders, isLanguage]);
 
   const DisplayAvailabilityMessage = () => {
