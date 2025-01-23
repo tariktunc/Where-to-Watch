@@ -3,6 +3,11 @@
 /.pnp
 .pnp.js
 .yarn/install-state.gz
+/*************  ✨ Codeium Command ⭐  *************/
+# environment files
+.env
+
+/******  45f778d6-3bdf-4cb5-8003-05fe9e85dc0c  *******/
 
 # testing
 /coverage
