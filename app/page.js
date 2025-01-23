@@ -1,15 +1,12 @@
 "use client";
 import React, { useState, useEffect } from "react";
-
 import HorizontallyItem from "@/Components/HorizontallyItem/HorizontallyItem";
 import Navbar from "@/Components/common/Navbar/Navbar";
 import DiscoverSection from "@/Components/DiscoverSection/DiscoverSection";
 import { useSelector } from "react-redux";
-
 export default function Home() {
   const [movieOrTvPreference, setMovieOrTvPreference] = useState("movie");
   const [weekOrDayPreference, setWeekOrDayPreference] = useState("day");
-
   const theme = useSelector((state) => state.theme.theme);
   useEffect(() => {
     if (theme === "dark") {
@@ -22,56 +19,56 @@ export default function Home() {
     <>
       <Navbar />
       <DiscoverSection />
-
       <div className="w-full flex justify-center">
         <div className="max-w-screen-xl">
-          <p className="text-white px-6 pt-3">Top List</p>
-          <div className="text-white flex gap-5 p-5">
-            <div className="flex gap-1 rounded-sm">
-              <button
-                className={` ${
-                  movieOrTvPreference === "movie"
-                    ? "bg-gray-100 dark:bg-gray-600 dark:text-white text-black"
-                    : "bg-gray-300 dark:bg-gray-800 dark:text-white text-black"
-                }  hover:opacity-70 transition ease-in-out duraction-100 w-16 h-8 rounded-sm`}
-                onClick={() => setMovieOrTvPreference("movie")}
-              >
-                Movie
-              </button>
-              <button
-                className={` ${
-                  movieOrTvPreference === "tv"
-                    ? "bg-gray-100 dark:bg-gray-600 dark:text-white text-black"
-                    : "bg-gray-300 dark:bg-gray-800 dark:text-white text-black"
-                }  hover:opacity-70 transition ease-in-out duraction-100 w-16 h-8 rounded-sm`}
-                onClick={() => setMovieOrTvPreference("tv")}
-              >
-                Tv
-              </button>
-            </div>
-            <div className="flex gap-1 rounded-sm">
-              <button
-                className={` ${
-                  weekOrDayPreference === "day"
-                    ? "bg-gray-100 dark:bg-gray-600 dark:text-white text-black"
-                    : "bg-gray-300 dark:bg-gray-800 dark:text-white text-black"
-                }  hover:opacity-70 transition ease-in-out duraction-100 w-16 h-8 rounded-sm`}
-                onClick={() => setWeekOrDayPreference("day")}
-              >
-                Day
-              </button>
-              <button
-                className={` ${
-                  weekOrDayPreference === "week"
-                    ? "bg-gray-100 dark:bg-gray-600 dark:text-white text-black"
-                    : "bg-gray-300 dark:bg-gray-800 dark:text-white text-black"
-                }  hover:opacity-70 transition ease-in-out duraction-100 w-16 h-8 rounded-sm`}
-                onClick={() => setWeekOrDayPreference("week")}
-              >
-                Week
-              </button>
-            </div>
-          </div>
+          <p className="px-6 pt-3 dark:text-white">Top List</p>
+          <div className="flex gap-5 p-5">
+  <div className="flex gap-1 rounded-sm">
+    <button
+      className={`${
+        movieOrTvPreference === "movie"
+          ? "bg-blue-500 text-white dark:bg-blue-400 dark:text-black"
+          : "bg-gray-300 text-black dark:bg-gray-800 dark:text-gray-300"
+      } hover:opacity-80 transition ease-in-out duration-100 w-16 h-8 rounded-sm`}
+      onClick={() => setMovieOrTvPreference("movie")}
+    >
+      Movie
+    </button>
+    <button
+      className={`${
+        movieOrTvPreference === "tv"
+          ? "bg-blue-500 text-white dark:bg-blue-400 dark:text-black"
+          : "bg-gray-300 text-black dark:bg-gray-800 dark:text-gray-300"
+      } hover:opacity-80 transition ease-in-out duration-100 w-16 h-8 rounded-sm`}
+      onClick={() => setMovieOrTvPreference("tv")}
+    >
+      Tv
+    </button>
+  </div>
+  <div className="flex gap-1 rounded-sm">
+    <button
+      className={`${
+        weekOrDayPreference === "day"
+          ? "bg-green-500 text-white dark:bg-green-400 dark:text-black"
+          : "bg-gray-300 text-black dark:bg-gray-800 dark:text-gray-300"
+      } hover:opacity-80 transition ease-in-out duration-100 w-16 h-8 rounded-sm`}
+      onClick={() => setWeekOrDayPreference("day")}
+    >
+      Day
+    </button>
+    <button
+      className={`${
+        weekOrDayPreference === "week"
+          ? "bg-green-500 text-white dark:bg-green-400 dark:text-black"
+          : "bg-gray-300 text-black dark:bg-gray-800 dark:text-gray-300"
+      } hover:opacity-80 transition ease-in-out duration-100 w-16 h-8 rounded-sm`}
+      onClick={() => setWeekOrDayPreference("week")}
+    >
+      Week
+    </button>
+  </div>
+</div>
+
           {
             <HorizontallyItem
               urlStatus={weekOrDayPreference}

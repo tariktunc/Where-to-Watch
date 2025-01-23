@@ -6,13 +6,10 @@ export default function Logo() {
       <Image
         width={50}
         height={50}
-        src="https://flowbite.com/docs/images/logo.svg"
-        className="h-10"
-        alt="Flowbite Logo"
+        src={"/blackLogo.svg"}
+        className="h-auto sm:w-24 md:w-28 lg:w-32 xl:w-36 2xl:w-40 dark:invert dark:filter dark:grayscale"
+        alt="BLAKFY MOVIE"
       />
-      <span className="text-md sm:text-2xl font-semibold whitespace-nowrap dark:text-white">
-        BLAKFY MOVIE
-      </span>
     </Link>
   );
 }
