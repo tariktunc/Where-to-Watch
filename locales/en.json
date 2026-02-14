@@ -177,7 +177,9 @@
     "typeMovie": "Movie",
     "typeTv": "TV",
     "typePerson": "Person",
-    "searching": "Searching..."
+    "searching": "Searching...",
+    "resultsFound": "results found",
+    "startSearching": "Search for movies, TV shows, and people..."
   },
   "discussions": {
     "title": "Discussions",
@@ -232,6 +234,18 @@
     "popularPeople": "Popular People",
     "knownFor": "Known for"
   },
+  "error": {
+    "notFound": "Page not found",
+    "notFoundDesc": "We could not find the page you were looking for.",
+    "backHome": "Go Home",
+    "somethingWrong": "Something went wrong",
+    "tryAgain": "Try Again",
+    "loading": "Loading..."
+  },
+  "pagination": {
+    "prev": "Prev",
+    "next": "Next"
+  },
   "awards": {
     "title": "Awards",
     "subtitle": "Celebrating the best in film and television",
@@ -258,6 +272,8 @@
     "bafta": "BAFTA Film Awards",
     "emmy": "Emmy Awards",
     "sag": "SAG Awards",
-    "cannes": "Cannes Film Festival"
+    "cannes": "Cannes Film Festival",
+    "comingSoon": "Coming soon",
+    "seasonProgress": "Awards Season Progress"
   }
 }

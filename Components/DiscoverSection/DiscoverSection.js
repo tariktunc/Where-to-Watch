@@ -21,7 +21,7 @@ export default function DiscoverSection() {
           );
         }
       } catch (e) {
-        console.error("DiscoverSection backdrop fetch error:", e);
+        // silently handled
       }
     };
     fetchBackdrop();
@@ -90,6 +90,7 @@ export default function DiscoverSection() {
           <input
             type="text"
             name="query"
+            aria-label={t("hero.searchPlaceholder")}
             placeholder={t("hero.searchPlaceholder")}
             required
             style={{

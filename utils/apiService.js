@@ -13,7 +13,6 @@ export const fetchUrlTheMovieDb = async (url, options = {}) => {
     return response;
   } catch (error) {
     if (axios.isCancel(error)) return null;
-    console.error(error);
     throw error;
   }
 };

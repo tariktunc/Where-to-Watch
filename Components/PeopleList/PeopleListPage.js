@@ -43,7 +43,7 @@ export default function PeopleListPage() {
           }
         }
       } catch (error) {
-        console.error("Error fetching people:", error);
+        // silently handled
       } finally {
         setLoading(false);
         setLoadingMore(false);

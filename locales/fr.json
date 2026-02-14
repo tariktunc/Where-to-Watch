@@ -177,7 +177,9 @@
     "typeMovie": "Film",
     "typeTv": "Série",
     "typePerson": "Personne",
-    "searching": "Recherche..."
+    "searching": "Recherche...",
+    "resultsFound": "résultats trouvés",
+    "startSearching": "Rechercher des films, séries et personnes..."
   },
   "discussions": {
     "title": "Discussions",
@@ -231,6 +233,18 @@
   "people": {
     "popularPeople": "Personnes populaires",
     "knownFor": "Connu(e) pour"
+  },
+  "error": {
+    "notFound": "Page non trouvée",
+    "notFoundDesc": "Nous n'avons pas pu trouver la page recherchée.",
+    "backHome": "Accueil",
+    "somethingWrong": "Une erreur est survenue",
+    "tryAgain": "Réessayer",
+    "loading": "Chargement..."
+  },
+  "pagination": {
+    "prev": "Précédent",
+    "next": "Suivant"
   },
   "awards": {
     "title": "Récompenses",

@@ -1,20 +1,41 @@
-import React from "react";
 import Link from "next/link";
 
-export default function Notfound() {
+export default function NotFound() {
   return (
     <div
-      className="flex flex-col justify-center items-center h-screen gap-5"
-      style={{ backgroundColor: "black", color: "white" }}
+      className="bg-primary text-white"
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "100vh",
+        gap: "16px",
+        padding: "32px",
+        textAlign: "center",
+      }}
     >
-      <h2 className="sm:text-sm md:text-5xl">There was a problem.</h2>
-      <p className="sm:text-sm md:text-3xl">
-        We could not find the page you were looking for. <br /> Go back to
-        the
-        <Link href="/" className="mx-2 text-orange-400">
-          HOME
-        </Link>
+      <h1 style={{ fontSize: "72px", fontWeight: 700, margin: 0, opacity: 0.3 }}>404</h1>
+      <h2 style={{ fontSize: "24px", fontWeight: 700, margin: 0 }}>Page not found</h2>
+      <p style={{ fontSize: "16px", opacity: 0.7, maxWidth: "400px" }}>
+        We could not find the page you were looking for.
       </p>
+      <Link
+        href="/"
+        style={{
+          marginTop: "8px",
+          padding: "12px 32px",
+          borderRadius: "8px",
+          backgroundColor: "rgba(255,255,255,0.15)",
+          color: "white",
+          textDecoration: "none",
+          fontSize: "14px",
+          fontWeight: 600,
+          transition: "background-color 0.2s",
+        }}
+      >
+        Go Home
+      </Link>
     </div>
   );
 }

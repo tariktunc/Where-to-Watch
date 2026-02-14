@@ -25,7 +25,7 @@ export default function Home({ params }) {
           setDetails(data.data);
         }
       } catch (error) {
-        console.error("Error fetching details:", error);
+        // silently handled
       }
     };
     const fetchTvCredits = async () => {
@@ -35,7 +35,7 @@ export default function Home({ params }) {
           setTvCredits(data.data);
         }
       } catch (error) {
-        console.error("Error fetching tv credits:", error);
+        // silently handled
       }
     };
     const fetchMovieCredits = async () => {
@@ -45,7 +45,7 @@ export default function Home({ params }) {
           setMovieCredits(data.data);
         }
       } catch (error) {
-        console.error("Error fetching movie credits:", error);
+        // silently handled
       }
     };
 

@@ -177,7 +177,9 @@
     "typeMovie": "Film",
     "typeTv": "Dizi",
     "typePerson": "Kişi",
-    "searching": "Aranıyor..."
+    "searching": "Aranıyor...",
+    "resultsFound": "sonuç bulundu",
+    "startSearching": "Film, dizi ve kişi arayın..."
   },
   "discussions": {
     "title": "Tartışmalar",
@@ -231,6 +233,18 @@
   "people": {
     "popularPeople": "Popüler Kişiler",
     "knownFor": "Bilinen yapımlar"
+  },
+  "error": {
+    "notFound": "Sayfa bulunamadı",
+    "notFoundDesc": "Aradığınız sayfa bulunamadı.",
+    "backHome": "Ana Sayfa",
+    "somethingWrong": "Bir şeyler yanlış gitti",
+    "tryAgain": "Tekrar Dene",
+    "loading": "Yükleniyor..."
+  },
+  "pagination": {
+    "prev": "Önceki",
+    "next": "Sonraki"
   },
   "awards": {
     "title": "Ödüller",

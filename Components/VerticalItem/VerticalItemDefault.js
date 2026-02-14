@@ -15,7 +15,7 @@ export default function Home({ urlStatus, status }) {
         const trendingMovies = await fetchUrlTheMovieDb(url);
         setMovies(trendingMovies.data.results);
       } catch (error) {
-        console.error(error);
+        // silently handled
       }
     };
 

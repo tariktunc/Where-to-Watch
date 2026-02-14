@@ -58,7 +58,6 @@ export default function Home(props) {
   };
 
   function Slider(props) {
-    console.log(props.credits);
     return (
       <section className="flex flex-col">
         <h3 className="font-bold text-xl md:text-4xl">{props.title}</h3>

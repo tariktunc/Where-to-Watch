@@ -11,7 +11,7 @@ import ru from "@/locales/ru.json";
 const translations = {
   TR: tr,
   US: en,
-  GR: de,
+  DE: de,
   ES: es,
   FR: fr,
   PT: pt,
@@ -22,7 +22,7 @@ const translations = {
 const LOCALE_MAP = {
   TR: "tr-TR",
   US: "en-US",
-  GR: "de-DE",
+  DE: "de-DE",
   ES: "es-ES",
   FR: "fr-FR",
   PT: "pt-BR",

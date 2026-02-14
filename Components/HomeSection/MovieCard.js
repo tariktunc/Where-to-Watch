@@ -127,12 +127,13 @@ export default function MovieCard({ item, mediaType, fullWidth = false, provider
         <Image
           src={
             item.poster_path
-              ? `https://image.tmdb.org/t/p/w300${item.poster_path}`
+              ? `https://image.tmdb.org/t/p/w185${item.poster_path}`
               : "/placeholder-image.svg"
           }
           width={185}
           height={278}
           alt={title || "Movie poster"}
+          loading="lazy"
           style={{
             borderRadius: "8px",
             width: fullWidth ? "100%" : "185px",

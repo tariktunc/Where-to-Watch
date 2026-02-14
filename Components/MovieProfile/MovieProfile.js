@@ -63,7 +63,7 @@ export default function MovieProfile({ params, status }) {
         if (keywordRes?.status === 200) setKeywords(keywordRes.data);
         if (reviewRes?.status === 200) setReviews(reviewRes.data);
       } catch (error) {
-        console.error("MovieProfile fetch error:", error);
+        // silently handled
       } finally {
         setLoading(false);
       }
@@ -101,8 +101,35 @@ export default function MovieProfile({ params, status }) {
   const countryCode = locale.slice(0, 2).toUpperCase();
 
   return (
-    <div className="bg-white dark:bg-primary" style={{ minHeight: "100vh" }}>
-      <DetailHero
+    <>
+      {profileData && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": status === "tv" ? "TVSeries" : "Movie",
+              name: profileData.title || profileData.name,
+              description: profileData.overview,
+              image: profileData.poster_path
+                ? `https://image.tmdb.org/t/p/w500${profileData.poster_path}`
+                : undefined,
+              datePublished: profileData.release_date || profileData.first_air_date,
+              aggregateRating: profileData.vote_average
+                ? {
+                    "@type": "AggregateRating",
+                    ratingValue: profileData.vote_average,
+                    bestRating: 10,
+                    ratingCount: profileData.vote_count,
+                  }
+                : undefined,
+              genre: profileData.genres?.map((g) => g.name),
+            }),
+          }}
+        />
+      )}
+      <div className="bg-white dark:bg-primary" style={{ minHeight: "100vh" }}>
+        <DetailHero
         profileData={profileData}
         castData={castData}
         status={status}
@@ -139,5 +166,6 @@ export default function MovieProfile({ params, status }) {
         />
       </div>
     </div>
+    </>
   );
 }

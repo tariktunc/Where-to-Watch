@@ -115,7 +115,7 @@ export function useDiscoverFilters(status, lists) {
           setGenres(response.data.genres || []);
         }
       } catch (error) {
-        console.error("Error fetching genres:", error);
+        // silently handled
       }
     };
     fetchGenres();
@@ -132,7 +132,7 @@ export function useDiscoverFilters(status, lists) {
           setProviders(response.data.results || []);
         }
       } catch (error) {
-        console.error("Error fetching providers:", error);
+        // silently handled
       }
     };
     fetchProviders();
@@ -187,7 +187,7 @@ export function useDiscoverFilters(status, lists) {
           }
         }
       } catch (error) {
-        console.error("Error fetching data:", error);
+        // silently handled
       } finally {
         setLoading(false);
         setLoadingMore(false);

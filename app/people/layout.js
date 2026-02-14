@@ -1,22 +1,11 @@
-"use client";
-import React, { useEffect } from "react";
-import Navbar from "@/Components/common/Navbar/Navbar";
-import Footer from "@/Components/common/Footer/Footer";
-import { useSelector } from "react-redux";
-export default function Home({ children }) {
-  const theme = useSelector((state) => state.theme.theme);
-  useEffect(() => {
-    if (theme === "dark") {
-      return document.body.classList.add("dark");
-    } else {
-      return document.body.classList.remove("dark");
-    }
-  }, [theme]);
-  return (
-    <>
-      <Navbar />
-      {children}
-      <Footer />
-    </>
-  );
+import SectionLayout from "@/Components/common/SectionLayout";
+
+export const metadata = {
+  title: "People",
+  description:
+    "Browse popular actors, directors, and crew in the entertainment industry.",
+};
+
+export default function PeopleLayout({ children }) {
+  return <SectionLayout>{children}</SectionLayout>;
 }

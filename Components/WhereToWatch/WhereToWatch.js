@@ -97,7 +97,7 @@ function MultiSelecet() {
         const trendingMovies = await fetchUrlTheMovieDb(url);
         setChannelImage(trendingMovies.data.results);
       } catch (error) {
-        console.error(error);
+        // silently handled
       }
     };
 

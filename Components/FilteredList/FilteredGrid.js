@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { useTranslation } from "@/hooks/useTranslation";
-import MovieCard from "@/Components/HomeSection/MovieCard";
+import MediaCard from "@/Components/common/MediaCard";
 import Loading from "@/Components/common/Loading/Loading";
 
 export default function FilteredGrid({
@@ -53,18 +53,15 @@ export default function FilteredGrid({
 
   return (
     <div style={{ flex: 1, minWidth: 0 }}>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(150px, 1fr))",
-          gap: "30px 16px",
-          padding: "0",
-        }}
-      >
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-x-3 gap-y-8 sm:gap-x-4 sm:gap-y-10">
         {results.map((item) => (
-          <MovieCard
+          <MediaCard
             key={item.id}
-            item={item}
+            id={item.id}
+            title={item.title || item.name}
+            posterPath={item.poster_path}
+            rating={item.vote_average}
+            date={item.release_date || item.first_air_date}
             mediaType={mediaType}
             fullWidth
           />

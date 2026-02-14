@@ -199,7 +199,7 @@ export default function LatestTrailers() {
           );
         }
       } catch (error) {
-        console.error("LatestTrailers fetch error:", error);
+        // silently handled
       }
     };
     fetchTrailers();

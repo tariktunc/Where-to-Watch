@@ -1,25 +1,11 @@
-"use client";
-import React, { useEffect } from "react";
-import Navbar from "@/Components/common/Navbar/Navbar";
-import Footer from "@/Components/common/Footer/Footer";
-import { useSelector } from "react-redux";
+import SectionLayout from "@/Components/common/SectionLayout";
+
+export const metadata = {
+  title: "Awards",
+  description:
+    "Explore Academy Awards, Golden Globes, BAFTA, Emmy, and more. Winners and nominees from 2016 to present.",
+};
 
 export default function AwardsLayout({ children }) {
-  const theme = useSelector((state) => state.theme.theme);
-
-  useEffect(() => {
-    if (theme === "dark") {
-      document.body.classList.add("dark");
-    } else {
-      document.body.classList.remove("dark");
-    }
-  }, [theme]);
-
-  return (
-    <>
-      <Navbar />
-      {children}
-      <Footer />
-    </>
-  );
+  return <SectionLayout>{children}</SectionLayout>;
 }

@@ -177,7 +177,9 @@
     "typeMovie": "Фильм",
     "typeTv": "Сериал",
     "typePerson": "Персона",
-    "searching": "Поиск..."
+    "searching": "Поиск...",
+    "resultsFound": "результатов найдено",
+    "startSearching": "Поиск фильмов, сериалов и людей..."
   },
   "discussions": {
     "title": "Обсуждения",
@@ -231,6 +233,18 @@
   "people": {
     "popularPeople": "Популярные люди",
     "knownFor": "Известен по"
+  },
+  "error": {
+    "notFound": "Страница не найдена",
+    "notFoundDesc": "Не удалось найти запрашиваемую страницу.",
+    "backHome": "На главную",
+    "somethingWrong": "Что-то пошло не так",
+    "tryAgain": "Попробовать снова",
+    "loading": "Загрузка..."
+  },
+  "pagination": {
+    "prev": "Назад",
+    "next": "Далее"
   },
   "awards": {
     "title": "Награды",

@@ -10,7 +10,7 @@ if (typeof window !== "undefined") {
       darkMode = "dark";
     }
   } catch (error) {
-    console.log("Error in initialState", error);
+    // silently handled
   }
 }
 
@@ -31,7 +31,7 @@ const themeSlice = createSlice({
           localStorage.setItem("themes", newTheme);
           state.theme = newTheme;
         } catch (error) {
-          console.log("Error in toggleTheme", error);
+          // silently handled
         }
       }
     },

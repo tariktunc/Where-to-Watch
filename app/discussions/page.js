@@ -91,7 +91,7 @@ export default function DiscussionsPage() {
         );
         setTrendingMovies(res.data.results.slice(0, 5));
       } catch (e) {
-        console.error(e);
+        // silently handled
       }
     };
     fetchTrending();
