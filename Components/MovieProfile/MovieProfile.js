@@ -1,162 +1,143 @@
 "use client";
-//React Hooks
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-// Utils
 import { fetchUrlTheMovieDb } from "@/utils/apiService";
-// Components Page
-const Poster = React.lazy(() =>
-  import("@/Components/MovieProfile/Components/Poster/Poster")
-);
-const Cast = React.lazy(() =>
-  import("@/Components/MovieProfile/Components/Cast/Cast")
-);
-const Media = React.lazy(() =>
-  import("@/Components/MovieProfile/Components/Media/Media")
-);
+import { useTranslation } from "@/hooks/useTranslation";
+import DetailHero from "./Components/DetailHero";
+import DetailCast from "./Components/DetailCast";
+import DetailMedia from "./Components/DetailMedia";
+import DetailSidebar from "./Components/DetailSidebar";
+import DetailRecommendations from "./Components/DetailRecommendations";
+import DetailReviews from "./Components/DetailReviews";
 
 export default function MovieProfile({ params, status }) {
   const [profileData, setProfileData] = useState(null);
-  const [imageData, setImageData] = useState(null);
   const [castData, setCastData] = useState(null);
+  const [imageData, setImageData] = useState(null);
+  const [videoData, setVideoData] = useState(null);
   const [watchProviders, setWatchProviders] = useState(null);
+  const [recommendations, setRecommendations] = useState(null);
+  const [keywords, setKeywords] = useState(null);
+  const [reviews, setReviews] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Redux
-  const language = useSelector((state) => state.languageSetting);
-  const isLanguage = `${language.toLowerCase()}-${language}`;
-
-  const fetchProfileDataUrl = `https://api.themoviedb.org/3/${status}/${params}?language=${isLanguage}`;
-  const fetchProfileDataUrlDefault = `https://api.themoviedb.org/3/${status}/${params}?language=en-US`;
-  const fetchImageDataUrl = `https://api.themoviedb.org/3/${status}/${params}/images`;
-  const fetchCastDataUrl = `https://api.themoviedb.org/3/${status}/${params}/credits?language=${isLanguage}`;
-  const fetchWatchProviderUrl = `https://api.themoviedb.org/3/${status}/${params}/watch/providers`;
+  const { locale } = useTranslation();
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchAll = async () => {
+      setLoading(true);
       try {
-        const data = await fetchUrlTheMovieDb(fetchProfileDataUrl);
-        if (data.status === 200) {
-          setProfileData(data.data);
-        }
+        const [profileRes, castRes, imageRes, videoRes, providerRes, recoRes, keywordRes, reviewRes] =
+          await Promise.all([
+            fetchUrlTheMovieDb(
+              `https://api.themoviedb.org/3/${status}/${params}?language=${locale}`
+            ),
+            fetchUrlTheMovieDb(
+              `https://api.themoviedb.org/3/${status}/${params}/credits?language=${locale}`
+            ),
+            fetchUrlTheMovieDb(
+              `https://api.themoviedb.org/3/${status}/${params}/images`
+            ),
+            fetchUrlTheMovieDb(
+              `https://api.themoviedb.org/3/${status}/${params}/videos?language=${locale}`
+            ),
+            fetchUrlTheMovieDb(
+              `https://api.themoviedb.org/3/${status}/${params}/watch/providers`
+            ),
+            fetchUrlTheMovieDb(
+              `https://api.themoviedb.org/3/${status}/${params}/recommendations?language=${locale}`
+            ),
+            fetchUrlTheMovieDb(
+              `https://api.themoviedb.org/3/${status}/${params}/keywords`
+            ),
+            fetchUrlTheMovieDb(
+              `https://api.themoviedb.org/3/${status}/${params}/reviews?language=${locale}`
+            ),
+          ]);
+
+        if (profileRes?.status === 200) setProfileData(profileRes.data);
+        if (castRes?.status === 200) setCastData(castRes.data);
+        if (imageRes?.status === 200) setImageData(imageRes.data);
+        if (videoRes?.status === 200) setVideoData(videoRes.data);
+        if (providerRes?.status === 200) setWatchProviders(providerRes.data);
+        if (recoRes?.status === 200) setRecommendations(recoRes.data);
+        if (keywordRes?.status === 200) setKeywords(keywordRes.data);
+        if (reviewRes?.status === 200) setReviews(reviewRes.data);
       } catch (error) {
-        console.error("Error fetching profile data:", error);
+        console.error("MovieProfile fetch error:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
-    const fetchImageData = async () => {
-      try {
-        const data = await fetchUrlTheMovieDb(fetchImageDataUrl);
-        if (data.status === 200) {
-          setImageData(data.data);
-        }
-      } catch (error) {
-        console.error("Error fetching image data:", error);
-      }
-    };
+    fetchAll();
+  }, [params, status, locale]);
 
-    const fetchCastData = async () => {
-      try {
-        const data = await fetchUrlTheMovieDb(fetchCastDataUrl);
-        if (data.status === 200) {
-          setCastData(data.data);
-        }
-      } catch (error) {
-        console.error("Error fetching cast data:", error);
-      }
-    };
+  if (loading || !profileData) {
+    return (
+      <div
+        className="bg-white dark:bg-primary"
+        style={{
+          minHeight: "100vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <div
+          style={{
+            width: "40px",
+            height: "40px",
+            border: "3px solid rgba(255,255,255,0.2)",
+            borderTopColor: "white",
+            borderRadius: "50%",
+            animation: "spin 0.8s linear infinite",
+          }}
+        />
+        <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+      </div>
+    );
+  }
 
-    const fetchWatchProvider = async () => {
-      try {
-        const data = await fetchUrlTheMovieDb(fetchWatchProviderUrl);
-        if (data.status === 200) {
-          setWatchProviders(data.data);
-        }
-      } catch (error) {
-        console.error("Error fetching cast data:", error);
-      }
-    };
-
-    const fetchDataAsync = async () => {
-      await Promise.all([fetchData(), fetchImageData(), fetchCastData()]);
-      setLoading(false);
-    };
-
-    fetchDataAsync();
-    fetchWatchProvider();
-  }, [
-    fetchWatchProviderUrl,
-    fetchProfileDataUrl,
-    fetchProfileDataUrlDefault,
-    fetchImageDataUrl,
-    fetchCastDataUrl,
-    isLanguage,
-  ]);
+  const countryCode = locale.slice(0, 2).toUpperCase();
 
   return (
-    <div>
-      {profileData && (
-        <Poster
-          watchProviders={watchProviders}
+    <div className="bg-white dark:bg-primary" style={{ minHeight: "100vh" }}>
+      <DetailHero
+        profileData={profileData}
+        castData={castData}
+        status={status}
+        videoData={videoData}
+        watchProviders={watchProviders}
+        countryCode={countryCode}
+      />
+
+      <div
+        style={{
+          maxWidth: "1280px",
+          margin: "0 auto",
+          padding: "30px 32px",
+          display: "flex",
+          gap: "40px",
+        }}
+      >
+        {/* Main content */}
+        <div style={{ flex: "1 1 0", minWidth: "0" }}>
+          <DetailCast castData={castData} />
+          <DetailMedia imageData={imageData} videoData={videoData} />
+          <DetailReviews reviews={reviews} />
+          <DetailRecommendations recommendations={recommendations} status={status} />
+        </div>
+
+        {/* Sidebar */}
+        <DetailSidebar
           profileData={profileData}
-          params={params}
+          castData={castData}
+          watchProviders={watchProviders}
+          keywords={keywords}
           status={status}
-          isLanguage={isLanguage}
+          countryCode={countryCode}
         />
-      )}
-      <div className="flex justify-center items-center">
-        <div className="max-w-screen-xl flex justify-start flex-col pb-5 custom-scrollbar overflow-x-auto ">
-          <h3 className="my-2 mx-1 font-bold text-xl w-auto dark:text-white">
-            Populer Player
-          </h3>
-          {!loading &&
-            castData &&
-            castData.cast &&
-            castData.cast.length > 0 && (
-              <ul className="flex justify-start items-center">
-                {castData.cast.slice(0, 11).map((actor, index) => (
-                  <Cast
-                    id={actor.id}
-                    key={index}
-                    image={`https://www.themoviedb.org/t/p/w500${actor.profile_path}`}
-                    altName={actor.original_name}
-                    name={actor.name}
-                    characterName={actor.character}
-                    episodes={actor.known_for_department}
-                  />
-                ))}
-              </ul>
-            )}
-        </div>
       </div>
-      {imageData && imageData.backdrops && (
-        <div className="flex justify-center items-center ">
-          <div className="flex flex-col max-w-screen-xl">
-            <div className="my-2 mx-1 font-bold text-xl w-auto ">
-              <h3 className="text-xl font-bold dark:text-white">Backdrops</h3>
-            </div>
-            <div className="flex justify-start items-center pb-5 custom-scrollbar overflow-x-auto gap-5">
-              {imageData.backdrops
-                .filter((item) => item.iso_639_1 !== null)
-                .slice(
-                  0,
-                  Math.min(
-                    10,
-                    imageData.backdrops.filter(
-                      (item) => item.iso_639_1 !== null
-                    ).length
-                  )
-                )
-                .map((item, index) => (
-                  <Media
-                    key={index}
-                    filePath={`https://www.themoviedb.org/t/p/w533_and_h300_bestv2${item.file_path}`}
-                  />
-                ))}
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

@@ -1,27 +1,24 @@
 "use client";
-import React from "react";
+import React, { use } from "react";
 import Error from "@/Components/common/Error/Error";
-import Lists from "@/Components/Items/Lists";
+import FilteredListPage from "@/Components/FilteredList/FilteredListPage";
 import MovieProfile from "@/Components/MovieProfile/MovieProfile";
 
 export default function Page({ params }) {
+  const { profile } = use(params);
+
   const renderContent = () => {
-    switch (params.profile) {
+    switch (profile) {
       case "popular":
-        return <Lists status={"movie"} lists={"popular"} />;
-        break;
+        return <FilteredListPage status={"movie"} lists={"popular"} />;
       case "now_playing":
-        return <Lists status={"movie"} lists={"now_playing"} />;
-        break;
+        return <FilteredListPage status={"movie"} lists={"now_playing"} />;
       case "upcoming":
-        return <Lists status={"movie"} lists={"upcoming"} />;
-        break;
+        return <FilteredListPage status={"movie"} lists={"upcoming"} />;
       case "top_rated":
-        return <Lists status={"movie"} lists={"top_rated"} />;
-        break;
+        return <FilteredListPage status={"movie"} lists={"top_rated"} />;
       default:
-        // Check if the profile is a number between 1 and 2147483647
-        const profileNumber = parseInt(params.profile);
+        const profileNumber = parseInt(profile);
         if (
           !isNaN(profileNumber) &&
           profileNumber >= 1 &&
@@ -29,7 +26,7 @@ export default function Page({ params }) {
         ) {
           return <MovieProfile status={"movie"} params={profileNumber} />;
         } else {
-          return <Error page={params.profile} />;
+          return <Error page={profile} />;
         }
     }
   };

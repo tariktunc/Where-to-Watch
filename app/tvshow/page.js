@@ -1,8 +1,5 @@
-import WhereToWatch from "@/Components/WhereToWatch/WhereToWatch";
-import Lists from "@/Components/Items/Lists";
+import FilteredListPage from "@/Components/FilteredList/FilteredListPage";
 
 export default function Home() {
-  return (
-      <Lists status={"tv"} lists={"popular"} />
-  );
+  return <FilteredListPage status={"tv"} lists={"popular"} />;
 }

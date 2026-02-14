@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install:*)",
+      "WebFetch(domain:www.themoviedb.org)",
+      "Bash(npm run dev:*)",
+      "Bash(curl:*)",
+      "WebFetch(domain:blakfy.com)",
+      "Bash(npm run build:*)",
+      "Bash(for f in locales/*.json)",
+      "Bash(do echo -n \"$f: \")",
+      "Bash(python -c:*)",
+      "Bash(done)",
+      "Bash(do node -e \"JSON.parse\\(require\\(''fs''\\).readFileSync\\(''$f'',''utf8''\\)\\)\")",
+      "Bash(echo:*)",
+      "Bash(npx next build:*)",
+      "Bash(node -e:*)"
+    ]
+  }
+}

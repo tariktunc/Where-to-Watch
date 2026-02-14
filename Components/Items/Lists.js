@@ -2,11 +2,10 @@
 
 "use client";
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-
 // import Item from "@/Components/Items/Item/Item";
 import Item from "@/Components/Items/Item";
 import { fetchUrlTheMovieDb } from "@/utils/apiService";
+import { useTranslation } from "@/hooks/useTranslation";
 import { useRouter } from "next/navigation";
 import Loading from "@/Components/common/Loading/Loading";
 
@@ -15,12 +14,11 @@ export default function Lists({ status, lists }) {
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const imageUrl = "https://image.tmdb.org/t/p/w500";
-  const language = useSelector((state) => state.languageSetting);
-  const isLanguage = `${language.toLowerCase()}-${language}`;
+  const { locale } = useTranslation();
   const router = useRouter();
 
   useEffect(() => {
-    const url = `https://api.themoviedb.org/3/${status}/${lists}?language=${isLanguage}&page=${page}`;
+    const url = `https://api.themoviedb.org/3/${status}/${lists}?language=${locale}&page=${page}`;
     const fetchData = async () => {
       try {
         const trendingMovies = await fetchUrlTheMovieDb(url);
@@ -31,7 +29,7 @@ export default function Lists({ status, lists }) {
       }
     };
     fetchData();
-  }, [isLanguage, page, status, lists]);
+  }, [locale, page, status, lists]);
 
   function PaginationChange() {
     return (
@@ -40,7 +38,7 @@ export default function Lists({ status, lists }) {
           <button
             onClick={() => setPage(page > 1 ? page - 1 : page)}
             type="button"
-            className="bg-gray-500 dark:bg-gray-800 text-white rounded-l-md border-r border-gray-100 py-2 hover:bg-red-700 hover:text-white px-3"
+            className="bg-gray-500 dark:bg-surface-dark text-white rounded-l-md border-r border-gray-100 py-2 hover:bg-red-700 hover:text-white px-3"
           >
             <div className="flex flex-row items-center">
               <svg
@@ -64,7 +62,7 @@ export default function Lists({ status, lists }) {
           <button
             onClick={() => setPage(page <= data.length ? page + 1 : page)}
             type="button"
-            className="bg-gray-500 dark:bg-gray-800 text-white rounded-r-md py-2 border-l border-gray-200 hover:bg-red-700 hover:text-white px-3"
+            className="bg-gray-500 dark:bg-surface-dark text-white rounded-r-md py-2 border-l border-gray-200 hover:bg-red-700 hover:text-white px-3"
           >
             <div className="flex flex-row items-center">
               <span className="mr-2">Next</span>
@@ -88,7 +86,7 @@ export default function Lists({ status, lists }) {
   }
 
   return (
-    <div className="xl:max-w-screen-2xl lg:max-w-screen-lg md:max-w-screen-md  mx-auto p-4 dark:bg-gray-900">
+    <div className="xl:max-w-screen-2xl lg:max-w-screen-lg md:max-w-screen-md  mx-auto p-4">
       <PaginationChange />
       <div className="flex flex-wrap items-start justify-center">
         {loading ? (

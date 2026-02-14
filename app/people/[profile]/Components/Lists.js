@@ -1,10 +1,10 @@
 // Popular Page istegi components donusturulecek.
 "use client";
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
 // import Item from "@/Components/Items/Item/Item";
 import Item from "@/app/people/[profile]/Components/Item"
 import { fetchUrlTheMovieDb } from "@/utils/apiService";
+import { useTranslation } from "@/hooks/useTranslation";
 import { useRouter } from "next/navigation";
 import Loading from "@/Components/common/Loading/Loading";
 
@@ -13,12 +13,11 @@ export default function Lists({ status, lists }) {
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const imageUrl = "https://image.tmdb.org/t/p/w500";
-  const language = useSelector((state) => state.languageSetting);
-  const isLanguage = `${language.toLowerCase()}-${language}`;
+  const { locale } = useTranslation();
   const router = useRouter();
 
   useEffect(() => {
-    const url = `https://api.themoviedb.org/3/${status}/${lists}?language=${isLanguage}&page=${page}`;
+    const url = `https://api.themoviedb.org/3/${status}/${lists}?language=${locale}&page=${page}`;
     const fetchData = async () => {
       try {
         const trendingMovies = await fetchUrlTheMovieDb(url);
@@ -29,7 +28,7 @@ export default function Lists({ status, lists }) {
       }
     };
     fetchData();
-  }, [isLanguage, page, status, lists]);
+  }, [locale, page, status, lists]);
 
   function PaginationChange() {
     return (
@@ -80,7 +79,7 @@ export default function Lists({ status, lists }) {
   }
 
   return (
-    <div className="xl:max-w-screen-2xl lg:max-w-screen-lg md:max-w-screen-md  mx-auto p-4 dark:bg-gray-900">
+    <div className="xl:max-w-screen-2xl lg:max-w-screen-lg md:max-w-screen-md  mx-auto p-4">
       <PaginationChange />
       <div className="flex flex-wrap items-start justify-center">
         {loading ? (

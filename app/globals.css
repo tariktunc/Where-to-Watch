@@ -1,25 +1,48 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@config "../tailwind.config.js";
 
-* {
+@theme {
+  --color-primary: #0A1A38;
+  --color-surface-dark: #1a1a2e;
+  --color-surface-dark-hover: #2a2a3e;
+  --color-accent: #FF9C43;
+  --color-brand: #92B079;
+  --color-brand-light: #D2E4C7;
+}
+
+*,
+*::before,
+*::after {
   box-sizing: border-box;
+}
+
+body {
   margin: 0;
   padding: 0;
   font-family: "Montserrat", sans-serif;
+  background-color: #ffffff;
+  transition: background-color 0.3s ease;
 }
 
-/* horizontalItem.js */
-.custom-scrollbar::-webkit-scrollbar {
-  width: 5px;
-  height: 10px;
+body.dark {
+  background-color: var(--color-primary);
+  color: #e5e7eb;
 }
 
+/* Horizontal scroll sections */
 .custom-scrollbar::-webkit-scrollbar {
-  width: 5px; /* Yatay scrollbar için genişlik */
+  height: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: darkgray; /* Daha belirgin bir gri tonu */
+  background: #c4c4c4;
   border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #999;
 }

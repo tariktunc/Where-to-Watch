@@ -3,14 +3,13 @@ import React, { useState, useEffect } from "react";
 import Rating from "@/Components/common/Rating/rating";
 import Item from "@/Components/Items/Item";
 import { fetchUrlTheMovieDb } from "@/utils/apiService";
-import { useSelector } from "react-redux";
+import { useTranslation } from "@/hooks/useTranslation";
 export default function Home({ urlStatus, status }) {
-  const language = useSelector((state) => state.languageSetting);
-  const isLanguage = `${language.toLowerCase()}-${language}`;
+  const { locale } = useTranslation();
   const [movies, setMovies] = useState([]);
   const imageUrl = "https://image.tmdb.org/t/p/w500";
   useEffect(() => {
-    const url = `https://api.themoviedb.org/3/trending/${status}/${urlStatus}?language=${isLanguage}`;
+    const url = `https://api.themoviedb.org/3/trending/${status}/${urlStatus}?language=${locale}`;
     const fetchData = async () => {
       try {
         const trendingMovies = await fetchUrlTheMovieDb(url);
@@ -21,7 +20,7 @@ export default function Home({ urlStatus, status }) {
     };
 
     fetchData();
-  }, [isLanguage, urlStatus, status]);
+  }, [locale, urlStatus, status]);
 
   return (
     <div className="flex flex-wrap max-w-screen-lg rounded-xl">

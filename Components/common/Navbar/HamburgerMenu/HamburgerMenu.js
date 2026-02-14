@@ -1,12 +1,9 @@
 export default function HamburgerMenu(props) {
   return (
     <button
-      onClick={() => {
-        props.handleClick();
-      }}
-      data-collapse-toggle="navbar-dropdown"
+      onClick={() => props.handleClick()}
       type="button"
-      className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+      className="inline-flex items-center p-2 w-10 h-10 justify-center text-white/70 rounded-lg md:hidden hover:text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/20 transition-colors duration-200"
       aria-controls="navbar-dropdown"
       aria-expanded="false"
     >

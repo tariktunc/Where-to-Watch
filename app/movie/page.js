@@ -1,9 +1,5 @@
-import Lists from "@/Components/Items/Lists";
+import FilteredListPage from "@/Components/FilteredList/FilteredListPage";
 
-export default function Home({ params }) {
-  return (
-    <>
-      <Lists status={"movie"} lists={"popular"} />
-    </>
-  );
+export default function Home() {
+  return <FilteredListPage status={"movie"} lists={"popular"} />;
 }

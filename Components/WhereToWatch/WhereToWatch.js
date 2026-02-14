@@ -82,13 +82,16 @@ function CountryItem() {
 function MultiSelecet() {
   const [channelImage, setChannelImage] = useState([]);
   const country = useSelector((state) => state.whereToWatchSetting);
-  const language = useSelector((state) => state.languageSetting);
   const isCountry = `${country.toLowerCase()}`;
-  const isLanguage = `${language.toLowerCase()}-${language}`;
   const imageUrl = "https://image.tmdb.org/t/p/w500/";
 
+  // Import locale map inline for this non-hook context
+  const LOCALE_MAP = { TR: "tr-TR", US: "en-US", GR: "de-DE", ES: "es-ES", FR: "fr-FR", PT: "pt-BR", RU: "ru-RU" };
+  const language = useSelector((state) => state.languageSetting);
+  const locale = LOCALE_MAP[language] || "en-US";
+
   useEffect(() => {
-    const url = `https://api.themoviedb.org/3/watch/providers/movie?language=${isLanguage}&watch_region=${isCountry}`;
+    const url = `https://api.themoviedb.org/3/watch/providers/movie?language=${locale}&watch_region=${isCountry}`;
     const fetchData = async () => {
       try {
         const trendingMovies = await fetchUrlTheMovieDb(url);
@@ -99,7 +102,7 @@ function MultiSelecet() {
     };
 
     fetchData();
-  }, [isLanguage, isCountry]);
+  }, [locale, isCountry]);
 
   return (
     <div>

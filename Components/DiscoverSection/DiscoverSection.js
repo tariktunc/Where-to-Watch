@@ -1,80 +1,128 @@
+"use client";
+import React, { useState, useEffect } from "react";
+import { fetchUrlTheMovieDb } from "@/utils/apiService";
+import { useTranslation } from "@/hooks/useTranslation";
+
 export default function DiscoverSection() {
+  const [backdropUrl, setBackdropUrl] = useState("");
+  const { t, locale } = useTranslation();
+
+  useEffect(() => {
+    const fetchBackdrop = async () => {
+      try {
+        const res = await fetchUrlTheMovieDb(
+          `https://api.themoviedb.org/3/trending/movie/day?language=${locale}`
+        );
+        const results = res.data.results;
+        if (results.length > 0) {
+          const random = results[Math.floor(Math.random() * Math.min(5, results.length))];
+          setBackdropUrl(
+            `https://image.tmdb.org/t/p/w1920_and_h800_multi_faces${random.backdrop_path}`
+          );
+        }
+      } catch (e) {
+        console.error("DiscoverSection backdrop fetch error:", e);
+      }
+    };
+    fetchBackdrop();
+  }, [locale]);
+
   return (
-    <section className="w-full flex flex-col items-center">
+    <section
+      style={{
+        position: "relative",
+        width: "100%",
+        minHeight: "300px",
+        backgroundImage: backdropUrl
+          ? `url(${backdropUrl})`
+          : "linear-gradient(to right, #0A1A38, #0A1A38)",
+        backgroundSize: "cover",
+        backgroundPosition: "center top",
+      }}
+    >
       <div
-        className="w-full max-w-screen-xl h-[300px] md:h-[400px] lg:h-[500px]"
         style={{
-          backgroundImage:
-            "url(https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/hoVj2lYW3i7oMd1o7bPQRZd1lk1.jpg)",
-          backgroundPosition: "center",
-          backgroundSize: "cover",
+          position: "absolute",
+          inset: 0,
+          background:
+            "linear-gradient(to right, rgba(10,26,56,0.85) 0%, rgba(10,26,56,0.6) 100%)",
+        }}
+      />
+      <div
+        style={{
+          position: "relative",
+          maxWidth: "1280px",
+          margin: "0 auto",
+          padding: "48px 32px",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          gap: "20px",
         }}
       >
-        <div
-          className="w-full h-full flex flex-col justify-center items-center p-5"
-          style={{ backgroundColor: "rgba(0, 0, 0, 0.6)" }}
+        <h2
+          style={{
+            fontSize: "clamp(28px, 5vw, 48px)",
+            fontWeight: 700,
+            color: "white",
+            margin: 0,
+            lineHeight: 1.1,
+          }}
         >
-          <h2 className="font-bold text-sm md:text-xl lg:text-2xl 2xl:text-2xl text-white dark:text-gray-200">
-            Welcome <br />
-            Millions of movies, TV shows and people to discover. Explore now.
-          </h2>
-          <form
-            action={"/search"}
-            method="GET"
-            className="flex items-center w-full max-w-screen-md"
+          {t("hero.welcome")}
+        </h2>
+        <h3
+          style={{
+            fontSize: "clamp(18px, 3vw, 32px)",
+            fontWeight: 500,
+            color: "white",
+            margin: 0,
+            lineHeight: 1.3,
+          }}
+        >
+          {t("hero.subtitle")}
+        </h3>
+        <form
+          action="/search"
+          method="GET"
+          style={{ display: "flex", marginTop: "12px", width: "100%" }}
+        >
+          <input
+            type="text"
+            name="query"
+            placeholder={t("hero.searchPlaceholder")}
+            required
+            style={{
+              flex: 1,
+              padding: "14px 20px",
+              fontSize: "16px",
+              border: "none",
+              borderRadius: "30px 0 0 30px",
+              outline: "none",
+              color: "#333",
+              backgroundColor: "white",
+            }}
+          />
+          <button
+            type="submit"
+            style={{
+              padding: "14px 28px",
+              fontSize: "16px",
+              fontWeight: 700,
+              border: "none",
+              borderRadius: "0 30px 30px 0",
+              cursor: "pointer",
+              background: "linear-gradient(to left, #D2E4C7, #92B079)",
+              color: "#0A1A38",
+              whiteSpace: "nowrap",
+              transition: "opacity 0.3s",
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.85")}
+            onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
           >
-            <label htmlFor="simple-search" className="sr-only">
-              Search
-            </label>
-            <div className="relative w-full">
-              <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                <svg
-                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 18 20"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M3 5v10M3 5a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 10a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm12 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0V6a3 3 0 0 0-3-3H9m1.5-2-2 2 2 2"
-                  />
-                </svg>
-              </div>
-              <input
-                type="text"
-                name="query"
-                id="simple-search"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Search for a movie, tv show, person..."
-                required
-              />
-            </div>
-            <button
-              type="submit"
-              className="p-2.5 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            >
-              <svg
-                className="w-4 h-4"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 20 20"
-              >
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-                />
-              </svg>
-              <span className="sr-only">Search</span>
-            </button>
-          </form>
-        </div>
+            {t("hero.searchButton")}
+          </button>
+        </form>
       </div>
     </section>
   );

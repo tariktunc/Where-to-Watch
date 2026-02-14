@@ -1,14 +1,25 @@
 import Link from "next/link";
-import Image from "next/image";
+
 export default function Logo() {
   return (
-    <Link href="/" className="flex items-center gap-3 rtl:space-x-reverse">
-      <Image
-        width={50}
-        height={50}
-        src={"/blackLogo.svg"}
-        className="h-auto sm:w-24 md:w-28 lg:w-32 xl:w-36 2xl:w-40 dark:invert dark:filter dark:grayscale"
-        alt="BLAKFY MOVIE"
+    <Link href="/" className="flex items-center shrink-0 gap-2">
+      {/* TMDB style gradient text logo */}
+      <span
+        className="text-xl font-extrabold tracking-wide"
+        style={{
+          background: "linear-gradient(to right, #D2E4C7, #0A1A38)",
+          WebkitBackgroundClip: "text",
+          WebkitTextFillColor: "transparent",
+        }}
+      >
+        WTW
+      </span>
+      {/* Gradient pill like TMDB */}
+      <span
+        className="hidden sm:block h-5 w-12 rounded-full"
+        style={{
+          background: "linear-gradient(to right, #0A1A38, #0A1A38)",
+        }}
       />
     </Link>
   );

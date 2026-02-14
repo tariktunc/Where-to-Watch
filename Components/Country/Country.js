@@ -3,10 +3,11 @@ export default function CountryItem(props) {
     <select
       defaultValue={props.language}
       onChange={props.handleCountryChange}
-      className="border border-gray-300 text-sm rounded-md block w-40 p-2 dark:bg-gray-900 dark:text-white">
-      <option value={"US"}>English</option>
-      <option value={"TR"}>Türkiye</option>
-      <option value={"GR"}>Germany</option>
+      className="text-sm rounded-md block w-28 p-1.5 bg-transparent text-white/80 border border-white/20 focus:border-white/40 focus:outline-none cursor-pointer"
+    >
+      <option value={"US"} className="bg-gray-800 text-white">English</option>
+      <option value={"TR"} className="bg-gray-800 text-white">Türkiye</option>
+      <option value={"GR"} className="bg-gray-800 text-white">Germany</option>
     </select>
   );
 }

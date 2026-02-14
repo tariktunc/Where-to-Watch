@@ -1,18 +1,27 @@
 /** @type {import('next').NextConfig} */
-const dotenv = require("dotenv");
-dotenv.config();
-
 module.exports = {
-  env: {
-    API_KEY: process.env.API_KEY_SECRET,
-  },
   images: {
-    domains: [
-      "image.tmdb.org",
-      "www.themoviedb.org",
-      "images.remotePatterns",
-      "api.themoviedb.org",
-      "media.themoviedb.org",
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "image.tmdb.org",
+      },
+      {
+        protocol: "https",
+        hostname: "www.themoviedb.org",
+      },
+      {
+        protocol: "https",
+        hostname: "api.themoviedb.org",
+      },
+      {
+        protocol: "https",
+        hostname: "media.themoviedb.org",
+      },
+      {
+        protocol: "https",
+        hostname: "img.youtube.com",
+      },
     ],
   },
 };

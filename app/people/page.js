@@ -1,5 +1,5 @@
-import Lists from "@/Components/Items/Lists";
+import PeopleListPage from "@/Components/PeopleList/PeopleListPage";
 
 export default function Home() {
-  return <Lists status={"person"} lists={"popular"} />;
+  return <PeopleListPage />;
 }

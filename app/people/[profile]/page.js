@@ -1,21 +1,19 @@
 "use client";
-import React from "react";
+import React, { use } from "react";
 import Error from "@/Components/common/Error/Error";
-import Lists from "@/app/people/[profile]/Components/Lists";
-import Loading from "@/app/search/Components/Loading";
-import { ErrorBoundary } from "next/dist/client/components/error-boundary";
+import PeopleListPage from "@/Components/PeopleList/PeopleListPage";
 
 export default function Page({ params }) {
+  const { profile } = use(params);
+
   const renderContent = () => {
-    switch (params.profile) {
+    switch (profile) {
       case "popular":
-        return <Lists status={"person"} lists={"popular"} />;
-        break;
+        return <PeopleListPage />;
       default:
-        return <Error page={params.profile} />;
-        break;
+        return <Error page={profile} />;
     }
   };
 
-  return <ErrorBoundary fallback={<Error />}>{renderContent()}</ErrorBoundary>;
+  return <>{renderContent()}</>;
 }

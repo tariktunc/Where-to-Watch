@@ -11,10 +11,10 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <ReduxProvider>
-      <html lang="en" className={fontName.className}>
-        <body>{children}</body>
-      </html>
-    </ReduxProvider>
+    <html lang="en" className={fontName.className}>
+      <body suppressHydrationWarning>
+        <ReduxProvider>{children}</ReduxProvider>
+      </body>
+    </html>
   );
 }

@@ -1,17 +1,18 @@
 "use client";
+import { Suspense } from "react";
 import { fetchUrlTheMovieDb } from "@/utils/apiService";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { useSelector } from "react-redux";
 import Card from "./Components/Card";
+import { useTranslation } from "@/hooks/useTranslation";
 import Loading from "./Components/Loading";
 import Link from "next/link";
 import DiscoverSection from "@/Components/DiscoverSection/DiscoverSection";
 
-export default function Home({ params }) {
+function SearchContent() {
   const searchParams = useSearchParams();
   const query = searchParams.get("query");
-  const language = useSelector((state) => state.languageSetting);
+  const { locale, t } = useTranslation();
   const [loading, setLoading] = useState(true);
   const [results, setResults] = useState([]);
 
@@ -28,12 +29,11 @@ export default function Home({ params }) {
   };
 
   useEffect(() => {
-    const isLanguage = `${language.toLowerCase()}-${language}`;
     const urls = {
-      movie: `https://api.themoviedb.org/3/search/movie?query=${query}&language=${isLanguage}&page=1`,
-      tv: `https://api.themoviedb.org/3/search/tv?query=${query}&language=${isLanguage}&page=1`,
-      collection: `https://api.themoviedb.org/3/search/collection?query=${query}&language=${isLanguage}&page=1`,
-      person: `https://api.themoviedb.org/3/search/person?query=${query}&language=${isLanguage}&page=1`,
+      movie: `https://api.themoviedb.org/3/search/movie?query=${query}&language=${locale}&page=1`,
+      tv: `https://api.themoviedb.org/3/search/tv?query=${query}&language=${locale}&page=1`,
+      collection: `https://api.themoviedb.org/3/search/collection?query=${query}&language=${locale}&page=1`,
+      person: `https://api.themoviedb.org/3/search/person?query=${query}&language=${locale}&page=1`,
     };
 
     const fetchAllData = async () => {
@@ -45,10 +45,10 @@ export default function Home({ params }) {
     };
 
     fetchAllData();
-  }, [query, language]);
+  }, [query, locale]);
 
   return (
-    <section className="max-w-screen-xl flex flex-col gap-5 mx-auto dark:bg-gray-900 ">
+    <section className="max-w-screen-xl flex flex-col gap-5 mx-auto">
       <DiscoverSection />
       <div className="flex flex-wrap justify-center gap-5">
         {loading ? (
@@ -58,10 +58,10 @@ export default function Home({ params }) {
             {results.length === 0 && (
               <div className="dark:text-white">
                 <p className="text-sm md:text-lg">
-                  The searched word was not found.
+                  {t("search.noResults")}
                 </p>
                 <Link className="text-blue-500 text-md md:text-2xl" href="/">
-                  Home
+                  {t("search.home")}
                 </Link>
               </div>
             )}
@@ -84,5 +84,13 @@ export default function Home({ params }) {
         ))}
       </div>
     </section>
+  );
+}
+
+export default function Home() {
+  return (
+    <Suspense fallback={<Loading />}>
+      <SearchContent />
+    </Suspense>
   );
 }

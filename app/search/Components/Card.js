@@ -9,13 +9,13 @@ export default function Card(props) {
       return <p></p>; // Kural 1: null veya undefined ise boş etiket döndür
     } else if (overview.length > 110) {
       return (
-        <p class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+        <p className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
           {overview.substring(0, 110)}
         </p>
       ); // Kural 2: 200 karakterden uzunsa kısalt ve "..." ekle
     } else {
       return (
-        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
           {overview}
         </p>
       ); // Kural 3: 200 karakter veya altıysa olduğu gibi döndür

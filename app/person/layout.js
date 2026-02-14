@@ -10,15 +10,15 @@ export default function Home({ children }) {
 
   useEffect(() => {
     if (theme === "dark") {
-      return document.body.classList.add("dark", "bg-gray-900");
+      return document.body.classList.add("dark");
     } else {
-      return document.body.classList.remove("dark", "bg-gray-900");
+      return document.body.classList.remove("dark");
     }
   }, [theme]);
   return (
     <>
       <Navbar />
-      <main className="xl:max-w-screen-xl lg:max-w-screen-lg md:max-w-screen-md flex items-center justify-center mx-auto p-4 dark:bg-gray-900">
+      <main className="xl:max-w-screen-xl lg:max-w-screen-lg md:max-w-screen-md flex items-center justify-center mx-auto p-4">
         {children}
       </main>
     </>
